@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 
-ParseChat is a full native iPhone app to create realtime, text based chatrooms with Facebook/Twitter login.
+ParseChat is a full native iPhone app to create realtime, text based chatrooms with Parse.
 
 ![ParseChat](http://relatedcode.com/github/parsechat1.png)
 .
