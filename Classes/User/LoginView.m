@@ -76,12 +76,12 @@
 
 	if ((username.length != 0) && (password.length != 0))
 	{
-		[ProgressHUD show:@"Signin in..." Interaction:NO];
+		[ProgressHUD show:@"Signing in..." Interaction:NO];
 		[PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
 		{
 			if (user != nil)
 			{
-				[ProgressHUD showSuccess:[NSString stringWithFormat:@"Wecome back %@!", [user objectForKey:PF_USER_USERNAME]]];
+				[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", [user objectForKey:PF_USER_USERNAME]]];
 				[self dismissViewControllerAnimated:YES completion:nil];
 			}
 			else [ProgressHUD showError:@"Login failed. Please try again."];
