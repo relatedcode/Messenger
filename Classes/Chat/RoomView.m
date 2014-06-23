@@ -34,16 +34,62 @@
 	[super viewDidLoad];
 	self.title = @"Chat";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStyleBordered
+																						target:self action:@selector(actionNew)];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	items = [[NSMutableArray alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[self refreshTable];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionNew
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Please enter a name for your group" delegate:self
+										  cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+	alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+	[alert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	if (buttonIndex != alertView.cancelButtonIndex)
+	{
+		UITextField *textField = [alertView textFieldAtIndex:0];
+		if ([textField.text isEqualToString:@""] == NO)
+		{
+			PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
+			object[PF_CHATROOMS_ROOM] = textField.text;
+			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+			{
+				if (error == nil)
+				{
+					[self refreshTable];
+				}
+				else [ProgressHUD showError:@"Network error."];
+			}];
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)refreshTable
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
 	[ProgressHUD show:nil];
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
 		{
+			[items removeAllObjects];
 			for (PFObject *object in objects)
 			{
 				NSString *room = object[PF_CHATROOMS_ROOM];
@@ -54,13 +100,6 @@
 		}
 		else [ProgressHUD showError:@"Network error."];
 	}];
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (NSUInteger)supportedInterfaceOrientations
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	return UIInterfaceOrientationMaskAll;
 }
 
 #pragma mark - Table view data source

@@ -18,6 +18,7 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 - Live chat between multiple devices
 - Multiple chatrooms
+- Dynamically add new chatrooms
 - Register/Login views
 - Basic Profile view is also included
 - Change profile picture possibility
