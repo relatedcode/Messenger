@@ -31,7 +31,6 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - Arbitrary message sizes
 - Data detectors (recognizes phone numbers, links and dates)
 - Timestamps possibilities
-- Automatic avatar images from Facebook/Twitter
 - Hide keyboard with swipe down
 - Smooth animations
 - Send/Receive sound effects
