@@ -72,7 +72,7 @@ To use these libraries, just add JSQMessagesViewController, JSQSystemSoundPlayer
 
 **6.,** You need to register your app at Facebook. https://developers.facebook.com/apps<br>
 
-More info about how to configure Facebook: https://developers.facebook.com/docs/ios/getting-started
+More info about how to configure [Facebook](https://developers.facebook.com/docs/ios/getting-started).
 
 **7.,** You need to use your own Parse account. To get your Parse account click here:
 
