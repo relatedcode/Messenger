@@ -54,11 +54,13 @@ To add libraries follow these steps: Click on the Targets → Your app name → 
 
 To add Parse.framework just unzip the downloaded file and drag the Parse.framework folder into your Xcode project under 'Frameworks'.
 
-More info about how to install Parse SDK: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
+More info about how to install [Parse SDK](https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing).
 
 **4.,** You also need the latest FacebookSDK.framework (already included). You can download from [here](https://developers.facebook.com/docs/ios).
 
-More info about how to install Facebook SDK: https://developers.facebook.com/docs/ios/getting-started
+To add FacebookSDK.framework just drag the FacebookSDK.framework folder into your Xcode project under 'Frameworks'.
+
+More info about how to install [Facebook SDK](https://developers.facebook.com/docs/ios/getting-started).
 
 **5.,** You also need several external libraries which are included. But if you need, you can download them from here:
 
