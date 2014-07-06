@@ -50,17 +50,17 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 To add libraries follow these steps: Click on the Targets → Your app name → and then the 'Build Phases' tab and then expand 'Link Binary With Libraries'. Click the plus button in the bottom left of the 'Link Binary With Libraries' section and choose library items from the list.
 
-**3.,** You also need the latest Parse.framework (already included). You can download from [here](https://www.parse.com/docs/downloads).
+**3.,** You also need the latest Parse.framework. (Already included, but you can download from [here](https://www.parse.com/docs/downloads)).
 
 To add Parse.framework just unzip the downloaded file and drag the Parse.framework folder into your Xcode project under 'Frameworks'.
 
-More info about how to install [Parse SDK](https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing).
+More info about how to [install](https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing) Parse SDK.
 
-**4.,** You also need the latest FacebookSDK.framework (already included). You can download from [here](https://developers.facebook.com/docs/ios).
+**4.,** You also need the latest FacebookSDK.framework. (Already included, but you can download from [here](https://developers.facebook.com/docs/ios)).
 
 To add FacebookSDK.framework just drag the FacebookSDK.framework folder into your Xcode project under 'Frameworks'.
 
-More info about how to install [Facebook SDK](https://developers.facebook.com/docs/ios/getting-started).
+More info about how to [install](https://developers.facebook.com/docs/ios/getting-started) Facebook SDK.
 
 **5.,** You also need several external libraries which are included. But if you need, you can download them from here:
 
@@ -74,7 +74,7 @@ To use these libraries, just add JSQMessagesViewController, JSQSystemSoundPlayer
 
 https://developers.facebook.com/apps<br>
 
-More info about how to configure [Facebook](https://developers.facebook.com/docs/ios/getting-started).
+More info about how to [configure](https://developers.facebook.com/docs/ios/getting-started) Facebook.
 
 **7.,** You need to use your own Parse account.
 
