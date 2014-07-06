@@ -56,7 +56,7 @@ To add Parse.framework just unzip the downloaded file and drag the Parse.framewo
 
 More info about how to install Parse SDK: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
 
-**4.,** You also need the latest FacebookSDK.framework (already included). You can download from here: https://developers.facebook.com/docs/ios<br>
+**4.,** You also need the latest FacebookSDK.framework (already included). You can download from [here](https://developers.facebook.com/docs/ios).
 
 More info about how to install Facebook SDK: https://developers.facebook.com/docs/ios/getting-started
 
