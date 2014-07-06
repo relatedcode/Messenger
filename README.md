@@ -4,11 +4,11 @@
 
 ParseChat is a full native iPhone app to create realtime, text based chatrooms with Parse.
 
-![ParseChat](http://relatedcode.com/github/parsechat1.png)
+![ParseChat](http://relatedcode.com/github/parsechat01.png)
 .
-![ParseChat](http://relatedcode.com/github/parsechat2.png)
+![ParseChat](http://relatedcode.com/github/parsechat02.png)
 .
-![ParseChat](http://relatedcode.com/github/parsechat3.png)
+![ParseChat](http://relatedcode.com/github/parsechat03.png)
 
 ParseChat is using Parse as backend which is basically free. (Free plan: 20 GB File Storage, 20 GB Database Storage, 2 TB Data Transfer, 30 req/s).
 
@@ -20,6 +20,7 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - Multiple chatrooms
 - Dynamically add new chatrooms
 - Register/Login views
+- Facebook login
 - Basic Profile view is also included
 - Change profile picture possibility
 - No backend programming needed
@@ -55,24 +56,27 @@ https://www.parse.com/docs/downloads<br>
 
 To add Parse.framework just unzip the downloaded file and drag the .framework folders into your Xcode project under 'Frameworks'.
 
-**4.,** You can find more info about how to install Parse SDK here:
+You can find more info about how to install Parse SDK here: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
 
-https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
+**4.,** You also need the latest FacebookSDK.framework (already included). But if you need, you can download from here:
 
-**5.,** The *Prefix.pch* should contain:
+https://developers.facebook.com/docs/ios<br>
 
-```
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-```
+You can find more info about how to install Facebook SDK here: https://developers.facebook.com/docs/ios/getting-started
 
-**6.,** You also need several external libraries which are included. But if you need, you can download them from here:
+**5.,** You also need several external libraries which are included. But if you need, you can download them from here:
 
 https://github.com/jessesquires/JSQMessagesViewController<br>
 https://github.com/jessesquires/JSQSystemSoundPlayer<br>
 https://github.com/relatedcode/ProgressHUD<br>
 
 To use these libraries, just add JSQMessagesViewController, JSQSystemSoundPlayer and ProgressHUD directories to your project.
+
+**6.,** You need to register you app at Facebook.
+
+https://developers.facebook.com/apps<br>
+
+You can find more info about how to configure Facebook here: https://developers.facebook.com/docs/ios/getting-started
 
 **7.,** You need to use your own Parse account. To get your Parse account click here:
 
