@@ -50,19 +50,15 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 To add libraries follow these steps: Click on the Targets → Your app name → and then the 'Build Phases' tab and then expand 'Link Binary With Libraries'. Click the plus button in the bottom left of the 'Link Binary With Libraries' section and choose library items from the list.
 
-**3.,** You also need the latest Parse.framework (already included). But if you need, you can download from here:
+**3.,** You also need the latest Parse.framework (already included). You can download from here: https://www.parse.com/docs/downloads<br>
 
-https://www.parse.com/docs/downloads<br>
+To add Parse.framework just unzip the downloaded file and drag the Parse.framework folder into your Xcode project under 'Frameworks'.
 
-To add Parse.framework just unzip the downloaded file and drag the .framework folders into your Xcode project under 'Frameworks'.
+More info about how to install Parse SDK here: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
 
-You can find more info about how to install Parse SDK here: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
+**4.,** You also need the latest FacebookSDK.framework (already included). You can download from here: https://developers.facebook.com/docs/ios<br>
 
-**4.,** You also need the latest FacebookSDK.framework (already included). But if you need, you can download from here:
-
-https://developers.facebook.com/docs/ios<br>
-
-You can find more info about how to install Facebook SDK here: https://developers.facebook.com/docs/ios/getting-started
+More info about how to install Facebook SDK: https://developers.facebook.com/docs/ios/getting-started
 
 **5.,** You also need several external libraries which are included. But if you need, you can download them from here:
 
