@@ -54,7 +54,7 @@ To add libraries follow these steps: Click on the Targets → Your app name → 
 
 To add Parse.framework just unzip the downloaded file and drag the Parse.framework folder into your Xcode project under 'Frameworks'.
 
-More info about how to install Parse SDK here: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
+More info about how to install Parse SDK: https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing
 
 **4.,** You also need the latest FacebookSDK.framework (already included). You can download from here: https://developers.facebook.com/docs/ios<br>
 
@@ -68,11 +68,9 @@ https://github.com/relatedcode/ProgressHUD<br>
 
 To use these libraries, just add JSQMessagesViewController, JSQSystemSoundPlayer and ProgressHUD directories to your project.
 
-**6.,** You need to register you app at Facebook.
+**6.,** You need to register your app at Facebook. https://developers.facebook.com/apps<br>
 
-https://developers.facebook.com/apps<br>
-
-You can find more info about how to configure Facebook here: https://developers.facebook.com/docs/ios/getting-started
+More info about how to configure Facebook: https://developers.facebook.com/docs/ios/getting-started
 
 **7.,** You need to use your own Parse account. To get your Parse account click here:
 
