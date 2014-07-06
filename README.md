@@ -50,7 +50,7 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 To add libraries follow these steps: Click on the Targets → Your app name → and then the 'Build Phases' tab and then expand 'Link Binary With Libraries'. Click the plus button in the bottom left of the 'Link Binary With Libraries' section and choose library items from the list.
 
-**3.,** You also need the latest Parse.framework (already included). You can download from here: https://www.parse.com/docs/downloads<br>
+**3.,** You also need the latest Parse.framework (already included). You can download from [here](https://www.parse.com/docs/downloads).
 
 To add Parse.framework just unzip the downloaded file and drag the Parse.framework folder into your Xcode project under 'Frameworks'.
 
