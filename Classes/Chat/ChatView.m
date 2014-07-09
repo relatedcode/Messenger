@@ -194,11 +194,24 @@
 	return imageView;
 }
 
+-(BOOL) shouldShowTimestampForMessageAtIndex:(NSInteger)messageIndex{
+    if(messageIndex == 0) return YES;
+    else{
+        JSQMessage *previous = [messages objectAtIndex:messageIndex-1];
+        JSQMessage *message = [messages objectAtIndex:messageIndex];
+        NSTimeInterval gap = [message.date timeIntervalSinceDate:previous.date];
+        
+        //more than 15 min
+        return gap>60*15;
+    }
+
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (indexPath.item % 3 == 0)
+	if ([self shouldShowTimestampForMessageAtIndex:indexPath.item] )
 	{
 		JSQMessage *message = [messages objectAtIndex:indexPath.item];
 		return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
@@ -274,7 +287,7 @@
 				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (indexPath.item % 3 == 0)
+	if ([self shouldShowTimestampForMessageAtIndex:indexPath.item])
 	{
 		return kJSQMessagesCollectionViewCellLabelHeightDefault;
 	}
