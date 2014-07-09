@@ -24,10 +24,8 @@
 {
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	//[Parse setApplicationId:@"d4Gxb4wEFk92AvjeFMzg1lTbVfctpeSh4MWTbKQE" clientKey:@"9JBA6xFKY7eWtrnM1mj9qVevZqBOXI4hkRdjUpBw"];
-	
-    [Parse setApplicationId:@"gceN7HoTiVfzlO3hfSXjVJdNsTEHFKdRRD6XWcNn" clientKey:@"hejjmGegeiOlOZTgO6jN6U3tpjwfWgP4AnnNAHrg"];
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+	[Parse setApplicationId:@"d4Gxb4wEFk92AvjeFMzg1lTbVfctpeSh4MWTbKQE" clientKey:@"9JBA6xFKY7eWtrnM1mj9qVevZqBOXI4hkRdjUpBw"];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFImageView class];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MainView alloc] init]];
