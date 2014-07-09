@@ -47,7 +47,7 @@
 	imageUser.layer.cornerRadius = imageUser.frame.size.width/2;
 	imageUser.layer.masksToBounds = YES;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonLogout.backgroundColor = HEXCOLOR(0x205081ff);
+	buttonLogout.backgroundColor = HEXCOLOR(0x205081FF);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self profileLoad];
 }

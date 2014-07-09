@@ -15,6 +15,7 @@
 #import "AppConstant.h"
 
 #import "MainView.h"
+#import "NavigationController.h"
 #import "RoomView.h"
 #import "ProfileView.h"
 #import "WelcomeView.h"
@@ -48,8 +49,8 @@
 	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
 	[self.navigationItem setBackBarButtonItem:backButton];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonChat.backgroundColor = HEXCOLOR(0xff3322ff);
-	buttonProfile.backgroundColor = HEXCOLOR(0x205081ff);
+	buttonChat.backgroundColor = HEXCOLOR(0xFF3322FF);
+	buttonProfile.backgroundColor = HEXCOLOR(0x205081FF);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,12 +81,7 @@
 - (void)loginUser
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	WelcomeView *welcomeView = [[WelcomeView alloc] init];
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:welcomeView];
-	navigationController.navigationBar.translucent = NO;
-	navigationController.navigationBar.barTintColor = HEXCOLOR(0x19C5FF00);
-	navigationController.navigationBar.tintColor = [UIColor whiteColor];
-	navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+	NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[WelcomeView alloc] init]];
 	[self presentViewController:navigationController animated:YES completion:nil];
 }
 

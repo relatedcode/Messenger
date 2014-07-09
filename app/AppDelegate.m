@@ -14,6 +14,7 @@
 #import "AppConstant.h"
 
 #import "AppDelegate.h"
+#import "NavigationController.h"
 #import "MainView.h"
 
 @implementation AppDelegate
@@ -22,18 +23,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[Parse setApplicationId:@"d4Gxb4wEFk92AvjeFMzg1lTbVfctpeSh4MWTbKQE" clientKey:@"9JBA6xFKY7eWtrnM1mj9qVevZqBOXI4hkRdjUpBw"];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[PFFacebookUtils initializeFacebook];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFImageView class];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MainView alloc] init]];
-	navigationController.navigationBar.translucent = NO;
-	navigationController.navigationBar.barTintColor = HEXCOLOR(0x19C5FF00);
-	navigationController.navigationBar.tintColor = [UIColor whiteColor];
-	navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[MainView alloc] init]];
 	[self.window setRootViewController:navigationController];
 	[self.window makeKeyAndVisible];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +62,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	
+	[FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,6 +70,15 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	
+}
+
+#pragma mark - Facebook responses
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
 }
 
 @end

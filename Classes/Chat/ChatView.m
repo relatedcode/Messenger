@@ -21,13 +21,13 @@
 {
 	NSTimer *timer;
 	BOOL isLoading;
-	
+
 	NSString *chatroom;
-	
+
 	NSMutableArray *users;
 	NSMutableArray *messages;
 	NSMutableDictionary *avatars;
-	
+
 	UIImageView *outgoingBubbleImageView;
 	UIImageView *incomingBubbleImageView;
 }
@@ -50,12 +50,12 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"ParseChat";
-	
+	self.title = @"Chat";
+
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
 	avatars = [[NSMutableDictionary alloc] init];
-	
+
 	self.sender = [PFUser currentUser].objectId;
 
 	outgoingBubbleImageView = [JSQMessagesBubbleImageFactory outgoingMessageBubbleImageViewWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
@@ -91,7 +91,7 @@
 	{
 		isLoading = YES;
 		JSQMessage *message_last = [messages lastObject];
-		
+
 		PFQuery *query = [PFQuery queryWithClassName:PF_CHAT_CLASS_NAME];
 		[query whereKey:PF_CHAT_ROOM equalTo:chatroom];
 		if (message_last != nil) [query whereKey:PF_CHAT_CREATEDAT greaterThan:message_last.date];
@@ -105,7 +105,7 @@
 				{
 					PFUser *user = object[PF_CHAT_USER];
 					[users addObject:user];
-					
+
 					JSQMessage *message = [[JSQMessage alloc] initWithText:object[PF_CHAT_TEXT] sender:user.objectId date:object.createdAt];
 					[messages addObject:message];
 				}
@@ -176,7 +176,7 @@
 	UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"blank_avatar"]];
 	if (avatars[user.objectId] == nil)
 	{
-		PFFile *filePicture = user[PF_USER_PICTURE];
+		PFFile *filePicture = user[PF_USER_THUMBNAIL];
 		[filePicture getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
 		{
 			if (error == nil)

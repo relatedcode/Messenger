@@ -17,6 +17,7 @@
 #define		PF_USER_USERNAME				@"username"
 #define		PF_USER_PASSWORD				@"password"
 #define		PF_USER_EMAIL					@"email"
+#define		PF_USER_FACEBOOKID				@"facebookId"
 #define		PF_USER_PICTURE					@"picture"
 #define		PF_USER_THUMBNAIL				@"thumbnail"
 

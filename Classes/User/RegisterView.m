@@ -22,12 +22,11 @@
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellUsername;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellPassword;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellEmail;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *fieldUsername;
 @property (strong, nonatomic) IBOutlet UITextField *fieldPassword;
 @property (strong, nonatomic) IBOutlet UITextField *fieldEmail;
-
-@property (strong, nonatomic) IBOutlet UIView *viewButton;
 @property (strong, nonatomic) IBOutlet UIButton *buttonRegister;
 
 @end
@@ -35,9 +34,9 @@
 
 @implementation RegisterView
 
-@synthesize cellUsername, cellPassword, cellEmail;
+@synthesize cellUsername, cellPassword, cellEmail, cellButton;
 @synthesize fieldUsername, fieldPassword, fieldEmail;
-@synthesize viewButton, buttonRegister;
+@synthesize buttonRegister;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
@@ -46,12 +45,11 @@
 	[super viewDidLoad];
 	self.title = @"Register";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.tableFooterView = viewButton;
 	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonRegister.backgroundColor = HEXCOLOR(0x34ad00ff);
+	buttonRegister.backgroundColor = HEXCOLOR(0x34AD00FF);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,12 +78,12 @@
 	if ((username.length != 0) && (password.length != 0) && (email.length != 0))
 	{
 		[ProgressHUD show:@"Please wait..." Interaction:NO];
-		
+
 		PFUser *user = [PFUser user];
 		user.username = username;
 		user.password = password;
 		user.email = email;
-		
+
 		[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
 			if (error == nil)
@@ -93,7 +91,7 @@
 				[ProgressHUD showSuccess:@"Succeed."];
 				[self dismissViewControllerAnimated:YES completion:nil];
 			}
-			else [ProgressHUD showError:@"Signup error."];
+			else [ProgressHUD showError:[error.userInfo valueForKey:@"error"]];
 		}];
 	}
 	else [ProgressHUD showError:@"Please fill all values!"];
@@ -112,14 +110,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return 3;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	return 64.0;
+	return 4;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,6 +120,7 @@
 	if (indexPath.row == 0) return cellUsername;
 	if (indexPath.row == 1) return cellPassword;
 	if (indexPath.row == 2) return cellEmail;
+	if (indexPath.row == 3) return cellButton;
 	return nil;
 }
 

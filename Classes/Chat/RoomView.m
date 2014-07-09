@@ -20,7 +20,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface RoomView()
 {
-	NSMutableArray *items;
+	NSMutableArray *chatrooms;
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -32,15 +32,21 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Chat";
+	self.title = @"ChatRooms";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStyleBordered
 																						target:self action:@selector(actionNew)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	items = [[NSMutableArray alloc] init];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	chatrooms = [[NSMutableArray alloc] init];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)viewDidAppear:(BOOL)animated
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[super viewDidAppear:animated];
 	[self refreshTable];
 }
 
@@ -89,11 +95,10 @@
 	{
 		if (error == nil)
 		{
-			[items removeAllObjects];
+			[chatrooms removeAllObjects];
 			for (PFObject *object in objects)
 			{
-				NSString *room = object[PF_CHATROOMS_ROOM];
-				[items addObject:room];
+				[chatrooms addObject:object];
 			}
 			[ProgressHUD dismiss];
 			[self.tableView reloadData];
@@ -115,7 +120,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return [items count];
+	return [chatrooms count];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -125,7 +130,8 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
 
-	cell.textLabel.text = [items objectAtIndex:indexPath.row];
+	PFObject *room = [chatrooms objectAtIndex:indexPath.row];
+	cell.textLabel.text = room[PF_CHATROOMS_ROOM];
 
 	return cell;
 }
@@ -137,8 +143,9 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	NSString *chatroom = [items objectAtIndex:indexPath.row];
-	ChatView *chatView = [[ChatView alloc] initWith:chatroom];
+
+	PFObject *chatroom = [chatrooms objectAtIndex:indexPath.row];
+	ChatView *chatView = [[ChatView alloc] initWith:chatroom.objectId];
 	[self.navigationController pushViewController:chatView animated:YES];
 }
 

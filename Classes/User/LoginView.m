@@ -21,11 +21,10 @@
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellUsername;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellPassword;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellButton;
 
 @property (strong, nonatomic) IBOutlet UITextField *fieldUsername;
 @property (strong, nonatomic) IBOutlet UITextField *fieldPassword;
-
-@property (strong, nonatomic) IBOutlet UIView *viewButton;
 @property (strong, nonatomic) IBOutlet UIButton *buttonLogin;
 
 @end
@@ -33,9 +32,9 @@
 
 @implementation LoginView
 
-@synthesize cellUsername, cellPassword;
+@synthesize cellUsername, cellPassword, cellButton;
 @synthesize fieldUsername, fieldPassword;
-@synthesize viewButton, buttonLogin;
+@synthesize buttonLogin;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
@@ -44,12 +43,11 @@
 	[super viewDidLoad];
 	self.title = @"Login";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.tableFooterView = viewButton;
 	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonLogin.backgroundColor = HEXCOLOR(0x205081ff);
+	buttonLogin.backgroundColor = HEXCOLOR(0x205081FF);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -84,7 +82,7 @@
 				[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", [user objectForKey:PF_USER_USERNAME]]];
 				[self dismissViewControllerAnimated:YES completion:nil];
 			}
-			else [ProgressHUD showError:@"Login failed. Please try again."];
+			else [ProgressHUD showError:[error.userInfo valueForKey:@"error"]];
 		}];
 	}
 	else [ProgressHUD showError:@"Please enter both username and password."];
@@ -103,14 +101,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return 2;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	return 64.0;
+	return 3;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -119,6 +110,7 @@
 {
 	if (indexPath.row == 0) return cellUsername;
 	if (indexPath.row == 1) return cellPassword;
+	if (indexPath.row == 2) return cellButton;
 	return nil;
 }
 
