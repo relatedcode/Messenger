@@ -10,4 +10,10 @@
 // THE SOFTWARE.
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL	ShouldStartPhotoLibrary		(id object, BOOL canEdit);
+BOOL		ShouldStartPhotoLibrary		(id object, BOOL canEdit);
+
+void		LoginUser					(id target);
+
+UIImage*	ResizeImage					(UIImage *image, CGFloat width, CGFloat height);
+
+void		PostNotification			(NSString *notification);

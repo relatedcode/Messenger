@@ -84,18 +84,20 @@
         return NO;
     }
     
-    JSQMessagesCollectionViewLayoutAttributes *layoutAttributes = (JSQMessagesCollectionViewLayoutAttributes *)object;
-    
-    if (![layoutAttributes.messageBubbleFont isEqual:self.messageBubbleFont]
-        || !UIEdgeInsetsEqualToEdgeInsets(layoutAttributes.textViewFrameInsets, self.textViewFrameInsets)
-        || !UIEdgeInsetsEqualToEdgeInsets(layoutAttributes.textViewTextContainerInsets, self.textViewTextContainerInsets)
-        || !CGSizeEqualToSize(layoutAttributes.incomingAvatarViewSize, self.incomingAvatarViewSize)
-        || !CGSizeEqualToSize(layoutAttributes.outgoingAvatarViewSize, self.outgoingAvatarViewSize)
-        || (int)layoutAttributes.messageBubbleLeftRightMargin != (int)self.messageBubbleLeftRightMargin
-        || (int)layoutAttributes.cellTopLabelHeight != (int)self.cellTopLabelHeight
-        || (int)layoutAttributes.messageBubbleTopLabelHeight != (int)self.messageBubbleTopLabelHeight
-        || (int)layoutAttributes.cellBottomLabelHeight != (int)self.cellBottomLabelHeight) {
-        return NO;
+    if (self.representedElementCategory == UICollectionElementCategoryCell) {
+        JSQMessagesCollectionViewLayoutAttributes *layoutAttributes = (JSQMessagesCollectionViewLayoutAttributes *)object;
+        
+        if (![layoutAttributes.messageBubbleFont isEqual:self.messageBubbleFont]
+            || !UIEdgeInsetsEqualToEdgeInsets(layoutAttributes.textViewFrameInsets, self.textViewFrameInsets)
+            || !UIEdgeInsetsEqualToEdgeInsets(layoutAttributes.textViewTextContainerInsets, self.textViewTextContainerInsets)
+            || !CGSizeEqualToSize(layoutAttributes.incomingAvatarViewSize, self.incomingAvatarViewSize)
+            || !CGSizeEqualToSize(layoutAttributes.outgoingAvatarViewSize, self.outgoingAvatarViewSize)
+            || (int)layoutAttributes.messageBubbleLeftRightMargin != (int)self.messageBubbleLeftRightMargin
+            || (int)layoutAttributes.cellTopLabelHeight != (int)self.cellTopLabelHeight
+            || (int)layoutAttributes.messageBubbleTopLabelHeight != (int)self.messageBubbleTopLabelHeight
+            || (int)layoutAttributes.cellBottomLabelHeight != (int)self.cellBottomLabelHeight) {
+            return NO;
+        }
     }
     
     return [super isEqual:object];
@@ -103,10 +105,7 @@
 
 - (NSUInteger)hash
 {
-    return [self.indexPath hash]
-            ^ (NSUInteger)self.cellTopLabelHeight
-            ^ (NSUInteger)self.messageBubbleTopLabelHeight
-            ^ (NSUInteger)self.cellBottomLabelHeight;
+    return [self.indexPath hash];
 }
 
 #pragma mark - NSCopying
@@ -114,6 +113,11 @@
 - (instancetype)copyWithZone:(NSZone *)zone
 {
     JSQMessagesCollectionViewLayoutAttributes *copy = [super copyWithZone:zone];
+    
+    if (copy.representedElementCategory != UICollectionElementCategoryCell) {
+        return copy;
+    }
+    
     copy.messageBubbleFont = self.messageBubbleFont;
     copy.messageBubbleLeftRightMargin = self.messageBubbleLeftRightMargin;
     copy.textViewFrameInsets = self.textViewFrameInsets;

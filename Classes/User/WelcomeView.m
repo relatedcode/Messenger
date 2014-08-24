@@ -9,30 +9,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "AFNetworking.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "utilities.h"
 
 #import "WelcomeView.h"
 #import "LoginView.h"
 #import "RegisterView.h"
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface WelcomeView()
-
-@property (strong, nonatomic) IBOutlet UIButton *buttonFacebook;
-@property (strong, nonatomic) IBOutlet UIButton *buttonRegister;
-@property (strong, nonatomic) IBOutlet UIButton *buttonLogin;
-
-@end
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-
 @implementation WelcomeView
-
-@synthesize buttonFacebook;
-@synthesize buttonRegister;
-@synthesize buttonLogin;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
@@ -41,25 +30,11 @@
 	[super viewDidLoad];
 	self.title = @"Welcome";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self
-																			action:@selector(actionCancel)];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
 	[self.navigationItem setBackBarButtonItem:backButton];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonFacebook.backgroundColor = HEXCOLOR(0x3b5998ff);
-	buttonRegister.backgroundColor = HEXCOLOR(0x34ad00ff);
-	buttonLogin.backgroundColor = HEXCOLOR(0x205081ff);
 }
 
 #pragma mark - User actions
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionCancel
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (IBAction)actionRegister:(id)sender
@@ -91,7 +66,7 @@
 		{
 			if (user[PF_USER_FACEBOOKID] == nil)
 			{
-				[self processFacebook:user];
+				[self requestFacebook:user];
 			}
 			else [self userLoggedIn:user];
 		}
@@ -100,7 +75,7 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)processFacebook:(PFUser *)user
+- (void)requestFacebook:(PFUser *)user
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	FBRequest *request = [FBRequest requestForMe];
@@ -109,20 +84,7 @@
 		if (error == nil)
 		{
 			NSDictionary *userData = (NSDictionary *)result;
-			user[PF_USER_USERNAME] = [userData valueForKey:@"name"];
-			user[PF_USER_FACEBOOKID] = [userData valueForKeyPath:@"id"];
-			[user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-			{
-				if (error == nil)
-				{
-					[self userLoggedIn:user];
-				}
-				else
-				{
-					[PFUser logOut];
-					[ProgressHUD showError:[error.userInfo valueForKey:@"error"]];
-				}
-			}];
+			[self processFacebook:user UserData:userData];
 		}
 		else
 		{
@@ -133,10 +95,69 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)processFacebook:(PFUser *)user UserData:(NSDictionary *)userData
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	NSString *link = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=large", userData[@"id"]];
+	NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:link]];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+	operation.responseSerializer = [AFImageResponseSerializer serializer];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+	{
+		UIImage *image = (UIImage *)responseObject;
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		if (image.size.width > 140) image = ResizeImage(image, 140, 140);
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+		[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+		{
+			if (error != nil) [ProgressHUD showError:@"Network error."];
+		}];
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		if (image.size.width > 34) image = ResizeImage(image, 34, 34);
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+		[fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+		{
+			if (error != nil) [ProgressHUD showError:@"Network error."];
+		}];
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		user[PF_USER_EMAILCOPY] = userData[@"email"];
+		user[PF_USER_FULLNAME] = userData[@"name"];
+		user[PF_USER_FULLNAME_LOWER] = [userData[@"name"] lowercaseString];
+		user[PF_USER_FACEBOOKID] = userData[@"id"];
+		user[PF_USER_PICTURE] = filePicture;
+		user[PF_USER_THUMBNAIL] = fileThumbnail;
+		[user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+		{
+			if (error == nil)
+			{
+				[ProgressHUD dismiss];
+				[self dismissViewControllerAnimated:YES completion:nil];
+			}
+			else
+			{
+				[PFUser logOut];
+				[ProgressHUD showError:error.userInfo[@"error"]];
+			}
+		}];
+	}
+	failure:^(AFHTTPRequestOperation *operation, NSError *error)
+	{
+		[PFUser logOut];
+		[ProgressHUD showError:@"Failed to fetch Facebook profile picture."];
+	}];
+	//-----------------------------------------------------------------------------------------------------------------------------------------
+	[[NSOperationQueue mainQueue] addOperation:operation];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)userLoggedIn:(PFUser *)user
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", user[PF_USER_USERNAME]]];
+	[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", user[PF_USER_FULLNAME]]];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }
 

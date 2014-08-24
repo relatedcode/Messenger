@@ -226,7 +226,7 @@
 	}
 
 	PFUser *user = [users objectAtIndex:indexPath.item];
-	return [[NSAttributedString alloc] initWithString:user[PF_USER_USERNAME]];
+	return [[NSAttributedString alloc] initWithString:user[PF_USER_FULLNAME]];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

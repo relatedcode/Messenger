@@ -12,6 +12,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 #import "utilities.h"
+#import "WelcomeView.h"
+#import "NavigationController.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 BOOL ShouldStartPhotoLibrary(id object, BOOL canEdit)
@@ -44,4 +46,31 @@ BOOL ShouldStartPhotoLibrary(id object, BOOL canEdit)
 	[object presentViewController:cameraUI animated:YES completion:nil];
 	
 	return YES;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+void LoginUser(id target)
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[WelcomeView alloc] init]];
+	[target presentViewController:navigationController animated:YES completion:nil];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+UIImage* ResizeImage(UIImage *image, CGFloat width, CGFloat height)
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	CGSize size = CGSizeMake(width, height);
+	UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+	[image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+	image = UIGraphicsGetImageFromCurrentImageContext();
+	UIGraphicsEndImageContext();
+	return image;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+void PostNotification(NSString *notification)
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:notification object:nil];
 }

@@ -2,7 +2,7 @@
 
 ## OVERVIEW
 
-ParseChat is a full native iPhone app to create realtime, text based chatrooms with Parse.
+ParseChat is a full native iPhone app to create realtime, text based group or private chat with Parse.
 
 ![ParseChat](http://relatedcode.com/github/parsechat01.png)
 .
@@ -14,13 +14,26 @@ ParseChat is using Parse as backend which is basically free. (Free plan: 20 GB F
 
 Really easy to setup, just copy/paste the code and use your own chatrooms.
 
+## WHAT'S NEW IN 2.0
+
+- Private chat functionality is added
+- Facebook profile picture is grabbed automatically
+- JSQMessagesViewController is updated
+- ProgressHUD is updated
+- AFNetworking is added
+- Parse.framework is updated
+- FacebookSDK.framework is updated
+- ParseFacebookUtils.framework is added (needed by Parse v1.2.21)
+
 ## FEATURES
 
 - Live chat between multiple devices
+- Group and Private chat functionality
 - Multiple chatrooms
 - Dynamically add new chatrooms
 - Register/Login views
 - Facebook login
+- Facebook profile picture is grabbed automatically
 - Basic Profile view is also included
 - Change profile picture possibility
 - No backend programming needed
@@ -64,11 +77,12 @@ More info about how to [install](https://developers.facebook.com/docs/ios/gettin
 
 **5.,** You also need several external libraries which are included. But if you need, you can download them from here:
 
+https://github.com/AFNetworking/AFNetworking<br>
 https://github.com/jessesquires/JSQMessagesViewController<br>
 https://github.com/jessesquires/JSQSystemSoundPlayer<br>
 https://github.com/relatedcode/ProgressHUD<br>
 
-To use these libraries, just add JSQMessagesViewController, JSQSystemSoundPlayer and ProgressHUD directories to your project.
+To use these libraries, just add AFNetworking, JSQMessagesViewController, JSQSystemSoundPlayer and ProgressHUD directories to your project.
 
 **6.,** You need to register your app at Facebook.
 
@@ -83,7 +97,7 @@ https://www.parse.com/#signup
 **8.,** Please replace existing Parse account details in *AppDelegate.m*:
 
 ```
-[Parse setApplicationId:@"d4Gxb4wEFk92AvjeFMzg1lTbVfctpeSh4MWTbKQE" clientKey:@"9JBA6xFKY7eWtrnM1mj9qVevZqBOXI4hkRdjUpBw"];
+[Parse setApplicationId:@"ZpzAcELw53bsRGdN1ZNiDHTuPwT0QEvSQefQ8cUQ" clientKey:@"netW22vtS26ZmFaZi5rtqxYGSYdw9Xo89pdIyjkE"];
 ```
 
 ## CONTACT

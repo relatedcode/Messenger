@@ -19,22 +19,20 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface LoginView()
 
-@property (strong, nonatomic) IBOutlet UITableViewCell *cellUsername;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellEmail;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellPassword;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellButton;
 
-@property (strong, nonatomic) IBOutlet UITextField *fieldUsername;
+@property (strong, nonatomic) IBOutlet UITextField *fieldEmail;
 @property (strong, nonatomic) IBOutlet UITextField *fieldPassword;
-@property (strong, nonatomic) IBOutlet UIButton *buttonLogin;
 
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation LoginView
 
-@synthesize cellUsername, cellPassword, cellButton;
-@synthesize fieldUsername, fieldPassword;
-@synthesize buttonLogin;
+@synthesize cellEmail, cellPassword, cellButton;
+@synthesize fieldEmail, fieldPassword;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
@@ -43,11 +41,9 @@
 	[super viewDidLoad];
 	self.title = @"Login";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.separatorInset = UIEdgeInsetsZero;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonLogin.backgroundColor = HEXCOLOR(0x205081FF);
+	self.tableView.separatorInset = UIEdgeInsetsZero;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +51,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidAppear:animated];
-	[fieldUsername becomeFirstResponder];
+	[fieldEmail becomeFirstResponder];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,11 +61,13 @@
 	[self.view endEditing:YES];
 }
 
+#pragma mark - User actions
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (IBAction)actionLogin:(id)sender
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSString *username = fieldUsername.text;
+	NSString *username = fieldEmail.text;
 	NSString *password = fieldPassword.text;
 
 	if ((username.length != 0) && (password.length != 0))
@@ -79,7 +77,7 @@
 		{
 			if (user != nil)
 			{
-				[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", [user objectForKey:PF_USER_USERNAME]]];
+				[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", [user objectForKey:PF_USER_FULLNAME]]];
 				[self dismissViewControllerAnimated:YES completion:nil];
 			}
 			else [ProgressHUD showError:[error.userInfo valueForKey:@"error"]];
@@ -108,7 +106,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (indexPath.row == 0) return cellUsername;
+	if (indexPath.row == 0) return cellEmail;
 	if (indexPath.row == 1) return cellPassword;
 	if (indexPath.row == 2) return cellButton;
 	return nil;
@@ -120,7 +118,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (textField == fieldUsername)
+	if (textField == fieldEmail)
 	{
 		[fieldPassword becomeFirstResponder];
 	}

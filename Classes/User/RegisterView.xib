@@ -6,18 +6,17 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterView">
             <connections>
-                <outlet property="buttonRegister" destination="jmS-wn-XzT" id="wTl-63-XFF"/>
                 <outlet property="cellButton" destination="Wd0-et-tSf" id="XdO-l5-2iG"/>
                 <outlet property="cellEmail" destination="L50-zu-PUp" id="3Dh-td-xHU"/>
+                <outlet property="cellName" destination="huy-FK-ooJ" id="nkG-qu-iER"/>
                 <outlet property="cellPassword" destination="n5g-Gd-0J5" id="QDc-2p-WWZ"/>
-                <outlet property="cellUsername" destination="huy-FK-ooJ" id="VXN-bp-RqV"/>
                 <outlet property="fieldEmail" destination="V6V-YD-OAr" id="fPy-fe-rbK"/>
+                <outlet property="fieldName" destination="wiw-WP-O7Z" id="LKx-Rj-a79"/>
                 <outlet property="fieldPassword" destination="OZ7-2i-VuJ" id="l0p-1c-ePw"/>
-                <outlet property="fieldUsername" destination="wiw-WP-O7Z" id="g7e-wI-PBR"/>
                 <outlet property="view" destination="4" id="5"/>
             </connections>
         </placeholder>
-        <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="10" sectionFooterHeight="10" id="4">
+        <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="10" sectionFooterHeight="10" id="4">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -28,14 +27,14 @@
                 <outlet property="delegate" destination="-1" id="7"/>
             </connections>
         </tableView>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="huy-FK-ooJ">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="huy-FK-ooJ">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="huy-FK-ooJ" id="kWY-Rb-Xwx">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wiw-WP-O7Z">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wiw-WP-O7Z">
                         <rect key="frame" x="15" y="0.0" width="290" height="60"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
@@ -47,7 +46,7 @@
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="n5g-Gd-0J5">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="n5g-Gd-0J5">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="n5g-Gd-0J5" id="7jJ-MM-3QG">
@@ -67,7 +66,7 @@
             </tableViewCellContentView>
         </tableViewCell>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="L50-zu-PUp">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="L50-zu-PUp">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L50-zu-PUp" id="fuJ-o0-WoK">
@@ -86,7 +85,7 @@
                 </subviews>
             </tableViewCellContentView>
         </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Wd0-et-tSf">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Wd0-et-tSf">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wd0-et-tSf" id="s8i-O0-Wwd">
@@ -96,7 +95,7 @@
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmS-wn-XzT">
                         <rect key="frame" x="10" y="4" width="300" height="52"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                         <state key="normal" title="Register">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

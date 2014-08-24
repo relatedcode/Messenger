@@ -230,7 +230,8 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
         context.invalidateFlowLayoutDelegateMetrics = YES;
     }
     
-    if (context.invalidateFlowLayoutAttributes || context.invalidateFlowLayoutDelegateMetrics) {
+    if (context.invalidateFlowLayoutAttributes
+        || context.invalidateFlowLayoutDelegateMetrics) {
         [self.messageBubbleSizes removeAllObjects];
     }
     
@@ -257,26 +258,50 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-    NSArray *attributes;
+    NSArray *attributesInRect = [super layoutAttributesForElementsInRect:rect];
     
     if (self.springinessEnabled) {
-        attributes = [self.dynamicAnimator itemsInRect:rect];
-    }
-    else {
-        attributes = [super layoutAttributesForElementsInRect:rect];
+        NSMutableArray *attributesInRectCopy = [attributesInRect mutableCopy];
+        NSArray *dynamicAttributes = [self.dynamicAnimator itemsInRect:rect];
+        
+        // avoid duplicate attributes
+        // use dynamic animator attribute item instead of regular item, if it exists
+        for (UICollectionViewLayoutAttributes *eachItem in attributesInRect) {
+            
+            for (UICollectionViewLayoutAttributes *eachDynamicItem in dynamicAttributes) {
+                if ([eachItem.indexPath isEqual:eachDynamicItem.indexPath]
+                    && eachItem.representedElementCategory == eachDynamicItem.representedElementCategory) {
+                    
+                    [attributesInRectCopy removeObject:eachItem];
+                    [attributesInRectCopy addObject:eachDynamicItem];
+                    continue;
+                }
+            }
+        }
+        
+        attributesInRect = attributesInRectCopy;
     }
     
-    [attributes enumerateObjectsUsingBlock:^(JSQMessagesCollectionViewLayoutAttributes *attributes, NSUInteger idx, BOOL *stop) {
-        [self jsq_configureMessageCellLayoutAttributes:attributes];
+    [attributesInRect enumerateObjectsUsingBlock:^(JSQMessagesCollectionViewLayoutAttributes *attributesItem, NSUInteger idx, BOOL *stop) {
+        if (attributesItem.representedElementCategory == UICollectionElementCategoryCell) {
+            [self jsq_configureMessageCellLayoutAttributes:attributesItem];
+        }
+        else {
+            attributesItem.zIndex = -1;
+        }
     }];
     
-    return attributes;
+    return attributesInRect;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     JSQMessagesCollectionViewLayoutAttributes *customAttributes = (JSQMessagesCollectionViewLayoutAttributes *)[super layoutAttributesForItemAtIndexPath:indexPath];
-    [self jsq_configureMessageCellLayoutAttributes:customAttributes];
+    
+    if (customAttributes.representedElementCategory == UICollectionElementCategoryCell) {
+        [self jsq_configureMessageCellLayoutAttributes:customAttributes];
+    }
+    
     return customAttributes;
 }
 
@@ -318,7 +343,11 @@ const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
                 
                 CGSize size = self.collectionView.bounds.size;
                 JSQMessagesCollectionViewLayoutAttributes *attributes = [JSQMessagesCollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:updateItem.indexPathAfterUpdate];
-                [self jsq_configureMessageCellLayoutAttributes:attributes];
+                
+                if (attributes.representedElementCategory == UICollectionElementCategoryCell) {
+                    [self jsq_configureMessageCellLayoutAttributes:attributes];
+                }
+                
                 attributes.frame = CGRectMake(0.0f,
                                               size.height - size.width,
                                               size.width,

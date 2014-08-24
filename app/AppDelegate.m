@@ -10,12 +10,15 @@
 // THE SOFTWARE.
 
 #import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "AppConstant.h"
 
 #import "AppDelegate.h"
+#import "GroupView.h"
+#import "PrivateView.h"
+#import "ProfileView.h"
 #import "NavigationController.h"
-#import "MainView.h"
 
 @implementation AppDelegate
 
@@ -23,15 +26,26 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[Parse setApplicationId:@"d4Gxb4wEFk92AvjeFMzg1lTbVfctpeSh4MWTbKQE" clientKey:@"9JBA6xFKY7eWtrnM1mj9qVevZqBOXI4hkRdjUpBw"];
+	[Parse setApplicationId:@"ZpzAcELw53bsRGdN1ZNiDHTuPwT0QEvSQefQ8cUQ" clientKey:@"netW22vtS26ZmFaZi5rtqxYGSYdw9Xo89pdIyjkE"];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFFacebookUtils initializeFacebook];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFImageView class];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	NavigationController *navigationController = [[NavigationController alloc] initWithRootViewController:[[MainView alloc] init]];
-	[self.window setRootViewController:navigationController];
+
+	NavigationController *nc1 = [[NavigationController alloc] initWithRootViewController:[[GroupView alloc] init]];
+	NavigationController *nc2 = [[NavigationController alloc] initWithRootViewController:[[PrivateView alloc] init]];
+	NavigationController *nc3 = [[NavigationController alloc] initWithRootViewController:[[ProfileView alloc] init]];
+
+	self.tabBarController = [[UITabBarController alloc] init];
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:nc1, nc2, nc3, nil];
+	self.tabBarController.tabBar.barTintColor = COLOR_TABBAR_BACKGROUND;
+	self.tabBarController.tabBar.tintColor = COLOR_TABBAR_LABEL;
+	self.tabBarController.tabBar.translucent = NO;
+	self.tabBarController.selectedIndex = 0;
+
+	self.window.rootViewController = self.tabBarController;
 	[self.window makeKeyAndVisible];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	return YES;

@@ -19,24 +19,22 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface RegisterView()
 
-@property (strong, nonatomic) IBOutlet UITableViewCell *cellUsername;
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellName;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellPassword;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellEmail;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellButton;
 
-@property (strong, nonatomic) IBOutlet UITextField *fieldUsername;
+@property (strong, nonatomic) IBOutlet UITextField *fieldName;
 @property (strong, nonatomic) IBOutlet UITextField *fieldPassword;
 @property (strong, nonatomic) IBOutlet UITextField *fieldEmail;
-@property (strong, nonatomic) IBOutlet UIButton *buttonRegister;
 
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation RegisterView
 
-@synthesize cellUsername, cellPassword, cellEmail, cellButton;
-@synthesize fieldUsername, fieldPassword, fieldEmail;
-@synthesize buttonRegister;
+@synthesize cellName, cellPassword, cellEmail, cellButton;
+@synthesize fieldName, fieldPassword, fieldEmail;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
@@ -45,11 +43,9 @@
 	[super viewDidLoad];
 	self.title = @"Register";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.separatorInset = UIEdgeInsetsZero;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	buttonRegister.backgroundColor = HEXCOLOR(0x34AD00FF);
+	self.tableView.separatorInset = UIEdgeInsetsZero;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,7 +53,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidAppear:animated];
-	[fieldUsername becomeFirstResponder];
+	[fieldName becomeFirstResponder];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,22 +63,27 @@
 	[self.view endEditing:YES];
 }
 
+#pragma mark - User actions
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (IBAction)actionRegister:(id)sender
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSString *username	= fieldUsername.text;
+	NSString *name		= fieldName.text;
 	NSString *password	= fieldPassword.text;
 	NSString *email		= fieldEmail.text;
 
-	if ((username.length != 0) && (password.length != 0) && (email.length != 0))
+	if ((name.length != 0) && (password.length != 0) && (email.length != 0))
 	{
 		[ProgressHUD show:@"Please wait..." Interaction:NO];
 
 		PFUser *user = [PFUser user];
-		user.username = username;
+		user.username = email;
 		user.password = password;
 		user.email = email;
+		user[PF_USER_EMAILCOPY] = email;
+		user[PF_USER_FULLNAME] = name;
+		user[PF_USER_FULLNAME_LOWER] = [name lowercaseString];
 
 		[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
@@ -117,7 +118,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (indexPath.row == 0) return cellUsername;
+	if (indexPath.row == 0) return cellName;
 	if (indexPath.row == 1) return cellPassword;
 	if (indexPath.row == 2) return cellEmail;
 	if (indexPath.row == 3) return cellButton;
@@ -130,7 +131,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (textField == fieldUsername)
+	if (textField == fieldName)
 	{
 		[fieldPassword becomeFirstResponder];
 	}
