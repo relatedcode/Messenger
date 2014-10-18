@@ -53,7 +53,7 @@
 	labelDescription.text = message[PF_MESSAGES_DESCRIPTION];
 	labelLastMessage.text = message[PF_MESSAGES_LASTMESSAGE];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:message.updatedAt] + 1000;
+	NSTimeInterval seconds = [[NSDate date] timeIntervalSinceDate:message.updatedAt];
 	labelElapsed.text = TimeElapsed(seconds);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	int counter = [message[PF_MESSAGES_COUNTER] intValue];

@@ -78,15 +78,6 @@
 	[self loadMessages];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewDidLayoutSubviews
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[super viewDidLayoutSubviews];
-	[tableMessages setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-	[viewEmpty setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-}
-
 #pragma mark - Backend methods
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -99,7 +90,6 @@
 		[query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
 		[query includeKey:PF_MESSAGES_LASTUSER];
 		[query orderByDescending:PF_MESSAGES_UPDATEDACTION];
-		query.limit = 1000;
 		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 		{
 			if (error == nil)
@@ -107,8 +97,8 @@
 				[messages removeAllObjects];
 				[messages addObjectsFromArray:objects];
 				[tableMessages reloadData];
-				viewEmpty.hidden = ([messages count] != 0);
-				[self updateCounter];
+				[self updateEmptyView];
+				[self updateTabCounter];
 			}
 			else [ProgressHUD showError:@"Network error."];
 			[refreshControl endRefreshing];
@@ -116,8 +106,17 @@
 	}
 }
 
+#pragma mark - Helper methods
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)updateCounter
+- (void)updateEmptyView
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	viewEmpty.hidden = ([messages count] != 0);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)updateTabCounter
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	int total = 0;
@@ -165,6 +164,24 @@
 	MessagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagesCell" forIndexPath:indexPath];
 	[cell bindData:messages[indexPath.row]];
 	return cell;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	return YES;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	DeleteMessageItem(messages[indexPath.row]);
+	[messages removeObjectAtIndex:indexPath.row];
+	[tableMessages deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	[self updateEmptyView];
+	[self updateTabCounter];
 }
 
 #pragma mark - Table view delegate
