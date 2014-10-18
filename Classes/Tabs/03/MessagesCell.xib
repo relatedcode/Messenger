@@ -48,7 +48,7 @@
                 <outlet property="labelElapsed" destination="aCl-zV-J5y" id="ojp-rj-HN6"/>
                 <outlet property="labelLastMessage" destination="Ois-e3-M4I" id="vrK-9B-5rf"/>
             </connections>
-            <point key="canvasLocation" x="442" y="576"/>
+            <point key="canvasLocation" x="423" y="544"/>
         </tableViewCell>
     </objects>
     <resources>

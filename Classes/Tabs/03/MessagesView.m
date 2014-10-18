@@ -23,6 +23,7 @@
 @interface MessagesView()
 {
 	NSMutableArray *messages;
+	UIRefreshControl *refreshControl;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableMessages;
@@ -60,6 +61,10 @@
 	[tableMessages registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
 	tableMessages.tableFooterView = [[UIView alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	refreshControl = [[UIRefreshControl alloc] init];
+	[refreshControl addTarget:self action:@selector(loadMessages) forControlEvents:UIControlEventValueChanged];
+	[tableMessages addSubview:refreshControl];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	messages = [[NSMutableArray alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	viewEmpty.hidden = YES;
@@ -78,9 +83,11 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLayoutSubviews];
-	[tableMessages setFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
-	[viewEmpty setFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+	[tableMessages setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+	[viewEmpty setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
 }
+
+#pragma mark - Backend methods
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)loadMessages
@@ -104,6 +111,7 @@
 				[self updateCounter];
 			}
 			else [ProgressHUD showError:@"Network error."];
+			[refreshControl endRefreshing];
 		}];
 	}
 }
