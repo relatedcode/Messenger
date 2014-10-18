@@ -23,6 +23,7 @@
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
 
 #import "UIView+JSQMessages.h"
+#import "UIDevice+JSQMessages.h"
 
 
 @interface JSQMessagesCollectionViewCell ()
@@ -222,7 +223,10 @@
 - (void)setBounds:(CGRect)bounds
 {
     [super setBounds:bounds];
-    self.contentView.frame = bounds;
+    
+    if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
+        self.contentView.frame = bounds;
+    }
 }
 
 #pragma mark - Setters
@@ -273,7 +277,7 @@
     [self.messageBubbleImageView removeFromSuperview];
     [self.textView removeFromSuperview];
     
-    mediaView.translatesAutoresizingMaskIntoConstraints = NO;
+    [mediaView setTranslatesAutoresizingMaskIntoConstraints:NO];
     mediaView.frame = self.messageBubbleContainerView.bounds;
     
     [self.messageBubbleContainerView addSubview:mediaView];
@@ -334,6 +338,17 @@
     else {
         [self.delegate messagesCollectionViewCellDidTapCell:self atPosition:touchPt];
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    CGPoint touchPt = [touch locationInView:self];
+    
+    if ([gestureRecognizer isKindOfClass:[UILongPressGestureRecognizer class]]) {
+        return CGRectContainsPoint(self.messageBubbleContainerView.frame, touchPt);
+    }
+    
+    return YES;
 }
 
 @end

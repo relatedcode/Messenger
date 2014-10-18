@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A386b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginView">
@@ -68,11 +69,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmS-wn-XzT">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jmS-wn-XzT">
                         <rect key="frame" x="20" y="5" width="280" height="50"/>
                         <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                        <state key="normal" title="Login">
+                        <state key="normal" title="LOGIN">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </state>
@@ -86,6 +87,12 @@
                         </connections>
                     </button>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="jmS-wn-XzT" secondAttribute="bottom" constant="-4" id="MmD-YM-Sd9"/>
+                    <constraint firstItem="jmS-wn-XzT" firstAttribute="leading" secondItem="wN6-nX-3yV" secondAttribute="leadingMargin" constant="12" id="VjN-rd-q12"/>
+                    <constraint firstItem="jmS-wn-XzT" firstAttribute="centerX" secondItem="wN6-nX-3yV" secondAttribute="centerX" id="ymG-f6-7zt"/>
+                    <constraint firstItem="jmS-wn-XzT" firstAttribute="top" secondItem="wN6-nX-3yV" secondAttribute="topMargin" constant="-3" id="ypX-ZX-6fy"/>
+                </constraints>
             </tableViewCellContentView>
         </tableViewCell>
     </objects>

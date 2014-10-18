@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A386b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" bouncesZoom="NO" style="plain" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="plain" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <inset key="separatorInset" minX="75" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -25,7 +25,7 @@
                         <outlet property="delegate" destination="-1" id="9aC-8N-iBw"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ske-MY-c8q">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ske-MY-c8q">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No messages at the moment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQG-9D-pil">
@@ -39,6 +39,16 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="ske-MY-c8q" secondAttribute="top" id="DP8-qy-Sth"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="guW-PG-c3R" secondAttribute="top" id="JbX-76-dN7"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="trailing" secondItem="ske-MY-c8q" secondAttribute="trailing" id="LeE-tc-hY4"/>
+                <constraint firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="RfP-Pt-k10"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="ske-MY-c8q" secondAttribute="leading" id="acX-bU-3LI"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="guW-PG-c3R" secondAttribute="leading" id="agQ-U5-AhP"/>
+                <constraint firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="vfj-jJ-y4m"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="bottom" secondItem="ske-MY-c8q" secondAttribute="bottom" id="wm8-HF-PTW"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
         </view>
     </objects>

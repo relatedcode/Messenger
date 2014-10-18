@@ -16,13 +16,14 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import <Foundation/Foundation.h>
+#import "UIDevice+JSQMessages.h"
 
-@interface NSString (JSQMessages)
+@implementation UIDevice (JSQMessages)
 
-/**
- *  @return A copy of the receiver with all leading and trailing whitespace removed.
- */
-- (NSString *)jsq_stringByTrimingWhitespace;
++ (BOOL)jsq_isCurrentDeviceBeforeiOS8
+{
+    // iOS < 8.0
+    return [[UIDevice currentDevice].systemVersion compare:@"8.0.0" options:NSNumericSearch] == NSOrderedAscending;
+}
 
 @end

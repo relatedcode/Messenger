@@ -62,7 +62,7 @@
 
 + (UIImage *)jsq_bubbleRegularStrokedTaillessImage
 {
-    return [UIImage imageNamed:@"bubble_stroked"];
+    return [UIImage imageNamed:@"bubble_stroked_tailless"];
 }
 
 + (UIImage *)jsq_bubbleCompactImage
@@ -72,7 +72,7 @@
 
 + (UIImage *)jsq_bubbleCompactTaillessImage
 {
-    return [UIImage imageNamed:@"bubble_min"];
+    return [UIImage imageNamed:@"bubble_min_tailless"];
 }
 
 @end

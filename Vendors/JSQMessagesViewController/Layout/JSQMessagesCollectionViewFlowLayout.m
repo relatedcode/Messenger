@@ -31,6 +31,9 @@
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
 #import "JSQMessagesCollectionViewFlowLayoutInvalidationContext.h"
 
+#import "UIImage+JSQMessages.h"
+
+
 const CGFloat kJSQMessagesCollectionViewCellLabelHeightDefault = 20.0f;
 const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
@@ -51,7 +54,9 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 - (void)jsq_didReceiveApplicationMemoryWarningNotification:(NSNotification *)notification;
 - (void)jsq_didReceiveDeviceOrientationDidChangeNotification:(NSNotification *)notification;
 
-- (CGSize)messageBubbleSizeForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)jsq_resetLayout;
+- (void)jsq_resetDynamicAnimator;
+
 - (void)jsq_configureMessageCellLayoutAttributes:(JSQMessagesCollectionViewLayoutAttributes *)layoutAttributes;
 - (CGSize)jsq_avatarSizeForIndexPath:(NSIndexPath *)indexPath;
 
@@ -74,7 +79,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     self.sectionInset = UIEdgeInsetsMake(10.0f, 4.0f, 10.0f, 4.0f);
     self.minimumLineSpacing = 4.0f;
     
-    _bubbleImageAssetWidth = [UIImage imageNamed:@"bubble_min"].size.width;
+    _bubbleImageAssetWidth = [UIImage jsq_bubbleCompactImage].size.width;
     
     _messageBubbleSizes = [NSMutableDictionary new];
     
@@ -139,9 +144,13 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     
     _messageBubbleFont = nil;
     
+    [_messageBubbleSizes removeAllObjects];
     _messageBubbleSizes = nil;
     
+    [_dynamicAnimator removeAllBehaviors];
     _dynamicAnimator = nil;
+    
+    [_visibleIndexPaths removeAllObjects];
     _visibleIndexPaths = nil;
 }
 
@@ -237,15 +246,12 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
 
 - (void)jsq_didReceiveApplicationMemoryWarningNotification:(NSNotification *)notification
 {
-    [self.messageBubbleSizes removeAllObjects];
-    [self.dynamicAnimator removeAllBehaviors];
-    [self.visibleIndexPaths removeAllObjects];
+    [self jsq_resetLayout];
 }
 
 - (void)jsq_didReceiveDeviceOrientationDidChangeNotification:(NSNotification *)notification
 {
-    [self.dynamicAnimator removeAllBehaviors];
-    [self.visibleIndexPaths removeAllObjects];
+    [self jsq_resetLayout];
     [self invalidateLayoutWithContext:[JSQMessagesCollectionViewFlowLayoutInvalidationContext context]];
 }
 
@@ -260,9 +266,7 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     
     if (context.invalidateFlowLayoutAttributes
         || context.invalidateFlowLayoutDelegateMetrics) {
-        [self.messageBubbleSizes removeAllObjects];
-        [self.dynamicAnimator removeAllBehaviors];
-        [self.visibleIndexPaths removeAllObjects];
+        [self jsq_resetLayout];
     }
     
     [super invalidateLayoutWithContext:context];
@@ -391,6 +395,22 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
     }];
 }
 
+#pragma mark - Invalidation utilities
+
+- (void)jsq_resetLayout
+{
+    [self.messageBubbleSizes removeAllObjects];
+    [self jsq_resetDynamicAnimator];
+}
+
+- (void)jsq_resetDynamicAnimator
+{
+    if (self.springinessEnabled) {
+        [self.dynamicAnimator removeAllBehaviors];
+        [self.visibleIndexPaths removeAllObjects];
+    }
+}
+
 #pragma mark - Message cell layout utilities
 
 - (CGSize)messageBubbleSizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -431,7 +451,8 @@ const CGFloat kJSQMessagesCollectionViewAvatarSizeDefault = 30.0f;
         //  not sure why. magix. (shrug) if you know, submit a PR
         CGFloat verticalInsets = verticalContainerInsets + verticalFrameInsets + 2.0f;
         
-        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.bubbleImageAssetWidth);
+        //  same as above, an extra 2 points of magix
+        CGFloat finalWidth = MAX(stringSize.width + horizontalInsetsTotal, self.bubbleImageAssetWidth) + 2.0f;
         
         finalSize = CGSizeMake(finalWidth, stringSize.height + verticalInsets);
     }
