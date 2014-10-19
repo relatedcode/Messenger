@@ -62,7 +62,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	users = [[NSMutableArray alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanupTable) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,8 +83,10 @@
 	[self searchBarCancelled];
 }
 
+#pragma mark - User actions
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)cleanupTable
+- (void)actionCleanup
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[users removeAllObjects];
@@ -156,8 +158,7 @@
 		[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
 		[query whereKey:PF_USER_FULLNAME_LOWER containsString:search_lower];
 		[query orderByAscending:PF_USER_FULLNAME];
-		query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-		query.limit = 1000;
+		[query setLimit:1000];
 		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 		{
 			if (error == nil)
@@ -166,7 +167,7 @@
 				[users addObjectsFromArray:objects];
 				[self.tableView reloadData];
 			}
-			else if (error.code != 120) [ProgressHUD showError:@"Network error."];
+			else [ProgressHUD showError:@"Network error."];
 		}];
 	}
 	else

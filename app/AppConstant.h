@@ -13,6 +13,10 @@
 #define HEXCOLOR(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+#define		PF_INSTALLATION_CLASS_NAME			@"_Installation"
+#define		PF_INSTALLATION_OBJECTID			@"objectId"
+#define		PF_INSTALLATION_USER				@"user"
+
 #define		PF_USER_CLASS_NAME					@"_User"
 #define		PF_USER_OBJECTID					@"objectId"
 #define		PF_USER_USERNAME					@"username"

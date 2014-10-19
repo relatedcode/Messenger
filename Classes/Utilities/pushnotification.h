@@ -9,10 +9,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface MessagesView : UIViewController <UITableViewDataSource, UITableViewDelegate>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+#import <Parse/Parse.h>
 
-- (void)loadMessages;
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+void		ParsePushUserAssign		(void);
+void		ParsePushUserResign		(void);
 
-@end
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+void		SendPushNotification	(NSString *roomId, NSString *text);

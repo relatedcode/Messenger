@@ -15,6 +15,7 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "pushnotification.h"
 #import "utilities.h"
 
 #import "WelcomeView.h"
@@ -157,6 +158,7 @@
 - (void)userLoggedIn:(PFUser *)user
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	ParsePushUserAssign();
 	[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", user[PF_USER_FULLNAME]]];
 	[self dismissViewControllerAnimated:YES completion:nil];
 }

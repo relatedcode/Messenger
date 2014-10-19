@@ -14,6 +14,7 @@
 
 #import "AppConstant.h"
 #import "messages.h"
+#import "utilities.h"
 
 #import "MessagesView.h"
 #import "MessagesCell.h"
@@ -71,11 +72,16 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[super viewWillAppear:animated];
-	[self loadMessages];
+	[super viewDidAppear:animated];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if ([PFUser currentUser] != nil)
+	{
+		[self loadMessages];
+	}
+	else LoginUser(self);
 }
 
 #pragma mark - Backend methods

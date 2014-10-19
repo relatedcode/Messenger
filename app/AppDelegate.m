@@ -13,6 +13,7 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "AppConstant.h"
+#import "utilities.h"
 
 #import "AppDelegate.h"
 #import "GroupView.h"
@@ -31,14 +32,27 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFFacebookUtils initializeFacebook];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if ([application respondsToSelector:@selector(registerUserNotificationSettings:)])
+	{
+		UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound);
+		UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+		[application registerUserNotificationSettings:settings];
+		[application registerForRemoteNotifications];
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFImageView class];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
-	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:[[GroupView alloc] init]];
-	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:[[PrivateView alloc] init]];
-	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:[[MessagesView alloc] init]];
-	NavigationController *navController4 = [[NavigationController alloc] initWithRootViewController:[[ProfileView alloc] init]];
+	self.groupView = [[GroupView alloc] init];
+	self.privateView = [[PrivateView alloc] init];
+	self.messagesView = [[MessagesView alloc] init];
+	self.profileView = [[ProfileView alloc] init];
+	
+	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:self.groupView];
+	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:self.privateView];
+	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:self.messagesView];
+	NavigationController *navController4 = [[NavigationController alloc] initWithRootViewController:self.profileView];
 
 	self.tabBarController = [[UITabBarController alloc] init];
 	self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
@@ -93,6 +107,40 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication withSession:[PFFacebookUtils session]];
+}
+
+#pragma mark - Push notification methods
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+	[currentInstallation setDeviceTokenFromData:deviceToken];
+	[currentInstallation saveInBackground];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self performSelector:@selector(refreshMessagesView) withObject:nil afterDelay:4.0];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	//[PFPush handlePush:userInfo];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)refreshMessagesView
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self.messagesView loadMessages];
 }
 
 @end

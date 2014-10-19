@@ -13,6 +13,7 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "pushnotification.h"
 
 #import "RegisterView.h"
 
@@ -89,6 +90,7 @@
 		{
 			if (error == nil)
 			{
+				ParsePushUserAssign();
 				[ProgressHUD showSuccess:@"Succeed."];
 				[self dismissViewControllerAnimated:YES completion:nil];
 			}

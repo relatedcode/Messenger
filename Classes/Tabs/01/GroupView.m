@@ -65,9 +65,11 @@
 {
 	[super viewDidAppear:animated];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] == nil) LoginUser(self);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[self refreshTable];
+	if ([PFUser currentUser] != nil)
+	{
+		[self refreshTable];
+	}
+	else LoginUser(self);
 }
 
 #pragma mark - User actions

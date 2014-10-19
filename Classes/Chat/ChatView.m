@@ -14,6 +14,7 @@
 
 #import "AppConstant.h"
 #import "messages.h"
+#import "pushnotification.h"
 
 #import "ChatView.h"
 
@@ -105,12 +106,13 @@
 		[query whereKey:PF_CHAT_ROOMID equalTo:roomId];
 		if (message_last != nil) [query whereKey:PF_CHAT_CREATEDAT greaterThan:message_last.date];
 		[query includeKey:PF_CHAT_USER];
-		[query orderByAscending:PF_CHAT_CREATEDAT];
+		[query orderByDescending:PF_CHAT_CREATEDAT];
+		[query setLimit:50];
 		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 		{
 			if (error == nil)
 			{
-				for (PFObject *object in objects)
+				for (PFObject *object in [objects reverseObjectEnumerator])
 				{
 					PFUser *user = object[PF_CHAT_USER];
 					[users addObject:user];
@@ -146,6 +148,7 @@
 		else [ProgressHUD showError:@"Network error."];;
 	}];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	SendPushNotification(roomId, text);
 	UpdateMessageCounter(roomId, text);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self finishSendingMessage];

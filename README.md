@@ -2,35 +2,42 @@
 
 ## OVERVIEW
 
-ParseChat is a full native iPhone app to create realtime, text based group or private chat with Parse.
+This is a full native iPhone app to create realtime, text based group or private chat with Parse.
 
-![ParseChat](http://relatedcode.com/github/parsechat801.png)
+![Chat](http://relatedcode.com/github/chat01.png)
 .
-![ParseChat](http://relatedcode.com/github/parsechat802.png)
+![Chat](http://relatedcode.com/github/chat02.png)
 .
-![ParseChat](http://relatedcode.com/github/parsechat803.png)
+![Chat](http://relatedcode.com/github/chat03.png)
 
-ParseChat is using Parse as backend which is basically free. (Free plan: 20 GB File Storage, 20 GB Database Storage, 2 TB Data Transfer, 30 req/s).
+The app is using Parse as backend which is basically free. (Free plan: 20 GB File Storage, 20 GB Database Storage, 2 TB Data Transfer, 30 req/s).
 
 Really easy to setup, just copy/paste the code and use your own chatrooms.
+
+## WHAT'S NEW IN 3.1
+
+- Push Notification implemented
+- JSQMessagesViewController updated
+- JSQSystemSoundPlayer updated
 
 ## WHAT'S NEW IN 3.0
 
 - Updated to Xcode 6
 - Updated to iOS 8
 - MessagesView implemented
-- JSQMessagesViewController is updated
-- ProgressHUD is updated
-- AFNetworking is added
-- Parse.framework is updated
-- FacebookSDK.framework is updated
-- ParseFacebookUtils.framework is updated
+- JSQMessagesViewController updated
+- ProgressHUD updated
+- AFNetworking added
+- Parse.framework updated
+- FacebookSDK.framework updated
+- ParseFacebookUtils.framework updated
 
 ## FEATURES
 
 - Live chat between multiple devices
 - Group and Private chat functionality
 - Messages view for ongoing chats
+- Push Notification support
 - Multiple chatrooms
 - Dynamically add new chatrooms
 - Register/Login views
@@ -41,7 +48,6 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - No backend programming needed
 - Automatic online/offline detection and handle
 - Copy and paste messages
-- Dynamically resizes input text while typing
 - Native and easy to customize user interface
 - Send button is enabled/disabled automatically
 - Arbitrary message sizes
@@ -59,7 +65,7 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 ## INSTALLATION
 
-**1.,** All ParseChat files located in *Classes* directory. Vendor files located in *Vendor* directory and external Frameworks in *Framework* directory. Some resource files can be found in *Resources* directory. Simply add *Classes*, *Resources*, *Vendor* and *Framework* directories to your project.
+**1.,** All files located in *Classes* directory. Vendor files located in *Vendor* directory and external Frameworks in *Framework* directory. Some resource files can be found in *Resources* directory. Simply add *Classes*, *Resources*, *Vendor* and *Framework* directories to your project.
 
 **2.,** You also need the latest Parse.framework. (Already included, but you can download from [here](https://www.parse.com/docs/downloads)).
 
@@ -92,11 +98,18 @@ More info about how to [configure](https://developers.facebook.com/docs/ios/gett
 
 https://www.parse.com/#signup
 
-**7.,** Please replace existing Parse account details in *AppDelegate.m*:
+**7.,** You need to configure Push Notification.
+
+More info about how to [configure](https://www.parse.com/tutorials/ios-push-notifications) Push Notification.
+
+**8.,** Please replace the existing Parse account details in *AppDelegate.m*.
 
 ```
 [Parse setApplicationId:@"sRtJbiHUImOPq2KPHPda0QXqSXsAWokDNBYN4GfL" clientKey:@"iGS37ZA4FzOmeizqRVjMvZXj6RYdBKlm6aODZMNM"];
 ```
+
+**9.,** Please replace the existing Facebook account details in *Info.plist*.
+
 
 ## CONTACT
 

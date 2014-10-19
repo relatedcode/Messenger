@@ -13,6 +13,7 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "pushnotification.h"
 #import "utilities.h"
 
 #import "ProfileView.h"
@@ -77,9 +78,11 @@
 {
 	[super viewDidAppear:animated];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] == nil) LoginUser(self);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[self profileLoad];
+	if ([PFUser currentUser] != nil)
+	{
+		[self profileLoad];
+	}
+	else LoginUser(self);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +98,7 @@
 {
 	PFUser *user = [PFUser currentUser];
 
-	[imageUser setFile:[user objectForKey:PF_USER_PICTURE]];
+	[imageUser setFile:user[PF_USER_PICTURE]];
 	[imageUser loadInBackground];
 
 	fieldName.text = user[PF_USER_FULLNAME];
@@ -107,8 +110,8 @@
 - (void)actionLogout
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel"
-										  destructiveButtonTitle:nil otherButtonTitles:@"Log out", nil];
+	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
+											   otherButtonTitles:@"Log out", nil];
 	[action showFromTabBar:[[self tabBarController] tabBar]];
 }
 
@@ -121,6 +124,7 @@
 	if (buttonIndex != actionSheet.cancelButtonIndex)
 	{
 		[PFUser logOut];
+		ParsePushUserResign();
 		PostNotification(NOTIFICATION_USER_LOGGED_OUT);
 
 		imageUser.image = [UIImage imageNamed:@"blank_profile"];
@@ -169,7 +173,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+	UIImage *image = info[UIImagePickerControllerEditedImage];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (image.size.width > 140) image = ResizeImage(image, 140, 140);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
