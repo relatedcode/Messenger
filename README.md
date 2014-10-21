@@ -80,25 +80,13 @@ https://github.com/relatedcode/ProgressHUD<br>
 
 To use these libraries, just add AFNetworking, JSQMessagesViewController, JSQSystemSoundPlayer and ProgressHUD directories to your project.
 
-**5.,** You need to register your app at Facebook.
+**5.,** You need to [register](https://developers.facebook.com/apps) your app at Facebook. More info about how to [configure](https://developers.facebook.com/docs/ios/getting-started) Facebook.
 
-https://developers.facebook.com/apps<br>
+**6.,** You need to use your own [Parse account](https://www.parse.com/#signup).
 
-More info about how to [configure](https://developers.facebook.com/docs/ios/getting-started) Facebook.
-
-**6.,** You need to use your own Parse account.
-
-https://www.parse.com/#signup
-
-**7.,** You need to configure Push Notification.
-
-More info about how to [configure](https://www.parse.com/tutorials/ios-push-notifications) Push Notification.
+**7.,** You need to [configure](https://www.parse.com/tutorials/ios-push-notifications) Push Notification.
 
 **8.,** Please replace the existing Parse account details in *AppDelegate.m*.
-
-```
-[Parse setApplicationId:@"sRtJbiHUImOPq2KPHPda0QXqSXsAWokDNBYN4GfL" clientKey:@"iGS37ZA4FzOmeizqRVjMvZXj6RYdBKlm6aODZMNM"];
-```
 
 **9.,** Please replace the existing Facebook account details in *Info.plist*.
 
