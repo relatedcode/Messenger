@@ -59,13 +59,13 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 **1.,** All files located in *Classes* directory. Vendor files located in *Vendor* directory and external Frameworks in *Framework* directory. Some resource files can be found in *Resources* directory. Simply add *Classes*, *Resources*, *Vendor* and *Framework* directories to your project.
 
-**2.,** You also need the latest Parse.framework. (Already included, but you can download from [here](https://www.parse.com/docs/downloads)).
+**2.,** You also need the latest Parse SDK. (Already included, but you can download from [here](https://www.parse.com/docs/downloads)).
 
 To add Parse.framework just unzip the downloaded file and drag the Parse.framework folder into your Xcode project under 'Frameworks'.
 
 More info about how to [install](https://www.parse.com/apps/quickstart#parse_data/mobile/ios/native/existing) Parse SDK.
 
-**3.,** You also need the latest FacebookSDK.framework. (Already included, but you can download from [here](https://developers.facebook.com/docs/ios)).
+**3.,** You also need the latest Facebook SDK. (Already included, but you can download from [here](https://developers.facebook.com/docs/ios)).
 
 To add FacebookSDK.framework just drag the FacebookSDK.framework folder into your Xcode project under 'Frameworks'.
 
