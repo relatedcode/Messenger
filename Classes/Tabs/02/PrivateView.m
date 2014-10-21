@@ -42,9 +42,7 @@
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self)
 	{
-		self.tabBarItem.title = nil;
 		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_private"]];
-		[self.tabBarItem setSelectedImage:[UIImage imageNamed:@"tab_private"]];
 		self.tabBarItem.title = @"Private";
 	}
 	return self;
