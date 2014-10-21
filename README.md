@@ -6,7 +6,7 @@ This is a full native iPhone app to create realtime, text based group or private
 
 ![Chat](http://relatedcode.com/github/chat01.png)
 .
-![Chat](http://relatedcode.com/github/chat02.png)
+![Chat](http://relatedcode.com/github/chat04.png)
 .
 ![Chat](http://relatedcode.com/github/chat03.png)
 
@@ -14,30 +14,23 @@ The app is using Parse as backend which is basically free. (Free plan: 20 GB Fil
 
 Really easy to setup, just copy/paste the code and use your own chatrooms.
 
+## WHAT'S NEW IN 3.2
+
+- Picture media support added
+
 ## WHAT'S NEW IN 3.1
 
 - Push Notification implemented
 - JSQMessagesViewController updated
 - JSQSystemSoundPlayer updated
 
-## WHAT'S NEW IN 3.0
-
-- Updated to Xcode 6
-- Updated to iOS 8
-- MessagesView implemented
-- JSQMessagesViewController updated
-- ProgressHUD updated
-- AFNetworking added
-- Parse.framework updated
-- FacebookSDK.framework updated
-- ParseFacebookUtils.framework updated
-
 ## FEATURES
 
 - Live chat between multiple devices
 - Group and Private chat functionality
-- Messages view for ongoing chats
 - Push Notification support
+- Picture media support
+- Messages view for ongoing chats
 - Multiple chatrooms
 - Dynamically add new chatrooms
 - Register/Login views
@@ -46,7 +39,6 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - Basic Profile view is also included
 - Change profile picture possibility
 - No backend programming needed
-- Automatic online/offline detection and handle
 - Copy and paste messages
 - Native and easy to customize user interface
 - Send button is enabled/disabled automatically

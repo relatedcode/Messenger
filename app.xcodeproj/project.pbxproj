@@ -121,6 +121,7 @@
 		2930F94019E96C73000F7799 /* tab_messages@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2930F93919E96C73000F7799 /* tab_messages@2x.png */; };
 		2930F94119E96C73000F7799 /* tab_private@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2930F93A19E96C73000F7799 /* tab_private@2x.png */; };
 		2930F94219E96C73000F7799 /* tab_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2930F93B19E96C73000F7799 /* tab_profile@2x.png */; };
+		2932298219F55C1500FF00CC /* camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2932298119F55C1500FF00CC /* camera.m */; };
 		29A2278A19F3B05000ACA237 /* pushnotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A2278919F3B05000ACA237 /* pushnotification.m */; };
 		29EB240B19E9292500D7AA97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29EB240A19E9292500D7AA97 /* main.m */; };
 		29EB240E19E9292500D7AA97 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29EB240D19E9292500D7AA97 /* AppDelegate.m */; };
@@ -320,6 +321,8 @@
 		2930F93919E96C73000F7799 /* tab_messages@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_messages@2x.png"; sourceTree = "<group>"; };
 		2930F93A19E96C73000F7799 /* tab_private@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_private@2x.png"; sourceTree = "<group>"; };
 		2930F93B19E96C73000F7799 /* tab_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_profile@2x.png"; sourceTree = "<group>"; };
+		2932298019F55C1500FF00CC /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		2932298119F55C1500FF00CC /* camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = camera.m; sourceTree = "<group>"; };
 		29A2278819F3B05000ACA237 /* pushnotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pushnotification.h; sourceTree = "<group>"; };
 		29A2278919F3B05000ACA237 /* pushnotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pushnotification.m; sourceTree = "<group>"; };
 		29EB240519E9292500D7AA97 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -737,6 +740,8 @@
 		29271A5419F284B1009C308B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				2932298019F55C1500FF00CC /* camera.h */,
+				2932298119F55C1500FF00CC /* camera.m */,
 				29271A5519F284B1009C308B /* messages.h */,
 				29271A5619F284B1009C308B /* messages.m */,
 				29A2278819F3B05000ACA237 /* pushnotification.h */,
@@ -983,6 +988,7 @@
 				29271A1519F284AC009C308B /* JSQLocationMediaItem.m in Sources */,
 				292719E419F284AC009C308B /* UIImageView+AFNetworking.m in Sources */,
 				29271A2919F284AC009C308B /* JSQMessagesToolbarContentView.m in Sources */,
+				2932298219F55C1500FF00CC /* camera.m in Sources */,
 				29271A1B19F284AC009C308B /* JSQTextMessage.m in Sources */,
 				292719E319F284AC009C308B /* UIButton+AFNetworking.m in Sources */,
 				29271A1F19F284AC009C308B /* JSQMessagesCollectionViewCellIncoming.m in Sources */,

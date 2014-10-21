@@ -13,6 +13,7 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "camera.h"
 #import "pushnotification.h"
 #import "utilities.h"
 

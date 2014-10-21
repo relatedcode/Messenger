@@ -33,6 +33,7 @@
 #define		PF_CHAT_USER						@"user"
 #define		PF_CHAT_ROOMID						@"roomId"
 #define		PF_CHAT_TEXT						@"text"
+#define		PF_CHAT_PICTURE						@"picture"
 #define		PF_CHAT_CREATEDAT					@"createdAt"
 
 #define		PF_CHATROOMS_CLASS_NAME				@"ChatRooms"

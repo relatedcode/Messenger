@@ -9,44 +9,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <MobileCoreServices/MobileCoreServices.h>
-
 #import "utilities.h"
 #import "WelcomeView.h"
 #import "NavigationController.h"
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartPhotoLibrary(id object, BOOL canEdit)
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
-		 && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)) return NO;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-	
-	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
-		&& [[UIImagePickerController availableMediaTypesForSourceType:
-			 UIImagePickerControllerSourceTypePhotoLibrary] containsObject:(NSString *)kUTTypeImage])
-	{
-		cameraUI.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-		cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-	}
-	else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]
-			 && [[UIImagePickerController availableMediaTypesForSourceType:
-				  UIImagePickerControllerSourceTypeSavedPhotosAlbum] containsObject:(NSString *)kUTTypeImage])
-	{
-		cameraUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-		cameraUI.mediaTypes = [NSArray arrayWithObject:(NSString *) kUTTypeImage];
-	}
-	else return NO;
-	
-	cameraUI.allowsEditing = canEdit;
-	cameraUI.delegate = object;
-	
-	[object presentViewController:cameraUI animated:YES completion:nil];
-	
-	return YES;
-}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 void LoginUser(id target)

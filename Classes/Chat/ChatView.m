@@ -13,6 +13,7 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "camera.h"
 #import "messages.h"
 #import "pushnotification.h"
 
@@ -72,8 +73,7 @@
 
 	isLoading = NO;
 	[self loadMessages];
-	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
-	
+
 	ClearMessageCounter(roomId);
 }
 
@@ -82,6 +82,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidAppear:animated];
+	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
 }
 
@@ -92,6 +93,8 @@
 	[super viewWillDisappear:animated];
 	[timer invalidate];
 }
+
+#pragma mark - Backend methods
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)loadMessages
@@ -114,11 +117,7 @@
 			{
 				for (PFObject *object in [objects reverseObjectEnumerator])
 				{
-					PFUser *user = object[PF_CHAT_USER];
-					[users addObject:user];
-					JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
-																				  date:object.createdAt text:object[PF_CHAT_TEXT]];
-					[messages addObject:message];
+					[self addMessage:object];
 				}
 				if ([objects count] != 0) [self finishReceivingMessage];
 			}
@@ -128,16 +127,59 @@
 	}
 }
 
-#pragma mark - JSQMessagesViewController method overrides
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
+- (void)addMessage:(PFObject *)object
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	PFUser *user = object[PF_CHAT_USER];
+	[users addObject:user];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (object[PF_CHAT_PICTURE] == nil)
+	{
+		JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
+																	  date:object.createdAt text:object[PF_CHAT_TEXT]];
+		[messages addObject:message];
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (object[PF_CHAT_PICTURE] != nil)
+	{
+		JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
+		JSQMediaMessage *message = [[JSQMediaMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
+																		date:object.createdAt media:mediaItem];
+		[messages addObject:message];
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		PFFile *filePicture = object[PF_CHAT_PICTURE];
+		[filePicture getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
+		{
+			if (error == nil)
+			{
+				mediaItem.image = [UIImage imageWithData:imageData];
+				[self.collectionView reloadData];
+			}
+		}];
+	}
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)sendMessage:(NSString *)text Picture:(UIImage *)picture
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFFile *filePicture = nil;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (picture != nil)
+	{
+		filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(picture, 0.6)];
+		[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+		{
+			if (error != nil) NSLog(@"sendMessage picture save error.");
+		}];
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
 	object[PF_CHAT_USER] = [PFUser currentUser];
 	object[PF_CHAT_ROOMID] = roomId;
 	object[PF_CHAT_TEXT] = text;
+	if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
 	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
 		if (error == nil)
@@ -154,11 +196,22 @@
 	[self finishSendingMessage];
 }
 
+#pragma mark - JSQMessagesViewController method overrides
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)didPressSendButton:(UIButton *)button withMessageText:(NSString *)text senderId:(NSString *)senderId senderDisplayName:(NSString *)senderDisplayName date:(NSDate *)date
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self sendMessage:text Picture:nil];
+}
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)didPressAccessoryButton:(UIButton *)sender
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSLog(@"didPressAccessoryButton");
+	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
+											   otherButtonTitles:@"Take photo", @"Choose existing photo", nil];
+	[action showInView:self.view];
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
@@ -190,8 +243,8 @@
 	PFUser *user = users[indexPath.item];
 	if (avatars[user.objectId] == nil)
 	{
-		PFFile *filePicture = user[PF_USER_THUMBNAIL];
-		[filePicture getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
+		PFFile *fileThumbnail = user[PF_USER_THUMBNAIL];
+		[fileThumbnail getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
 		{
 			if (error == nil)
 			{
@@ -268,8 +321,6 @@
 	{
 		cell.textView.textColor = [UIColor whiteColor];
 	}
-	cell.textView.linkTextAttributes = @{NSForegroundColorAttributeName:cell.textView.textColor,
-										 NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle | NSUnderlinePatternSolid)};
 	return cell;
 }
 
@@ -347,6 +398,30 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	NSLog(@"didTapCellAtIndexPath %@", NSStringFromCGPoint(touchLocation));
+}
+
+#pragma mark - UIActionSheetDelegate
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	if (buttonIndex != actionSheet.cancelButtonIndex)
+	{
+		if (buttonIndex == 0)	ShouldStartCamera(self, YES);
+		if (buttonIndex == 1)	ShouldStartPhotoLibrary(self, YES);
+	}
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	UIImage *picture = info[UIImagePickerControllerEditedImage];
+	[self sendMessage:@"[Picture message]" Picture:picture];
+	[picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
