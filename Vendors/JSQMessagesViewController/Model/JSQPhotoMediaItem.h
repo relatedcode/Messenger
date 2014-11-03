@@ -16,15 +16,15 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import "JSQMessageMediaData.h"
+#import "JSQMediaItem.h"
 
 /**
- *  The `JSQPhotoMediaItem` class is a concrete class that implements the `JSQMessageMediaData` protocol
+ *  The `JSQPhotoMediaItem` class is a concrete `JSQMediaItem` subclass that implements the `JSQMessageMediaData` protocol
  *  and represents a photo media message. An initialized `JSQPhotoMediaItem` object can be passed 
  *  to a `JSQMediaMessage` object during its initialization to construct a valid media message object.
  *  You may wish to subclass `JSQPhotoMediaItem` to provide additional functionality or behavior.
  */
-@interface JSQPhotoMediaItem : NSObject <JSQMessageMediaData, NSCoding, NSCopying>
+@interface JSQPhotoMediaItem : JSQMediaItem <JSQMessageMediaData, NSCoding, NSCopying>
 
 /**
  *  The image for the photo media item. The default value is `nil`.

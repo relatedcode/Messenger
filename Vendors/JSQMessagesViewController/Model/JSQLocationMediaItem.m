@@ -19,6 +19,7 @@
 #import "JSQLocationMediaItem.h"
 
 #import "JSQMessagesMediaPlaceholderView.h"
+#import "JSQMessagesMediaViewBubbleImageMasker.h"
 
 
 @interface JSQLocationMediaItem ()
@@ -28,6 +29,7 @@
 @property (strong, nonatomic) UIImageView *cachedMapImageView;
 
 - (void)createMapViewSnapshotForLocation:(CLLocation *)location
+                        coordinateRegion:(MKCoordinateRegion)region
                    withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion;
 
 @end
@@ -60,25 +62,43 @@
     [self setLocation:location withCompletionHandler:nil];
 }
 
+- (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
+{
+    [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
+    _cachedMapSnapshotImage = nil;
+    _cachedMapImageView = nil;
+}
+
 #pragma mark - Map snapshot
 
 - (void)setLocation:(CLLocation *)location withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion
 {
+    [self setLocation:location region:MKCoordinateRegionMakeWithDistance(location.coordinate, 500.0, 500.0) withCompletionHandler:completion];
+}
+
+- (void)setLocation:(CLLocation *)location region:(MKCoordinateRegion)region withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion
+{
     _location = [location copy];
     _cachedMapSnapshotImage = nil;
     _cachedMapImageView = nil;
-    [self createMapViewSnapshotForLocation:_location withCompletionHandler:completion];
-}
-
-- (void)createMapViewSnapshotForLocation:(CLLocation *)location
-                   withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion
-{
-    if (location == nil) {
+    
+    if (_location == nil) {
         return;
     }
     
+    [self createMapViewSnapshotForLocation:_location
+                          coordinateRegion:region
+                     withCompletionHandler:completion];
+}
+
+- (void)createMapViewSnapshotForLocation:(CLLocation *)location
+                        coordinateRegion:(MKCoordinateRegion)region
+                   withCompletionHandler:(JSQLocationMediaItemCompletionBlock)completion
+{
+    NSParameterAssert(location != nil);
+    
     MKMapSnapshotOptions *options = [[MKMapSnapshotOptions alloc] init];
-    options.region = MKCoordinateRegionMakeWithDistance(location.coordinate, 10, 10);
+    options.region = region;
     options.size = [self mediaViewDisplaySize];
     options.scale = [UIScreen mainScreen].scale;
     
@@ -128,35 +148,18 @@
         UIImageView *imageView = [[UIImageView alloc] initWithImage:self.cachedMapSnapshotImage];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        imageView.layer.cornerRadius = 20.0f;
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
         self.cachedMapImageView = imageView;
     }
     
     return self.cachedMapImageView;
 }
 
-- (CGSize)mediaViewDisplaySize
-{
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        return CGSizeMake(315.0f, 225.0f);
-    }
-    return CGSizeMake(210.0f, 150.0f);
-}
-
-- (UIView *)mediaPlaceholderView
-{
-    return [JSQMessagesMediaPlaceholderView viewWithActivityIndicator];
-}
-
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object
 {
-    if (self == object) {
-        return YES;
-    }
-    
-    if (![object isKindOfClass:[self class]]) {
+    if (![super isEqual:object]) {
         return NO;
     }
     
@@ -172,19 +175,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: location=%@>", [self class], self.location];
-}
-
-- (id)debugQuickLookObject
-{
-    return [self mediaView] ?: [self mediaPlaceholderView];
+    return [NSString stringWithFormat:@"<%@: location=%@, appliesMediaViewMaskAsOutgoing=%@>",
+            [self class], self.location, @(self.appliesMediaViewMaskAsOutgoing)];
 }
 
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (self) {
         CLLocation *location = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(location))];
         [self setLocation:location withCompletionHandler:nil];
@@ -194,6 +193,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.location forKey:NSStringFromSelector(@selector(location))];
 }
 
@@ -201,7 +201,9 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithLocation:self.location];
+    JSQLocationMediaItem *copy = [[[self class] allocWithZone:zone] initWithLocation:self.location];
+    copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
+    return copy;
 }
 
 @end

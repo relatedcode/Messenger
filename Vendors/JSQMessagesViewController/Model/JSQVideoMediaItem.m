@@ -16,21 +16,22 @@
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
-#import "JSQVideoMediaitem.h"
+#import "JSQVideoMediaItem.h"
 
 #import "JSQMessagesMediaPlaceholderView.h"
+#import "JSQMessagesMediaViewBubbleImageMasker.h"
 
 #import "UIImage+JSQMessages.h"
 
 
-@interface JSQVideoMediaitem ()
+@interface JSQVideoMediaItem ()
 
 @property (strong, nonatomic) UIImageView *cachedVideoImageView;
 
 @end
 
 
-@implementation JSQVideoMediaitem
+@implementation JSQVideoMediaItem
 
 #pragma mark - Initialization
 
@@ -65,6 +66,12 @@
     _cachedVideoImageView = nil;
 }
 
+- (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
+{
+    [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
+    _cachedVideoImageView = nil;
+}
+
 #pragma mark - JSQMessageMediaData protocol
 
 - (UIView *)mediaView
@@ -75,46 +82,29 @@
     
     if (self.cachedVideoImageView == nil) {
         CGSize size = [self mediaViewDisplaySize];
-        UIImage *playIcon = [[UIImage imageNamed:@"play"] jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
+        UIImage *playIcon = [[UIImage jsq_defaultPlayImage] jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
         
         UIImageView *imageView = [[UIImageView alloc] initWithImage:playIcon];
         imageView.backgroundColor = [UIColor blackColor];
         imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
         imageView.contentMode = UIViewContentModeCenter;
         imageView.clipsToBounds = YES;
-        imageView.layer.cornerRadius = 20.0f;
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
         self.cachedVideoImageView = imageView;
     }
     
     return self.cachedVideoImageView;
 }
 
-- (CGSize)mediaViewDisplaySize
-{
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        return CGSizeMake(300.0f, 180.0f);
-    }
-    return CGSizeMake(200.0f, 120.0f);
-}
-
-- (UIView *)mediaPlaceholderView
-{
-    return [JSQMessagesMediaPlaceholderView viewWithActivityIndicator];
-}
-
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object
 {
-    if (self == object) {
-        return YES;
-    }
-    
-    if (![object isKindOfClass:[self class]]) {
+    if (![super isEqual:object]) {
         return NO;
     }
     
-    JSQVideoMediaitem *videoItem = (JSQVideoMediaitem *)object;
+    JSQVideoMediaItem *videoItem = (JSQVideoMediaItem *)object;
     
     return [self.fileURL isEqual:videoItem.fileURL]
             && self.isReadyToPlay == videoItem.isReadyToPlay;
@@ -127,19 +117,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: fileURL=%@, isReadyToPlay=%@>", [self class], self.fileURL, @(self.isReadyToPlay)];
-}
-
-- (id)debugQuickLookObject
-{
-    return [self mediaView] ?: [self mediaPlaceholderView];
+    return [NSString stringWithFormat:@"<%@: fileURL=%@, isReadyToPlay=%@, appliesMediaViewMaskAsOutgoing=%@>",
+            [self class], self.fileURL, @(self.isReadyToPlay), @(self.appliesMediaViewMaskAsOutgoing)];
 }
 
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (self) {
         _fileURL = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(fileURL))];
         _isReadyToPlay = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isReadyToPlay))];
@@ -149,6 +135,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.fileURL forKey:NSStringFromSelector(@selector(fileURL))];
     [aCoder encodeBool:self.isReadyToPlay forKey:NSStringFromSelector(@selector(isReadyToPlay))];
 }
@@ -157,8 +144,10 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithFileURL:self.fileURL
-                                                isReadyToPlay:self.isReadyToPlay];
+    JSQVideoMediaItem *copy = [[[self class] allocWithZone:zone] initWithFileURL:self.fileURL
+                                                                   isReadyToPlay:self.isReadyToPlay];
+    copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
+    return copy;
 }
 
 @end

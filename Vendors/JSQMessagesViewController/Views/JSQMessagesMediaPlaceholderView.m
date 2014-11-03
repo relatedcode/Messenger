@@ -41,7 +41,7 @@
 + (instancetype)viewWithAttachmentIcon
 {
     UIColor *lightGrayColor = [UIColor jsq_messageBubbleLightGrayColor];
-    UIImage *paperclip = [[UIImage imageNamed:@"clip"] jsq_imageMaskedWithColor:[lightGrayColor jsq_colorByDarkeningColorWithValue:0.4f]];
+    UIImage *paperclip = [[UIImage jsq_defaultAccessoryImage] jsq_imageMaskedWithColor:[lightGrayColor jsq_colorByDarkeningColorWithValue:0.4f]];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:paperclip];
     
     JSQMessagesMediaPlaceholderView *view =[[JSQMessagesMediaPlaceholderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 120.0f)
@@ -93,8 +93,8 @@
     if (self) {
         self.backgroundColor = backgroundColor;
         self.userInteractionEnabled = NO;
-        self.layer.cornerRadius = 20.0f;
         self.clipsToBounds = YES;
+        self.contentMode = UIViewContentModeScaleAspectFill;
     }
     return self;
 }

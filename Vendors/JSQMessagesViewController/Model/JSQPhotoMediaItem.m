@@ -19,6 +19,7 @@
 #import "JSQPhotoMediaItem.h"
 
 #import "JSQMessagesMediaPlaceholderView.h"
+#import "JSQMessagesMediaViewBubbleImageMasker.h"
 
 
 @interface JSQPhotoMediaItem ()
@@ -56,6 +57,12 @@
     _cachedImageView = nil;
 }
 
+- (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
+{
+    [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
+    _cachedImageView = nil;
+}
+
 #pragma mark - JSQMessageMediaData protocol
 
 - (UIView *)mediaView
@@ -70,35 +77,18 @@
         imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
-        imageView.layer.cornerRadius = 20.0f;
+        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
         self.cachedImageView = imageView;
     }
     
     return self.cachedImageView;
 }
 
-- (CGSize)mediaViewDisplaySize
-{
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        return CGSizeMake(300.0f, 180.0f);
-    }
-    return CGSizeMake(200.0f, 120.0f);
-}
-
-- (UIView *)mediaPlaceholderView
-{
-    return [JSQMessagesMediaPlaceholderView viewWithActivityIndicator];
-}
-
 #pragma mark - NSObject
 
 - (BOOL)isEqual:(id)object
 {
-    if (self == object) {
-        return YES;
-    }
-    
-    if (![object isKindOfClass:[self class]]) {
+    if (![super isEqual:object]) {
         return NO;
     }
     
@@ -114,19 +104,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@: image=%@>", [self class], self.image];
-}
-
-- (id)debugQuickLookObject
-{
-    return [self mediaView] ?: [self mediaPlaceholderView];
+    return [NSString stringWithFormat:@"<%@: image=%@, appliesMediaViewMaskAsOutgoing=%@>",
+            [self class], self.image, @(self.appliesMediaViewMaskAsOutgoing)];
 }
 
 #pragma mark - NSCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     if (self) {
         _image = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(image))];
     }
@@ -135,6 +121,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     [aCoder encodeObject:self.image forKey:NSStringFromSelector(@selector(image))];
 }
 
@@ -142,7 +129,9 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithImage:self.image];
+    JSQPhotoMediaItem *copy = [[[self class] allocWithZone:zone] initWithImage:self.image];
+    copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
+    return copy;
 }
 
 @end

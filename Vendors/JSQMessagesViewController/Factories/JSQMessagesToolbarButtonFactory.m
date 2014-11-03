@@ -26,24 +26,24 @@
 
 + (UIButton *)defaultAccessoryButtonItem
 {
-    UIImage *cameraImage = [UIImage imageNamed:@"clip"];
-    UIImage *cameraNormal = [cameraImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
-    UIImage *cameraHighlighted = [cameraImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
+    UIImage *accessoryImage = [UIImage jsq_defaultAccessoryImage];
+    UIImage *normalImage = [accessoryImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
+    UIImage *highlightedImage = [accessoryImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
     
-    UIButton *cameraButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    [cameraButton setImage:cameraNormal forState:UIControlStateNormal];
-    [cameraButton setImage:cameraHighlighted forState:UIControlStateHighlighted];
+    UIButton *accessoryButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [accessoryButton setImage:normalImage forState:UIControlStateNormal];
+    [accessoryButton setImage:highlightedImage forState:UIControlStateHighlighted];
     
-    cameraButton.contentMode = UIViewContentModeScaleAspectFit;
-    cameraButton.backgroundColor = [UIColor clearColor];
-    cameraButton.tintColor = [UIColor lightGrayColor];
+    accessoryButton.contentMode = UIViewContentModeScaleAspectFit;
+    accessoryButton.backgroundColor = [UIColor clearColor];
+    accessoryButton.tintColor = [UIColor lightGrayColor];
     
-    return cameraButton;
+    return accessoryButton;
 }
 
 + (UIButton *)defaultSendButtonItem
 {
-    NSString *sendTitle = NSLocalizedString(@"Send", @"Text for the send button on the messages view toolbar");
+    NSString *sendTitle = NSLocalizedStringFromTable(@"Send", @"JSQMessages", @"Text for the send button on the messages view toolbar");
     
     UIButton *sendButton = [[UIButton alloc] initWithFrame:CGRectZero];
     [sendButton setTitle:sendTitle forState:UIControlStateNormal];
@@ -52,6 +52,8 @@
     [sendButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     
     sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:17.0f];
+    sendButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    sendButton.titleLabel.minimumScaleFactor = 0.85f;
     sendButton.contentMode = UIViewContentModeCenter;
     sendButton.backgroundColor = [UIColor clearColor];
     sendButton.tintColor = [UIColor jsq_messageBubbleBlueColor];

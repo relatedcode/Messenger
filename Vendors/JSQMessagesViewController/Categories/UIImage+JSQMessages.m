@@ -45,34 +45,54 @@
     return newImage;
 }
 
++ (UIImage *)jsq_bubbleImageFromBundleWithName:(NSString *)name
+{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"JSQMessagesAssets.bundle/Images/%@", name]];
+}
+
 + (UIImage *)jsq_bubbleRegularImage
 {
-    return [UIImage imageNamed:@"bubble"];
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_regular"];
 }
 
 + (UIImage *)jsq_bubbleRegularTaillessImage
 {
-    return [UIImage imageNamed:@"bubble_tailless"];
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_tailless"];
 }
 
 + (UIImage *)jsq_bubbleRegularStrokedImage
 {
-    return [UIImage imageNamed:@"bubble_stroked"];
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_stroked"];
 }
 
 + (UIImage *)jsq_bubbleRegularStrokedTaillessImage
 {
-    return [UIImage imageNamed:@"bubble_stroked_tailless"];
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_stroked_tailless"];
 }
 
 + (UIImage *)jsq_bubbleCompactImage
 {
-    return [UIImage imageNamed:@"bubble_min"];
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_min"];
 }
 
 + (UIImage *)jsq_bubbleCompactTaillessImage
 {
-    return [UIImage imageNamed:@"bubble_min_tailless"];
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"bubble_min_tailless"];
+}
+
++ (UIImage *)jsq_defaultAccessoryImage
+{
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"clip"];
+}
+
++ (UIImage *)jsq_defaultTypingIndicatorImage
+{
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"typing"];
+}
+
++ (UIImage *)jsq_defaultPlayImage
+{
+    return [UIImage jsq_bubbleImageFromBundleWithName:@"play"];
 }
 
 @end

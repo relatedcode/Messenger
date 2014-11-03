@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIView *avatarContainerView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageBubbleContainerWidthConstraint;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewTopVerticalSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewBottomVerticalSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textViewAvatarHorizontalSpaceConstraint;
@@ -50,8 +52,6 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewWidthConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *avatarContainerViewHeightConstraint;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *messageBubbleLeftRightMarginConstraint;
 
 @property (assign, nonatomic) UIEdgeInsets textViewFrameInsets;
 
@@ -93,6 +93,7 @@
     [super awakeFromNib];
     
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
     self.backgroundColor = [UIColor whiteColor];
     
     self.cellTopLabelHeightConstraint.constant = 0.0f;
@@ -164,6 +165,9 @@
     self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
     self.textView.text = nil;
     self.textView.attributedText = nil;
+    
+    self.avatarImageView.image = nil;
+    self.avatarImageView.highlightedImage = nil;
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
@@ -182,8 +186,8 @@
     
     self.textViewFrameInsets = customAttributes.textViewFrameInsets;
 
-    [self jsq_updateConstraint:self.messageBubbleLeftRightMarginConstraint
-                  withConstant:customAttributes.messageBubbleLeftRightMargin];
+    [self jsq_updateConstraint:self.messageBubbleContainerWidthConstraint
+                  withConstant:customAttributes.messageBubbleContainerViewWidth];
     
     [self jsq_updateConstraint:self.cellTopLabelHeightConstraint
                   withConstant:customAttributes.cellTopLabelHeight];
@@ -212,21 +216,6 @@
 {
     [super setSelected:selected];
     self.messageBubbleImageView.highlighted = selected;
-}
-
-//  FIXME: radar 18326340
-//         remove when fixed
-//         hack for Xcode6 / iOS 8 SDK rendering bug that occurs on iOS 7.x
-//         see issue #484
-//         https://github.com/jessesquires/JSQMessagesViewController/issues/484
-//
-- (void)setBounds:(CGRect)bounds
-{
-    [super setBounds:bounds];
-    
-    if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
-        self.contentView.frame = bounds;
-    }
 }
 
 #pragma mark - Setters
@@ -282,7 +271,6 @@
     
     [self.messageBubbleContainerView addSubview:mediaView];
     [self.messageBubbleContainerView jsq_pinAllEdgesOfSubview:mediaView];
-    [self setNeedsUpdateConstraints];
     _mediaView = mediaView;
     
     //  because of cell re-use (and caching media views, if using built-in library media item)
@@ -320,7 +308,6 @@
     }
     
     constraint.constant = constant;
-    [self setNeedsUpdateConstraints];
 }
 
 #pragma mark - Gesture recognizers
