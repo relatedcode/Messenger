@@ -117,7 +117,7 @@
 			if (error != nil) [ProgressHUD showError:error.userInfo[@"error"]];
 		}];
 		//-----------------------------------------------------------------------------------------------------------------------------------------
-		if (image.size.width > 34) image = ResizeImage(image, 30, 30);
+		if (image.size.width > 30) image = ResizeImage(image, 30, 30);
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
 		[fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
