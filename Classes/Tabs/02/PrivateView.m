@@ -26,14 +26,14 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIView *viewHeader;
-@property (strong, nonatomic) IBOutlet UISearchBar *searchBar1;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation PrivateView
 
-@synthesize viewHeader, searchBar1;
+@synthesize viewHeader, searchBar;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -69,7 +69,11 @@
 {
 	[super viewDidAppear:animated];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] == nil) LoginUser(self);
+	if ([PFUser currentUser] != nil)
+	{
+		[self loadUsers];
+	}
+	else LoginUser(self);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,6 +93,49 @@
 {
 	[users removeAllObjects];
 	[self.tableView reloadData];
+}
+
+#pragma mark - Backend methods
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)loadUsers
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
+	[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
+	[query orderByAscending:PF_USER_FULLNAME];
+	[query setLimit:1000];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	{
+		if (error == nil)
+		{
+			[users removeAllObjects];
+			[users addObjectsFromArray:objects];
+			[self.tableView reloadData];
+		}
+		else [ProgressHUD showError:@"Network error."];
+	}];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)searchUsers:(NSString *)search_lower
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
+	[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
+	[query whereKey:PF_USER_FULLNAME_LOWER containsString:search_lower];
+	[query orderByAscending:PF_USER_FULLNAME];
+	[query setLimit:1000];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	{
+		if (error == nil)
+		{
+			[users removeAllObjects];
+			[users addObjectsFromArray:objects];
+			[self.tableView reloadData];
+		}
+		else [ProgressHUD showError:@"Network error."];
+	}];
 }
 
 #pragma mark - Table view data source
@@ -148,45 +195,25 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if ([searchText length] >= 2)
+	if ([searchText length] > 0)
 	{
-		NSString *search_lower = [searchText lowercaseString];
-
-		PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
-		[query whereKey:PF_USER_OBJECTID notEqualTo:[PFUser currentUser].objectId];
-		[query whereKey:PF_USER_FULLNAME_LOWER containsString:search_lower];
-		[query orderByAscending:PF_USER_FULLNAME];
-		[query setLimit:1000];
-		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-		{
-			if (error == nil)
-			{
-				[users removeAllObjects];
-				[users addObjectsFromArray:objects];
-				[self.tableView reloadData];
-			}
-			else [ProgressHUD showError:@"Network error."];
-		}];
+		[self searchUsers:[searchText lowercaseString]];
 	}
-	else
-	{
-		[users removeAllObjects];
-		[self.tableView reloadData];
-	}
+	else [self loadUsers];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar_
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[searchBar setShowsCancelButton:YES animated:YES];
+	[searchBar_ setShowsCancelButton:YES animated:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar_
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[searchBar setShowsCancelButton:NO animated:YES];
+	[searchBar_ setShowsCancelButton:NO animated:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -197,18 +224,20 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar_
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[searchBar resignFirstResponder];
+	[searchBar_ resignFirstResponder];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)searchBarCancelled
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	searchBar1.text = @"";
-	[searchBar1 resignFirstResponder];
+	searchBar.text = @"";
+	[searchBar resignFirstResponder];
+
+	[self loadUsers];
 }
 
 @end

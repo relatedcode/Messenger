@@ -10,7 +10,7 @@
 // THE SOFTWARE.
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface PrivateView : UITableViewController <UISearchBarDelegate, UIAlertViewDelegate>
+@interface PrivateView : UITableViewController <UISearchBarDelegate>
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @end
