@@ -30,7 +30,7 @@
     UIImage *normalImage = [accessoryImage jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
     UIImage *highlightedImage = [accessoryImage jsq_imageMaskedWithColor:[UIColor darkGrayColor]];
     
-    UIButton *accessoryButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    UIButton *accessoryButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, accessoryImage.size.width, 32.0f)];
     [accessoryButton setImage:normalImage forState:UIControlStateNormal];
     [accessoryButton setImage:highlightedImage forState:UIControlStateHighlighted];
     
@@ -57,6 +57,18 @@
     sendButton.contentMode = UIViewContentModeCenter;
     sendButton.backgroundColor = [UIColor clearColor];
     sendButton.tintColor = [UIColor jsq_messageBubbleBlueColor];
+    
+    CGFloat maxHeight = 32.0f;
+    
+    CGRect sendTitleRect = [sendTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, maxHeight)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                attributes:@{ NSFontAttributeName : sendButton.titleLabel.font }
+                                                   context:nil];
+    
+    sendButton.frame = CGRectMake(0.0f,
+                                  0.0f,
+                                  CGRectGetWidth(CGRectIntegral(sendTitleRect)),
+                                  maxHeight);
     
     return sendButton;
 }

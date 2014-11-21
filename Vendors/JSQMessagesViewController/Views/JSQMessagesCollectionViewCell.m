@@ -34,7 +34,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *messageBubbleContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *messageBubbleImageView;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet JSQMessagesCellTextView *textView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UIView *avatarContainerView;
@@ -112,23 +112,6 @@
     self.cellBottomLabel.font = [UIFont systemFontOfSize:11.0f];
     self.cellBottomLabel.textColor = [UIColor lightGrayColor];
     
-    self.textView.textColor = [UIColor whiteColor];
-    self.textView.editable = NO;
-    self.textView.selectable = YES;
-    self.textView.userInteractionEnabled = YES;
-    self.textView.dataDetectorTypes = UIDataDetectorTypeNone;
-    self.textView.showsHorizontalScrollIndicator = NO;
-    self.textView.showsVerticalScrollIndicator = NO;
-    self.textView.scrollEnabled = NO;
-    self.textView.backgroundColor = [UIColor clearColor];
-    self.textView.contentInset = UIEdgeInsetsZero;
-    self.textView.scrollIndicatorInsets = UIEdgeInsetsZero;
-    self.textView.contentOffset = CGPointZero;
-    self.textView.textContainerInset = UIEdgeInsetsZero;
-    self.textView.textContainer.lineFragmentPadding = 0;
-    self.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : [UIColor whiteColor],
-                                          NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
     self.tapGestureRecognizer = tap;
@@ -157,7 +140,7 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
-
+    
     self.cellTopLabel.text = nil;
     self.messageBubbleTopLabel.text = nil;
     self.cellBottomLabel.text = nil;
@@ -185,7 +168,7 @@
     }
     
     self.textViewFrameInsets = customAttributes.textViewFrameInsets;
-
+    
     [self jsq_updateConstraint:self.messageBubbleContainerWidthConstraint
                   withConstant:customAttributes.messageBubbleContainerViewWidth];
     
@@ -216,6 +199,21 @@
 {
     [super setSelected:selected];
     self.messageBubbleImageView.highlighted = selected;
+}
+
+//  FIXME: radar 18326340
+//         remove when fixed
+//         hack for Xcode6 / iOS 8 SDK rendering bug that occurs on iOS 7.x
+//         see issue #484
+//         https://github.com/jessesquires/JSQMessagesViewController/issues/484
+//
+- (void)setBounds:(CGRect)bounds
+{
+    [super setBounds:bounds];
+    
+    if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
+        self.contentView.frame = bounds;
+    }
 }
 
 #pragma mark - Setters
@@ -262,7 +260,7 @@
     if ([_mediaView isEqual:mediaView]) {
         return;
     }
-
+    
     [self.messageBubbleImageView removeFromSuperview];
     [self.textView removeFromSuperview];
     
@@ -276,11 +274,13 @@
     //  because of cell re-use (and caching media views, if using built-in library media item)
     //  we may have dequeued a cell with a media view and add this one on top
     //  thus, remove any additional subviews hidden behind the new media view
-    for (NSUInteger i = 0; i < self.messageBubbleContainerView.subviews.count; i++) {
-        if (self.messageBubbleContainerView.subviews[i] != _mediaView) {
-            [self.messageBubbleContainerView.subviews[i] removeFromSuperview];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        for (NSUInteger i = 0; i < self.messageBubbleContainerView.subviews.count; i++) {
+            if (self.messageBubbleContainerView.subviews[i] != _mediaView) {
+                [self.messageBubbleContainerView.subviews[i] removeFromSuperview];
+            }
         }
-    }
+    });
 }
 
 #pragma mark - Getters

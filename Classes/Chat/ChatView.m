@@ -136,7 +136,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (object[PF_CHAT_PICTURE] == nil)
 	{
-		JSQTextMessage *message = [[JSQTextMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
+		JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
 																	  date:object.createdAt text:object[PF_CHAT_TEXT]];
 		[messages addObject:message];
 	}
@@ -145,7 +145,7 @@
 	{
 		JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
 		mediaItem.appliesMediaViewMaskAsOutgoing = [user.objectId isEqualToString:self.senderId];
-		JSQMediaMessage *message = [[JSQMediaMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
+		JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
 																		date:object.createdAt media:mediaItem];
 		[messages addObject:message];
 		//-----------------------------------------------------------------------------------------------------------------------------------------
