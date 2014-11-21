@@ -140,8 +140,7 @@
 	{
 		if (interaction == NO)
 		{
-			CGRect frame = CGRectMake(window.frame.origin.x, window.frame.origin.y, window.frame.size.width, window.frame.size.height);
-			background = [[UIView alloc] initWithFrame:frame];
+			background = [[UIView alloc] initWithFrame:window.frame];
 			background.backgroundColor = HUD_WINDOW_COLOR;
 			[window addSubview:background];
 			[background addSubview:hud];
@@ -245,43 +244,26 @@
 	CGFloat heightKeyboard = 0;
 	NSTimeInterval duration = 0;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (notification != nil)
 	{
-		NSDictionary *keyboardInfo = [notification userInfo];
-		duration = [[keyboardInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-		CGRect keyboard = [[keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-
+		NSDictionary *info = [notification userInfo];
+		CGRect keyboard = [[info valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+		duration = [[info valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
 		if ((notification.name == UIKeyboardWillShowNotification) || (notification.name == UIKeyboardDidShowNotification))
 		{
-			if (UIInterfaceOrientationIsPortrait(orientation))
-				heightKeyboard = keyboard.size.height;
-			else heightKeyboard = keyboard.size.width;
+			heightKeyboard = keyboard.size.height;
 		}
 	}
 	else heightKeyboard = [self keyboardHeight];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	CGRect screen = [UIScreen mainScreen].bounds;
-	if (UIInterfaceOrientationIsLandscape(orientation))
-	{
-		CGFloat temp = screen.size.width;
-		screen.size.width = screen.size.height;
-		screen.size.height = temp;
-	}
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CGFloat posX = screen.size.width / 2;
-	CGFloat posY = (screen.size.height - heightKeyboard) / 2;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CGPoint center;
-	if (orientation == UIInterfaceOrientationPortrait)				center = CGPointMake(posX, posY);
-	if (orientation == UIInterfaceOrientationPortraitUpsideDown)	center = CGPointMake(posX, screen.size.height-posY);
-	if (orientation == UIInterfaceOrientationLandscapeLeft)			center = CGPointMake(posY, posX);
-	if (orientation == UIInterfaceOrientationLandscapeRight)		center = CGPointMake(screen.size.height-posY, posX);
+	CGPoint center = CGPointMake(screen.size.width/2, (screen.size.height-heightKeyboard)/2);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
 		hud.center = CGPointMake(center.x, center.y);
 	} completion:nil];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if (background != nil) background.frame = window.frame;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -294,9 +276,20 @@
 		{
 			for (UIView *possibleKeyboard in [testWindow subviews])
 			{
-				if ([possibleKeyboard isKindOfClass:NSClassFromString(@"UIPeripheralHostView")] ||
-					[possibleKeyboard isKindOfClass:NSClassFromString(@"UIKeyboard")])
+				if ([[possibleKeyboard description] hasPrefix:@"<UIPeripheralHostView"])
+				{
 					return possibleKeyboard.bounds.size.height;
+				}
+				else if ([[possibleKeyboard description] hasPrefix:@"<UIInputSetContainerView"])
+				{
+					for (UIView *hostKeyboard in [possibleKeyboard subviews])
+					{
+						if ([[hostKeyboard description] hasPrefix:@"<UIInputSetHost"])
+						{
+							return hostKeyboard.frame.size.height;
+						}
+					}
+				}
 			}
 		}
 	}
@@ -348,9 +341,8 @@
 	{
 		double length = label.text.length;
 		NSTimeInterval sleep = length * 0.04 + 0.5;
-		
 		[NSThread sleepForTimeInterval:sleep];
-		
+
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self hudHide];
 		});

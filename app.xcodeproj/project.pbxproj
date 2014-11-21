@@ -25,8 +25,6 @@
 		292719E619F284AC009C308B /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2927195419F284AC009C308B /* UIRefreshControl+AFNetworking.m */; };
 		292719E719F284AC009C308B /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2927195619F284AC009C308B /* UIWebView+AFNetworking.m */; };
 		29271A2D19F284AC009C308B /* JSQSystemSoundPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 292719D219F284AC009C308B /* JSQSystemSoundPlayer.m */; };
-		29271A2E19F284AC009C308B /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 292719D419F284AC009C308B /* ProgressHUD.bundle */; };
-		29271A2F19F284AC009C308B /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 292719D619F284AC009C308B /* ProgressHUD.m */; };
 		29271A5919F284B1009C308B /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29271A3319F284B1009C308B /* NavigationController.m */; };
 		29271A5A19F284B1009C308B /* ChatView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29271A3619F284B1009C308B /* ChatView.m */; };
 		29271A5B19F284B1009C308B /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29271A3A19F284B1009C308B /* GroupView.m */; };
@@ -96,6 +94,8 @@
 		296DD5E11A1F52F400AB9F8C /* JSQMessagesToolbarContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 296DD5B51A1F52F400AB9F8C /* JSQMessagesToolbarContentView.xib */; };
 		296DD5E21A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 296DD5B71A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.m */; };
 		296DD5E31A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 296DD5B81A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.xib */; };
+		296DD5E81A1F557900AB9F8C /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 296DD5E51A1F557900AB9F8C /* ProgressHUD.bundle */; };
+		296DD5E91A1F557900AB9F8C /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 296DD5E71A1F557900AB9F8C /* ProgressHUD.m */; };
 		29A2278A19F3B05000ACA237 /* pushnotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A2278919F3B05000ACA237 /* pushnotification.m */; };
 		29EB240B19E9292500D7AA97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29EB240A19E9292500D7AA97 /* main.m */; };
 		29EB240E19E9292500D7AA97 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29EB240D19E9292500D7AA97 /* AppDelegate.m */; };
@@ -145,9 +145,6 @@
 		2927195619F284AC009C308B /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		292719D119F284AC009C308B /* JSQSystemSoundPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQSystemSoundPlayer.h; sourceTree = "<group>"; };
 		292719D219F284AC009C308B /* JSQSystemSoundPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQSystemSoundPlayer.m; sourceTree = "<group>"; };
-		292719D419F284AC009C308B /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
-		292719D519F284AC009C308B /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
-		292719D619F284AC009C308B /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		29271A3219F284B1009C308B /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		29271A3319F284B1009C308B /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		29271A3519F284B1009C308B /* ChatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatView.h; sourceTree = "<group>"; };
@@ -286,6 +283,9 @@
 		296DD5B61A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQMessagesTypingIndicatorFooterView.h; sourceTree = "<group>"; };
 		296DD5B71A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQMessagesTypingIndicatorFooterView.m; sourceTree = "<group>"; };
 		296DD5B81A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JSQMessagesTypingIndicatorFooterView.xib; sourceTree = "<group>"; };
+		296DD5E51A1F557900AB9F8C /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
+		296DD5E61A1F557900AB9F8C /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
+		296DD5E71A1F557900AB9F8C /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		29A2278819F3B05000ACA237 /* pushnotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pushnotification.h; sourceTree = "<group>"; };
 		29A2278919F3B05000ACA237 /* pushnotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pushnotification.m; sourceTree = "<group>"; };
 		29EB240519E9292500D7AA97 /* app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = app.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,7 +321,7 @@
 				2927193019F284AC009C308B /* AFNetworking */,
 				296DD54C1A1F52F400AB9F8C /* JSQMessagesViewController */,
 				292719CF19F284AC009C308B /* JSQSystemSoundPlayer */,
-				292719D319F284AC009C308B /* ProgressHUD */,
+				296DD5E41A1F557900AB9F8C /* ProgressHUD */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -400,16 +400,6 @@
 				292719D219F284AC009C308B /* JSQSystemSoundPlayer.m */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		292719D319F284AC009C308B /* ProgressHUD */ = {
-			isa = PBXGroup;
-			children = (
-				292719D419F284AC009C308B /* ProgressHUD.bundle */,
-				292719D519F284AC009C308B /* ProgressHUD.h */,
-				292719D619F284AC009C308B /* ProgressHUD.m */,
-			);
-			path = ProgressHUD;
 			sourceTree = "<group>";
 		};
 		29271A3019F284B1009C308B /* Classes */ = {
@@ -695,6 +685,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		296DD5E41A1F557900AB9F8C /* ProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				296DD5E51A1F557900AB9F8C /* ProgressHUD.bundle */,
+				296DD5E61A1F557900AB9F8C /* ProgressHUD.h */,
+				296DD5E71A1F557900AB9F8C /* ProgressHUD.m */,
+			);
+			path = ProgressHUD;
+			sourceTree = "<group>";
+		};
 		29B8FE7319E92E4500E7A503 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -833,11 +833,11 @@
 				296DD5DE1A1F52F400AB9F8C /* JSQMessagesLoadEarlierHeaderView.xib in Resources */,
 				29271A6319F284B1009C308B /* ProfileView.xib in Resources */,
 				29271A6519F284B1009C308B /* LoginView.xib in Resources */,
+				296DD5E81A1F557900AB9F8C /* ProgressHUD.bundle in Resources */,
 				2930F93D19E96C73000F7799 /* blank_avatar@2x.png in Resources */,
 				296DD5E31A1F52F400AB9F8C /* JSQMessagesTypingIndicatorFooterView.xib in Resources */,
 				296DD5D71A1F52F400AB9F8C /* JSQMessagesCollectionViewCellIncoming.xib in Resources */,
 				296DD5BA1A1F52F400AB9F8C /* JSQMessages.strings in Resources */,
-				29271A2E19F284AC009C308B /* ProgressHUD.bundle in Resources */,
 				2930F94219E96C73000F7799 /* tab_profile@2x.png in Resources */,
 				2930F94119E96C73000F7799 /* tab_private@2x.png in Resources */,
 				29EB241919E9292500D7AA97 /* LaunchScreen.xib in Resources */,
@@ -885,7 +885,6 @@
 				292719DE19F284AC009C308B /* AFURLResponseSerialization.m in Sources */,
 				29271A6A19F284B1009C308B /* messages.m in Sources */,
 				296DD5BF1A1F52F400AB9F8C /* UIImage+JSQMessages.m in Sources */,
-				29271A2F19F284AC009C308B /* ProgressHUD.m in Sources */,
 				296DD5D51A1F52F400AB9F8C /* JSQMessagesCollectionViewCell.m in Sources */,
 				29EB240E19E9292500D7AA97 /* AppDelegate.m in Sources */,
 				296DD5E01A1F52F400AB9F8C /* JSQMessagesToolbarContentView.m in Sources */,
@@ -912,6 +911,7 @@
 				292719DA19F284AC009C308B /* AFNetworkReachabilityManager.m in Sources */,
 				296DD5CF1A1F52F400AB9F8C /* JSQMessagesAvatarImage.m in Sources */,
 				296DD5C01A1F52F400AB9F8C /* UIView+JSQMessages.m in Sources */,
+				296DD5E91A1F557900AB9F8C /* ProgressHUD.m in Sources */,
 				29A2278A19F3B05000ACA237 /* pushnotification.m in Sources */,
 				296DD5DF1A1F52F400AB9F8C /* JSQMessagesMediaPlaceholderView.m in Sources */,
 				296DD5CA1A1F52F400AB9F8C /* JSQMessagesCollectionViewFlowLayoutInvalidationContext.m in Sources */,
