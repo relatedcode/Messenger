@@ -135,8 +135,7 @@
 		{
 			if (error == nil)
 			{
-				[ProgressHUD dismiss];
-				[self dismissViewControllerAnimated:YES completion:nil];
+				[self userLoggedIn:user];
 			}
 			else
 			{
