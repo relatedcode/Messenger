@@ -12,6 +12,9 @@
 #import <Parse/Parse.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+NSString*	StartPrivateChat			(PFUser *user1, PFUser *user2);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 void		CreateMessageItem			(PFUser *user, NSString *roomId, NSString *description);
 void		DeleteMessageItem			(PFObject *message);
 

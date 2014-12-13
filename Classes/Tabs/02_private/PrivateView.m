@@ -177,12 +177,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFUser *user1 = [PFUser currentUser];
 	PFUser *user2 = users[indexPath.row];
-	NSString *id1 = user1.objectId;
-	NSString *id2 = user2.objectId;
-	NSString *roomId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CreateMessageItem(user1, roomId, user2[PF_USER_FULLNAME]);
-	CreateMessageItem(user2, roomId, user1[PF_USER_FULLNAME]);
+	NSString *roomId = StartPrivateChat(user1, user2);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	ChatView *chatView = [[ChatView alloc] initWith:roomId];
 	chatView.hidesBottomBarWhenPushed = YES;
