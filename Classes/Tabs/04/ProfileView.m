@@ -126,7 +126,7 @@
 		ParsePushUserResign();
 		PostNotification(NOTIFICATION_USER_LOGGED_OUT);
 
-		imageUser.image = [UIImage imageNamed:@"blank_profile"];
+		imageUser.image = [UIImage imageNamed:@"profile_blank"];
 		fieldName.text = @"";
 
 		LoginUser(self);
