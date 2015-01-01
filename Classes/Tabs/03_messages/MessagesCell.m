@@ -10,6 +10,7 @@
 // THE SOFTWARE.
 
 #import <Parse/Parse.h>
+#import <ParseUI/ParseUI.h>
 
 #import "AppConstant.h"
 #import "utilities.h"

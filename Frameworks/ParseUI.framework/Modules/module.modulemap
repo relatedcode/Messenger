@@ -1,0 +1,6 @@
+framework module ParseUI {
+  umbrella header "ParseUI.h"
+
+  export *
+  module * { export * }
+}
