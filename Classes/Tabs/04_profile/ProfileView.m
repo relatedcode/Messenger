@@ -147,7 +147,7 @@
 {
 	[self dismissKeyboard];
 
-	if ([fieldName.text isEqualToString:@""] == NO)
+	if ([fieldName.text length] != 0)
 	{
 		[ProgressHUD show:@"Please wait..."];
 

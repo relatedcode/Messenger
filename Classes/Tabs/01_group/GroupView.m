@@ -91,7 +91,7 @@
 	if (buttonIndex != alertView.cancelButtonIndex)
 	{
 		UITextField *textField = [alertView textFieldAtIndex:0];
-		if ([textField.text isEqualToString:@""] == NO)
+		if ([textField.text length] != 0)
 		{
 			PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
 			object[PF_CHATROOMS_NAME] = textField.text;
