@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -53,12 +53,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yzF-Iv-4oJ">
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yzF-Iv-4oJ">
                         <rect key="frame" x="15" y="0.0" width="290" height="60"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
                     </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="yzF-Iv-4oJ" secondAttribute="trailing" constant="7" id="DAX-vc-MDz"/>
+                    <constraint firstItem="yzF-Iv-4oJ" firstAttribute="centerX" secondItem="X0S-PA-5hE" secondAttribute="centerX" id="DXC-QE-C3C"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="yzF-Iv-4oJ" secondAttribute="bottom" constant="-9" id="R0H-ym-gib"/>
+                    <constraint firstItem="yzF-Iv-4oJ" firstAttribute="top" secondItem="X0S-PA-5hE" secondAttribute="top" id="vtZ-Vz-iAG"/>
+                </constraints>
             </tableViewCellContentView>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ykX-pB-JwM">

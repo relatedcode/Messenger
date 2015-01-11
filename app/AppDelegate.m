@@ -44,12 +44,12 @@
 	[PFImageView class];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
+
 	self.groupView = [[GroupView alloc] init];
 	self.privateView = [[PrivateView alloc] init];
 	self.messagesView = [[MessagesView alloc] init];
 	self.profileView = [[ProfileView alloc] init];
-	
+
 	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:self.groupView];
 	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:self.privateView];
 	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:self.messagesView];
@@ -58,7 +58,7 @@
 	self.tabBarController = [[UITabBarController alloc] init];
 	self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
 	self.tabBarController.tabBar.translucent = NO;
-	self.tabBarController.selectedIndex = 0;
+	self.tabBarController.selectedIndex = DEFAULT_TAB;
 
 	self.window.rootViewController = self.tabBarController;
 	[self.window makeKeyAndVisible];
