@@ -49,6 +49,11 @@
 	{
 		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_profile"]];
 		self.tabBarItem.title = @"Profile";
+
+		[[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(actionCleanup)
+                                                     name:NOTIFICATION_USER_LOGGED_OUT
+                                                   object:nil];
 	}
 	return self;
 }
@@ -136,6 +141,16 @@
 	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
 											   otherButtonTitles:@"Log out", nil];
 	[action showFromTabBar:[[self tabBarController] tabBar]];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionCleanup
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[imageUser setImage:nil];
+	[fieldName setText:nil];
+
+	[self.tableView reloadData];
 }
 
 #pragma mark - UIActionSheetDelegate
