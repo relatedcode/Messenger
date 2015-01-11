@@ -45,7 +45,11 @@ NSString* TimeElapsed(NSTimeInterval seconds)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	NSString *elapsed;
-	if (seconds < 60 * 60)
+	if (seconds < 60)
+	{
+		elapsed = @"Just now";
+	}
+	else if (seconds < 60 * 60)
 	{
 		int minutes = (int) (seconds / 60);
 		elapsed = [NSString stringWithFormat:@"%d %@", minutes, (minutes > 1) ? @"mins" : @"min"];

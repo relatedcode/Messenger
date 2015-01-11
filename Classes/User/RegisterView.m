@@ -45,8 +45,6 @@
 	self.title = @"Register";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.separatorInset = UIEdgeInsetsZero;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,32 +70,31 @@
 {
 	NSString *name		= fieldName.text;
 	NSString *password	= fieldPassword.text;
-	NSString *email		= fieldEmail.text;
+	NSString *email		= [fieldEmail.text lowercaseString];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if ([name length] == 0)		{ [ProgressHUD showError:@"Name must be set."]; return; }
+	if ([password length] == 0)	{ [ProgressHUD showError:@"Password must be set."]; return; }
+	if ([email length] == 0)	{ [ProgressHUD showError:@"Email must be set."]; return; }
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[ProgressHUD show:@"Please wait..." Interaction:NO];
 
-	if ((name.length != 0) && (password.length != 0) && (email.length != 0))
+	PFUser *user = [PFUser user];
+	user.username = email;
+	user.password = password;
+	user.email = email;
+	user[PF_USER_EMAILCOPY] = email;
+	user[PF_USER_FULLNAME] = name;
+	user[PF_USER_FULLNAME_LOWER] = [name lowercaseString];
+	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
-		[ProgressHUD show:@"Please wait..." Interaction:NO];
-
-		PFUser *user = [PFUser user];
-		user.username = email;
-		user.password = password;
-		user.email = email;
-		user[PF_USER_EMAILCOPY] = email;
-		user[PF_USER_FULLNAME] = name;
-		user[PF_USER_FULLNAME_LOWER] = [name lowercaseString];
-
-		[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+		if (error == nil)
 		{
-			if (error == nil)
-			{
-				ParsePushUserAssign();
-				[ProgressHUD showSuccess:@"Succeed."];
-				[self dismissViewControllerAnimated:YES completion:nil];
-			}
-			else [ProgressHUD showError:error.userInfo[@"error"]];
-		}];
-	}
-	else [ProgressHUD showError:@"Please fill all values!"];
+			ParsePushUserAssign();
+			[ProgressHUD showSuccess:@"Succeed."];
+			[self dismissViewControllerAnimated:YES completion:nil];
+		}
+		else [ProgressHUD showError:error.userInfo[@"error"]];
+	}];
 }
 
 #pragma mark - Table view data source

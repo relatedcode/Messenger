@@ -44,6 +44,8 @@
 	{
 		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_private"]];
 		self.tabBarItem.title = @"Private";
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
 	}
 	return self;
 }
@@ -56,11 +58,8 @@
 	self.title = @"Private";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.tableHeaderView = viewHeader;
-	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	users = [[NSMutableArray alloc] init];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,16 +82,6 @@
 	[super viewWillDisappear:animated];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self searchBarCancelled];
-}
-
-#pragma mark - User actions
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionCleanup
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[users removeAllObjects];
-	[self.tableView reloadData];
 }
 
 #pragma mark - Backend methods
@@ -136,6 +125,16 @@
 		}
 		else [ProgressHUD showError:@"Network error."];
 	}];
+}
+
+#pragma mark - User actions
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionCleanup
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[users removeAllObjects];
+	[self.tableView reloadData];
 }
 
 #pragma mark - Table view data source

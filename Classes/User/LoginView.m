@@ -43,8 +43,6 @@
 	self.title = @"Login";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.separatorInset = UIEdgeInsetsZero;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,24 +66,23 @@
 - (IBAction)actionLogin:(id)sender
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSString *username = fieldEmail.text;
+	NSString *email = [fieldEmail.text lowercaseString];
 	NSString *password = fieldPassword.text;
-
-	if ((username.length != 0) && (password.length != 0))
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if ([email length] == 0)	{ [ProgressHUD showError:@"Email must be set."]; return; }
+	if ([password length] == 0)	{ [ProgressHUD showError:@"Password must be set."]; return; }
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[ProgressHUD show:@"Signing in..." Interaction:NO];
+	[PFUser logInWithUsernameInBackground:email password:password block:^(PFUser *user, NSError *error)
 	{
-		[ProgressHUD show:@"Signing in..." Interaction:NO];
-		[PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
+		if (user != nil)
 		{
-			if (user != nil)
-			{
-				ParsePushUserAssign();
-				[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", user[PF_USER_FULLNAME]]];
-				[self dismissViewControllerAnimated:YES completion:nil];
-			}
-			else [ProgressHUD showError:error.userInfo[@"error"]];
-		}];
-	}
-	else [ProgressHUD showError:@"Please enter both username and password."];
+			ParsePushUserAssign();
+			[ProgressHUD showSuccess:[NSString stringWithFormat:@"Welcome back %@!", user[PF_USER_FULLNAME]]];
+			[self dismissViewControllerAnimated:YES completion:nil];
+		}
+		else [ProgressHUD showError:error.userInfo[@"error"]];
+	}];
 }
 
 #pragma mark - Table view data source

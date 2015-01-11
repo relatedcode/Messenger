@@ -31,10 +31,10 @@
 	NSMutableArray *messages;
 	NSMutableDictionary *avatars;
 
-	JSQMessagesBubbleImage *outgoingBubbleImageData;
-	JSQMessagesBubbleImage *incomingBubbleImageData;
-	
-	JSQMessagesAvatarImage *placeholderImageData;
+	JSQMessagesBubbleImage *bubbleImageOutgoing;
+	JSQMessagesBubbleImage *bubbleImageIncoming;
+
+	JSQMessagesAvatarImage *avatarImageBlank;
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,10 +66,10 @@
 	self.senderDisplayName = user[PF_USER_FULLNAME];
 
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
-	outgoingBubbleImageData = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-	incomingBubbleImageData = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
+	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
+	bubbleImageIncoming = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
 
-	placeholderImageData = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"chat_blank"] diameter:30.0];
+	avatarImageBlank = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"chat_blank"] diameter:30.0];
 
 	isLoading = NO;
 	[self loadMessages];
@@ -82,8 +82,8 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidAppear:animated];
-	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
+	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,8 +145,8 @@
 	{
 		JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
 		mediaItem.appliesMediaViewMaskAsOutgoing = [user.objectId isEqualToString:self.senderId];
-		JSQMessage *message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME]
-																		date:object.createdAt media:mediaItem];
+		JSQMessage *message =
+			[[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:user[PF_USER_FULLNAME] date:object.createdAt media:mediaItem];
 		[messages addObject:message];
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		PFFile *filePicture = object[PF_CHAT_PICTURE];
@@ -172,7 +172,7 @@
 		filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(picture, 0.6)];
 		[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
-			if (error != nil) NSLog(@"sendMessage picture save error.");
+			if (error != nil) [ProgressHUD showError:@"Picture save error."];
 		}];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -231,9 +231,9 @@
 	JSQMessage *message = messages[indexPath.item];
 	if ([message.senderId isEqualToString:self.senderId])
 	{
-		return outgoingBubbleImageData;
+		return bubbleImageOutgoing;
 	}
-	return incomingBubbleImageData;
+	return bubbleImageIncoming;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -253,7 +253,7 @@
 				[self.collectionView reloadData];
 			}
 		}];
-		return placeholderImageData;
+		return avatarImageBlank;
 	}
 	else return avatars[user.objectId];
 }
@@ -336,7 +336,7 @@
 	{
 		return kJSQMessagesCollectionViewCellLabelHeightDefault;
 	}
-	return 0.0f;
+	return 0;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -347,7 +347,7 @@
 	JSQMessage *message = messages[indexPath.item];
 	if ([message.senderId isEqualToString:self.senderId])
 	{
-		return 0.0f;
+		return 0;
 	}
 	
 	if (indexPath.item - 1 > 0)
@@ -355,7 +355,7 @@
 		JSQMessage *previousMessage = messages[indexPath.item-1];
 		if ([previousMessage.senderId isEqualToString:message.senderId])
 		{
-			return 0.0f;
+			return 0;
 		}
 	}
 	return kJSQMessagesCollectionViewCellLabelHeightDefault;
@@ -366,7 +366,7 @@
 				   layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return 0.0f;
+	return 0;
 }
 
 #pragma mark - Responding to collection view tap events

@@ -52,7 +52,7 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self
 																			 action:@selector(actionNew)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.tableView.separatorInset = UIEdgeInsetsZero;
+	self.tableView.tableFooterView = [[UIView alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	chatrooms = [[NSMutableArray alloc] init];
 }
@@ -65,9 +65,28 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
 	{
-		[self refreshTable];
+		[self loadChatRooms];
 	}
 	else LoginUser(self);
+}
+
+#pragma mark - Backend actions
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)loadChatRooms
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	{
+		if (error == nil)
+		{
+			[chatrooms removeAllObjects];
+			[chatrooms addObjectsFromArray:objects];
+			[self.tableView reloadData];
+		}
+		else [ProgressHUD showError:@"Network error."];
+	}];
 }
 
 #pragma mark - User actions
@@ -99,34 +118,12 @@
 			{
 				if (error == nil)
 				{
-					[self refreshTable];
+					[self loadChatRooms];
 				}
 				else [ProgressHUD showError:@"Network error."];
 			}];
 		}
 	}
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)refreshTable
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[ProgressHUD show:nil];
-	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-	{
-		if (error == nil)
-		{
-			[chatrooms removeAllObjects];
-			for (PFObject *object in objects)
-			{
-				[chatrooms addObject:object];
-			}
-			[ProgressHUD dismiss];
-			[self.tableView reloadData];
-		}
-		else [ProgressHUD showError:@"Network error."];
-	}];
 }
 
 #pragma mark - Table view data source

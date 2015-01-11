@@ -66,7 +66,6 @@
 	[self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)]];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.tableHeaderView = viewHeader;
-	self.tableView.separatorInset = UIEdgeInsetsZero;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	imageUser.layer.cornerRadius = imageUser.frame.size.width / 2;
 	imageUser.layer.masksToBounds = YES;
@@ -80,7 +79,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
 	{
-		[self profileLoad];
+		[self loadUser];
 	}
 	else LoginUser(self);
 }
@@ -92,8 +91,10 @@
 	[self.view endEditing:YES];
 }
 
+#pragma mark - Backend actions
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)profileLoad
+- (void)loadUser
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFUser *user = [PFUser currentUser];
@@ -102,6 +103,28 @@
 	[imageUser loadInBackground];
 
 	fieldName.text = user[PF_USER_FULLNAME];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)saveUser
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	NSString *fullname = fieldName.text;
+	if ([fullname length] != 0)
+	{
+		PFUser *user = [PFUser currentUser];
+		user[PF_USER_FULLNAME] = fullname;
+		user[PF_USER_FULLNAME_LOWER] = [fullname lowercaseString];
+		[user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+		{
+			if (error == nil)
+			{
+				[ProgressHUD showSuccess:@"Saved."];
+			}
+			else [ProgressHUD showError:@"Network error."];
+		}];
+	}
+	else [ProgressHUD showError:@"Name field must be set."];
 }
 
 #pragma mark - User actions
@@ -146,25 +169,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self dismissKeyboard];
-
-	if ([fieldName.text length] != 0)
-	{
-		[ProgressHUD show:@"Please wait..."];
-
-		PFUser *user = [PFUser currentUser];
-		user[PF_USER_FULLNAME] = fieldName.text;
-		user[PF_USER_FULLNAME_LOWER] = [fieldName.text lowercaseString];
-
-		[user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-		{
-			if (error == nil)
-			{
-				[ProgressHUD showSuccess:@"Saved."];
-			}
-			else [ProgressHUD showError:@"Network error."];
-		}];
-	}
-	else [ProgressHUD showError:@"Name field must be set."];
+	[self saveUser];
 }
 
 #pragma mark - UIImagePickerControllerDelegate
