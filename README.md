@@ -14,9 +14,9 @@ The app is using Parse as backend which is basically free. (Free plan: 20 GB Fil
 
 Really easy to setup, just copy/paste the code and use your own chatrooms.
 
-## WHAT'S NEW IN 3.5
+## WHAT'S NEW IN 3.8
 
-- Address Book access + invite function
+- Video media support
 
 ## FEATURES
 
@@ -24,6 +24,8 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - Group and Private chat functionality
 - Push Notification support
 - Picture media support
+- Video media support
+- Address Book access + invite function
 - Messages view for ongoing chats
 - Multiple chatrooms
 - Dynamically add new chatrooms
