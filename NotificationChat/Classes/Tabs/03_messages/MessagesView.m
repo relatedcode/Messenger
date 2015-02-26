@@ -89,26 +89,23 @@
 - (void)loadMessages
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if ([PFUser currentUser] != nil)
+	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
+	[query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
+	[query includeKey:PF_MESSAGES_LASTUSER];
+	[query orderByDescending:PF_MESSAGES_UPDATEDACTION];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
-		PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
-		[query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
-		[query includeKey:PF_MESSAGES_LASTUSER];
-		[query orderByDescending:PF_MESSAGES_UPDATEDACTION];
-		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+		if (error == nil)
 		{
-			if (error == nil)
-			{
-				[messages removeAllObjects];
-				[messages addObjectsFromArray:objects];
-				[tableMessages reloadData];
-				[self updateEmptyView];
-				[self updateTabCounter];
-			}
-			else [ProgressHUD showError:@"Network error."];
-			[refreshControl endRefreshing];
-		}];
-	}
+			[messages removeAllObjects];
+			[messages addObjectsFromArray:objects];
+			[tableMessages reloadData];
+			[self updateEmptyView];
+			[self updateTabCounter];
+		}
+		else [ProgressHUD showError:@"Network error."];
+		[refreshControl endRefreshing];
+	}];
 }
 
 #pragma mark - Helper methods

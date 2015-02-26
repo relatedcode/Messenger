@@ -125,16 +125,19 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	//NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+	NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self performSelector:@selector(refreshMessagesView) withObject:nil afterDelay:4.0];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	//[PFPush handlePush:userInfo];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if ([PFUser currentUser] != nil)
+	{
+		[self performSelector:@selector(refreshMessagesView) withObject:nil afterDelay:4.0];
+	}
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

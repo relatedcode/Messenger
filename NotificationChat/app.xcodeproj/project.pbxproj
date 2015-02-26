@@ -70,6 +70,7 @@
 		292D2F321A84507E00CEC270 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 292D2F211A84507E00CEC270 /* UIWebView+AFNetworking.m */; };
 		292ED7F81A62FCD3006BCF02 /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 292ED7F61A62FCD3006BCF02 /* SearchView.m */; };
 		292ED7F91A62FCD3006BCF02 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 292ED7F71A62FCD3006BCF02 /* SearchView.xib */; };
+		29627EAB1A9F54A70081918B /* images.m in Sources */ = {isa = PBXBuildFile; fileRef = 29627EAA1A9F54A70081918B /* images.m */; };
 		296DD5E81A1F557900AB9F8C /* ProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 296DD5E51A1F557900AB9F8C /* ProgressHUD.bundle */; };
 		296DD5E91A1F557900AB9F8C /* ProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 296DD5E71A1F557900AB9F8C /* ProgressHUD.m */; };
 		2999F3A51A3C3E9B00147194 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2999F37B1A3C3E9B00147194 /* NavigationController.m */; };
@@ -263,6 +264,8 @@
 		292ED7F51A62FCD3006BCF02 /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		292ED7F61A62FCD3006BCF02 /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		292ED7F71A62FCD3006BCF02 /* SearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
+		29627EA91A9F54A70081918B /* images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = images.h; sourceTree = "<group>"; };
+		29627EAA1A9F54A70081918B /* images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = images.m; sourceTree = "<group>"; };
 		296DD5E51A1F557900AB9F8C /* ProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ProgressHUD.bundle; sourceTree = "<group>"; };
 		296DD5E61A1F557900AB9F8C /* ProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressHUD.h; sourceTree = "<group>"; };
 		296DD5E71A1F557900AB9F8C /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
@@ -721,6 +724,8 @@
 			children = (
 				2999F39D1A3C3E9B00147194 /* camera.h */,
 				2999F39E1A3C3E9B00147194 /* camera.m */,
+				29627EA91A9F54A70081918B /* images.h */,
+				29627EAA1A9F54A70081918B /* images.m */,
 				2999F39F1A3C3E9B00147194 /* messages.h */,
 				2999F3A01A3C3E9B00147194 /* messages.m */,
 				2999F3A11A3C3E9B00147194 /* pushnotification.h */,
@@ -941,6 +946,7 @@
 				292D2F291A84507E00CEC270 /* AFURLResponseSerialization.m in Sources */,
 				292D2F2E1A84507E00CEC270 /* UIButton+AFNetworking.m in Sources */,
 				292D2F261A84507E00CEC270 /* AFSecurityPolicy.m in Sources */,
+				29627EAB1A9F54A70081918B /* images.m in Sources */,
 				292D2ED81A84491D00CEC270 /* JSQMessagesMediaViewBubbleImageMasker.m in Sources */,
 				2999F3AA1A3C3E9B00147194 /* MessagesCell.m in Sources */,
 				292D2EE71A84491D00CEC270 /* JSQMessagesCollectionViewCell.m in Sources */,

@@ -15,8 +15,8 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
+#import "images.h"
 #import "pushnotification.h"
-#import "utilities.h"
 
 #import "WelcomeView.h"
 #import "LoginView.h"
@@ -108,7 +108,7 @@
 	{
 		UIImage *image = (UIImage *)responseObject;
 		//-----------------------------------------------------------------------------------------------------------------------------------------
-		if (image.size.width > 140) image = ResizeImage(image, 140, 140);
+		if (image.size.width > 280) image = ResizeImage(image, 280, 280);
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
 		[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -116,7 +116,7 @@
 			if (error != nil) [ProgressHUD showError:error.userInfo[@"error"]];
 		}];
 		//-----------------------------------------------------------------------------------------------------------------------------------------
-		if (image.size.width > 30) image = ResizeImage(image, 30, 30);
+		if (image.size.width > 60) image = ResizeImage(image, 60, 60);
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
 		[fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
