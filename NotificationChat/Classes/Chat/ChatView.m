@@ -26,6 +26,7 @@
 {
 	NSTimer *timer;
 	BOOL isLoading;
+	BOOL isActive;
 
 	NSString *roomId;
 
@@ -82,6 +83,8 @@
 - (void)viewDidAppear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	isActive = YES;
+	
 	[super viewDidAppear:animated];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
@@ -91,6 +94,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	isActive = NO;
+
 	[super viewWillDisappear:animated];
 	[timer invalidate];
 }
@@ -175,8 +180,20 @@
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[users addObject:user];
-	[messages addObject:message];
+    [messages addObject:message];
+    
+    if (isActive == YES)
+    {
+        if ([message.senderId isEqualToString:self.senderId])
+        {
+            [JSQSystemSoundPlayer jsq_playMessageSentSound];
+        } else
+        {
+            [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
+        }
+    }
 }
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture
