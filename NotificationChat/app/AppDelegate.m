@@ -91,6 +91,10 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        currentInstallation.badge = 0;
+        [currentInstallation saveInBackground];
 	[FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
 
