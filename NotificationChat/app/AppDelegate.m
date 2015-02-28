@@ -132,12 +132,20 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	//[PFPush handlePush:userInfo];
+    if ([PFUser currentUser] != nil)
+        	{
+            		[self performSelector:@selector(refreshMessagesView) withObject:nil afterDelay:4.0];
+            }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] != nil)
-	{
-		[self performSelector:@selector(refreshMessagesView) withObject:nil afterDelay:4.0];
-	}
+    if([application applicationState] == UIApplicationStateInactive)
+            {
+        [PFPush handlePush:userInfo];
+            } else {
+                [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                currentInstallation.badge = 0;
+                [currentInstallation saveInBackground];
+            }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
