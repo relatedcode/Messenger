@@ -186,27 +186,22 @@
 {
 	UIImage *image = info[UIImagePickerControllerEditedImage];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (image.size.width > 280) image = ResizeImage(image, 280, 280);
+	UIImage *picture = ResizeImage(image, 280, 280);
+	UIImage *thumbnail = ResizeImage(image, 60, 60);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+	imageUser.image = picture;
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(picture, 0.6)];
 	[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
 		if (error != nil) [ProgressHUD showError:@"Network error."];
 	}];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	imageUser.image = image;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if (image.size.width > 60) image = ResizeImage(image, 60, 60);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+	PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(thumbnail, 0.6)];
 	[fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
 		if (error != nil) [ProgressHUD showError:@"Network error."];
 	}];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFUser *user = [PFUser currentUser];
 	user[PF_USER_PICTURE] = filePicture;

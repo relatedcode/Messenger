@@ -9,8 +9,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <UIKit/UIKit.h>
+
+#import "SelectSingleView.h"
+#import "SelectMultipleView.h"
+#import "AddressBookView.h"
+#import "FacebookFriendsView.h"
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface SearchView : UITableViewController <UISearchBarDelegate>
+@interface MessagesView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, SelectSingleDelegate, SelectMultipleDelegate, AddressBookDelegate, FacebookFriendsDelegate>
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+- (void)loadMessages;
 
 @end

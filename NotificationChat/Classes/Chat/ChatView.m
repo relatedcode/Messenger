@@ -27,7 +27,7 @@
 	NSTimer *timer;
 	BOOL isLoading;
 
-	NSString *roomId;
+	NSString *groupId;
 
 	NSMutableArray *users;
 	NSMutableArray *messages;
@@ -43,11 +43,11 @@
 @implementation ChatView
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (id)initWith:(NSString *)roomId_
+- (id)initWith:(NSString *)groupId_
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	self = [super init];
-	roomId = roomId_;
+	groupId = groupId_;
 	return self;
 }
 
@@ -75,7 +75,7 @@
 	isLoading = NO;
 	[self loadMessages];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	ClearMessageCounter(roomId);
+	ClearMessageCounter(groupId);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,7 +107,7 @@
 		JSQMessage *message_last = [messages lastObject];
 
 		PFQuery *query = [PFQuery queryWithClassName:PF_CHAT_CLASS_NAME];
-		[query whereKey:PF_CHAT_ROOMID equalTo:roomId];
+		[query whereKey:PF_CHAT_GROUPID equalTo:groupId];
 		if (message_last != nil) [query whereKey:PF_CHAT_CREATEDAT greaterThan:message_last.date];
 		[query includeKey:PF_CHAT_USER];
 		[query orderByDescending:PF_CHAT_CREATEDAT];
@@ -188,7 +188,7 @@
 	if (video != nil)
 	{
 		text = @"[Video message]";
-		fileVideo = [PFFile fileWithName:@"video.mov" data:[[NSFileManager defaultManager] contentsAtPath:video.path]];
+		fileVideo = [PFFile fileWithName:@"video.mp4" data:[[NSFileManager defaultManager] contentsAtPath:video.path]];
 		[fileVideo saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
 			if (error != nil) [ProgressHUD showError:@"Network error."];
@@ -207,7 +207,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
 	object[PF_CHAT_USER] = [PFUser currentUser];
-	object[PF_CHAT_ROOMID] = roomId;
+	object[PF_CHAT_GROUPID] = groupId;
 	object[PF_CHAT_TEXT] = text;
 	if (fileVideo != nil) object[PF_CHAT_VIDEO] = fileVideo;
 	if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
@@ -221,8 +221,8 @@
 		else [ProgressHUD showError:@"Network error."];;
 	}];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	SendPushNotification(roomId, text);
-	UpdateMessageCounter(roomId, text);
+	SendPushNotification(groupId, text);
+	UpdateMessageCounter(groupId, text);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self finishSendingMessage];
 }

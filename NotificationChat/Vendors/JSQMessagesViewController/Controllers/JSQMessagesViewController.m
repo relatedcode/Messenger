@@ -105,13 +105,13 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 + (UINib *)nib
 {
     return [UINib nibWithNibName:NSStringFromClass([JSQMessagesViewController class])
-                          bundle:[NSBundle bundleForClass:[self class]]];
+                          bundle:[NSBundle bundleForClass:[JSQMessagesViewController class]]];
 }
 
 + (instancetype)messagesViewController
 {
     return [[[self class] alloc] initWithNibName:NSStringFromClass([JSQMessagesViewController class])
-                                          bundle:[NSBundle bundleForClass:[self class]]];
+                                          bundle:[NSBundle bundleForClass:[JSQMessagesViewController class]]];
 }
 
 #pragma mark - Initialization
@@ -122,7 +122,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     self.jsq_isObserving = NO;
     
-    self.toolbarHeightConstraint.constant = kJSQMessagesInputToolbarHeightDefault;
+    self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -130,10 +130,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     self.inputToolbar.delegate = self;
     self.inputToolbar.contentView.textView.placeHolder = NSLocalizedStringFromTable(@"New Message", @"JSQMessages", @"Placeholder text for the message input text view");
     self.inputToolbar.contentView.textView.delegate = self;
-    
-    self.senderId = @"JSQDefaultSender";
-    self.senderDisplayName = @"JSQDefaultSender";
-    
+
     self.automaticallyScrollsToMostRecentMessage = YES;
     
     self.outgoingCellIdentifier = [JSQMessagesCollectionViewCellOutgoing cellReuseIdentifier];
@@ -223,6 +220,9 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    NSParameterAssert(self.senderId != nil);
+    NSParameterAssert(self.senderDisplayName != nil);
+    
     [super viewWillAppear:animated];
     [self.view layoutIfNeeded];
     [self.collectionView.collectionViewLayout invalidateLayout];
@@ -369,7 +369,7 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     }
     
     CGFloat collectionViewContentHeight = [self.collectionView.collectionViewLayout collectionViewContentSize].height;
-    BOOL isContentTooSmall = (collectionViewContentHeight < self.collectionView.bounds.size.height);
+    BOOL isContentTooSmall = (collectionViewContentHeight < CGRectGetHeight(self.collectionView.bounds));
     
     if (isContentTooSmall) {
         //  workaround for the first few messages not scrolling
@@ -467,8 +467,16 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     
     if (!isMediaMessage) {
         cell.textView.text = [messageItem text];
+
+        if ([UIDevice jsq_isCurrentDeviceBeforeiOS8]) {
+            //  workaround for iOS 7 textView data detectors bug
+            cell.textView.text = nil;
+            cell.textView.attributedText = [[NSAttributedString alloc] initWithString:[messageItem text]
+                                                                           attributes:@{ NSFontAttributeName : collectionView.collectionViewLayout.messageBubbleFont }];
+        }
+
         NSParameterAssert(cell.textView.text != nil);
-        
+
         id<JSQMessageBubbleImageDataSource> bubbleImageDataSource = [collectionView.dataSource collectionView:collectionView messageBubbleImageDataForItemAtIndexPath:indexPath];
         if (bubbleImageDataSource != nil) {
             cell.messageBubbleImageView.image = [bubbleImageDataSource messageBubbleImage];
@@ -669,9 +677,10 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 
 - (NSString *)jsq_currentlyComposedMessageText
 {
-    //  add a space to accept any auto-correct suggestions
-    NSString *text = self.inputToolbar.contentView.textView.text;
-    self.inputToolbar.contentView.textView.text = [text stringByAppendingString:@" "];
+    //  auto-accept any auto-correct suggestions
+    [self.inputToolbar.contentView.textView.inputDelegate selectionWillChange:self.inputToolbar.contentView.textView];
+    [self.inputToolbar.contentView.textView.inputDelegate selectionDidChange:self.inputToolbar.contentView.textView];
+    
     return [self.inputToolbar.contentView.textView.text jsq_stringByTrimingWhitespace];
 }
 
@@ -793,16 +802,6 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
     [self jsq_setToolbarBottomLayoutGuideConstant:heightFromBottom];
 }
 
-- (void)keyboardControllerKeyboardDidHide:(JSQMessagesKeyboardController *)keyboardController
-{
-    if (![self.inputToolbar.contentView.textView isFirstResponder]) {
-        return;
-    }
-    
-    [self jsq_setToolbarBottomLayoutGuideConstant:0.0f];
-    [self.inputToolbar.contentView.textView resignFirstResponder];
-}
-
 - (void)jsq_setToolbarBottomLayoutGuideConstant:(CGFloat)constant
 {
     self.toolbarBottomLayoutGuide.constant = constant;
@@ -901,8 +900,8 @@ static void * kJSQMessagesKeyValueObservingContext = &kJSQMessagesKeyValueObserv
 {
     self.toolbarHeightConstraint.constant += dy;
     
-    if (self.toolbarHeightConstraint.constant < kJSQMessagesInputToolbarHeightDefault) {
-        self.toolbarHeightConstraint.constant = kJSQMessagesInputToolbarHeightDefault;
+    if (self.toolbarHeightConstraint.constant < self.inputToolbar.preferredDefaultHeight) {
+        self.toolbarHeightConstraint.constant = self.inputToolbar.preferredDefaultHeight;
     }
     
     [self.view setNeedsUpdateConstraints];

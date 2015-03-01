@@ -9,12 +9,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import <MessageUI/MFMessageComposeViewController.h>
+#import <Parse/Parse.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface PrivateView : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
+@protocol AddressBookDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+- (void)didSelectAddressBookUser:(PFUser *)user;
+
+@end
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+@interface AddressBookView : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate>
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+@property (nonatomic, assign) IBOutlet id<AddressBookDelegate>delegate;
 
 @end

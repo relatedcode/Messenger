@@ -9,10 +9,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface MessagesView : UIViewController <UITableViewDataSource, UITableViewDelegate>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+#import <UIKit/UIKit.h>
 
-- (void)loadMessages;
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+@interface ProfileView : UITableViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate>
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @end

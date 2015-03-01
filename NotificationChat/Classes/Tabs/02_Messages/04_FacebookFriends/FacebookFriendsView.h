@@ -9,10 +9,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface RegisterView : UITableViewController <UITextFieldDelegate>
+@protocol FacebookFriendsDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+- (void)didSelectFacebookUser:(PFUser *)user;
+
+@end
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+@interface FacebookFriendsView : UITableViewController <UISearchBarDelegate>
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+@property (nonatomic, assign) IBOutlet id<FacebookFriendsDelegate>delegate;
 
 @end

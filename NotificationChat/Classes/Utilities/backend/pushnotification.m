@@ -46,11 +46,11 @@ void ParsePushUserResign(void)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void SendPushNotification(NSString *roomId, NSString *text)
+void SendPushNotification(NSString *groupId, NSString *text)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
-	[query whereKey:PF_MESSAGES_ROOMID equalTo:roomId];
+	[query whereKey:PF_MESSAGES_GROUPID equalTo:groupId];
 	[query whereKey:PF_MESSAGES_USER notEqualTo:[PFUser currentUser]];
 	[query includeKey:PF_MESSAGES_USER];
 	[query setLimit:1000];

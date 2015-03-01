@@ -9,8 +9,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Parse/Parse.h>
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface ProfileView : UITableViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@protocol SelectSingleDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+- (void)didSelectSingleUser:(PFUser *)user;
+
+@end
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+@interface SelectSingleView : UITableViewController <UISearchBarDelegate>
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+@property (nonatomic, assign) IBOutlet id<SelectSingleDelegate>delegate;
 
 @end

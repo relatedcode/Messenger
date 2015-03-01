@@ -4,11 +4,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchView">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddressBookView">
             <connections>
-                <outlet property="searchBar" destination="wIE-rZ-IuR" id="yRk-9a-ht3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="viewHeader" destination="2gc-3b-G0b" id="8Ec-Hp-g9C"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -21,27 +19,6 @@
                 <outlet property="delegate" destination="-1" id="9aC-8N-iBw"/>
             </connections>
         </tableView>
-        <view contentMode="scaleToFill" id="2gc-3b-G0b">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="wIE-rZ-IuR">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="8kO-qe-6Fg"/>
-                    </connections>
-                </searchBar>
-            </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-            <constraints>
-                <constraint firstItem="wIE-rZ-IuR" firstAttribute="leading" secondItem="2gc-3b-G0b" secondAttribute="leading" id="B3Y-CC-HCf"/>
-                <constraint firstAttribute="trailing" secondItem="wIE-rZ-IuR" secondAttribute="trailing" id="JBO-te-1kB"/>
-                <constraint firstItem="wIE-rZ-IuR" firstAttribute="top" secondItem="2gc-3b-G0b" secondAttribute="top" id="OxB-yX-Gf7"/>
-            </constraints>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-        </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

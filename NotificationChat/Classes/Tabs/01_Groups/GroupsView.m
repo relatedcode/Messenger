@@ -16,18 +16,18 @@
 #import "messages.h"
 #import "utilities.h"
 
-#import "GroupView.h"
+#import "GroupsView.h"
 #import "ChatView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface GroupView()
+@interface GroupsView()
 {
-	NSMutableArray *chatrooms;
+	NSMutableArray *groups;
 }
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-@implementation GroupView
+@implementation GroupsView
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,8 +36,8 @@
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self)
 	{
-		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_group"]];
-		self.tabBarItem.title = @"Group";
+		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_groups"]];
+		self.tabBarItem.title = @"Groups";
 	}
 	return self;
 }
@@ -47,14 +47,14 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Group";
+	self.title = @"Groups";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self
 																			 action:@selector(actionNew)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.tableFooterView = [[UIView alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	chatrooms = [[NSMutableArray alloc] init];
+	groups = [[NSMutableArray alloc] init];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +65,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
 	{
-		[self loadChatRooms];
+		[self loadGroups];
 	}
 	else LoginUser(self);
 }
@@ -73,16 +73,16 @@
 #pragma mark - Backend actions
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)loadChatRooms
+- (void)loadGroups
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	PFQuery *query = [PFQuery queryWithClassName:PF_CHATROOMS_CLASS_NAME];
+	PFQuery *query = [PFQuery queryWithClassName:PF_GROUPS_CLASS_NAME];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
 		{
-			[chatrooms removeAllObjects];
-			[chatrooms addObjectsFromArray:objects];
+			[groups removeAllObjects];
+			[groups addObjectsFromArray:objects];
 			[self.tableView reloadData];
 		}
 		else [ProgressHUD showError:@"Network error."];
@@ -112,13 +112,13 @@
 		UITextField *textField = [alertView textFieldAtIndex:0];
 		if ([textField.text length] != 0)
 		{
-			PFObject *object = [PFObject objectWithClassName:PF_CHATROOMS_CLASS_NAME];
-			object[PF_CHATROOMS_NAME] = textField.text;
+			PFObject *object = [PFObject objectWithClassName:PF_GROUPS_CLASS_NAME];
+			object[PF_GROUPS_NAME] = textField.text;
 			[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 			{
 				if (error == nil)
 				{
-					[self loadChatRooms];
+					[self loadGroups];
 				}
 				else [ProgressHUD showError:@"Network error."];
 			}];
@@ -139,7 +139,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return [chatrooms count];
+	return [groups count];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,13 +156,13 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
 
-	PFObject *chatroom = chatrooms[indexPath.row];
-	cell.textLabel.text = chatroom[PF_CHATROOMS_NAME];
+	PFObject *group = groups[indexPath.row];
+	cell.textLabel.text = group[PF_GROUPS_NAME];
 	if (cell.detailTextLabel.text == nil) cell.detailTextLabel.text = @" ";
 	cell.detailTextLabel.textColor = [UIColor lightGrayColor];
 
 	PFQuery *query = [PFQuery queryWithClassName:PF_CHAT_CLASS_NAME];
-	[query whereKey:PF_CHAT_ROOMID equalTo:chatroom.objectId];
+	[query whereKey:PF_CHAT_GROUPID equalTo:group.objectId];
 	[query orderByDescending:PF_CHAT_CREATEDAT];
 	[query setLimit:1000];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
@@ -187,12 +187,12 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFObject *chatroom = chatrooms[indexPath.row];
-	NSString *roomId = chatroom.objectId;
+	PFObject *group = groups[indexPath.row];
+	NSString *groupId = group.objectId;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CreateMessageItem([PFUser currentUser], roomId, chatroom[PF_CHATROOMS_NAME]);
+	CreateMessageItem([PFUser currentUser], groupId, group[PF_GROUPS_NAME]);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	ChatView *chatView = [[ChatView alloc] initWith:roomId];
+	ChatView *chatView = [[ChatView alloc] initWith:groupId];
 	chatView.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:chatView animated:YES];
 }

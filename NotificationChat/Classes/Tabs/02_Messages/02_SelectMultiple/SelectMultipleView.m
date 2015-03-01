@@ -16,131 +16,94 @@
 #import "messages.h"
 #import "utilities.h"
 
-#import "MessagesView.h"
-#import "MessagesCell.h"
-#import "ChatView.h"
+#import "SelectMultipleView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface MessagesView()
+@interface SelectMultipleView()
 {
-	NSMutableArray *messages;
-	UIRefreshControl *refreshControl;
+	NSMutableArray *users;
+	NSMutableArray *selection;
 }
-
-@property (strong, nonatomic) IBOutlet UITableView *tableMessages;
-@property (strong, nonatomic) IBOutlet UIView *viewEmpty;
-
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-@implementation MessagesView
+@implementation SelectMultipleView
 
-@synthesize tableMessages, viewEmpty;
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	{
-		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_messages"]];
-		self.tabBarItem.title = @"Messages";
-		//-----------------------------------------------------------------------------------------------------------------------------------------
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
-	}
-	return self;
-}
+@synthesize delegate;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Messages";
+	self.title = @"Select Multiple";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[tableMessages registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
-	tableMessages.tableFooterView = [[UIView alloc] init];
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self
+																			action:@selector(actionCancel)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	refreshControl = [[UIRefreshControl alloc] init];
-	[refreshControl addTarget:self action:@selector(loadMessages) forControlEvents:UIControlEventValueChanged];
-	[tableMessages addSubview:refreshControl];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self
+																			 action:@selector(actionDone)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	messages = [[NSMutableArray alloc] init];
+	self.tableView.tableFooterView = [[UIView alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	viewEmpty.hidden = YES;
+	users = [[NSMutableArray alloc] init];
+	selection = [[NSMutableArray alloc] init];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[self loadUsers];
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewDidAppear:(BOOL)animated
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[super viewDidAppear:animated];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] != nil)
-	{
-		[self loadMessages];
-	}
-	else LoginUser(self);
-}
-
-#pragma mark - Backend methods
+#pragma mark - Backend actions
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)loadMessages
+- (void)loadUsers
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
-	[query whereKey:PF_MESSAGES_USER equalTo:[PFUser currentUser]];
-	[query includeKey:PF_MESSAGES_LASTUSER];
-	[query orderByDescending:PF_MESSAGES_UPDATEDACTION];
+	PFUser *user = [PFUser currentUser];
+
+	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
+	[query whereKey:PF_USER_OBJECTID notEqualTo:user.objectId];
+	[query orderByAscending:PF_USER_FULLNAME];
+	[query setLimit:1000];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
 		{
-			[messages removeAllObjects];
-			[messages addObjectsFromArray:objects];
-			[tableMessages reloadData];
-			[self updateEmptyView];
-			[self updateTabCounter];
+			[users removeAllObjects];
+			[users addObjectsFromArray:objects];
+			[self.tableView reloadData];
 		}
 		else [ProgressHUD showError:@"Network error."];
-		[refreshControl endRefreshing];
 	}];
-}
-
-#pragma mark - Helper methods
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)updateEmptyView
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	viewEmpty.hidden = ([messages count] != 0);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)updateTabCounter
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	int total = 0;
-	for (PFObject *message in messages)
-	{
-		total += [message[PF_MESSAGES_COUNTER] intValue];
-	}
-	UITabBarItem *item = self.tabBarController.tabBar.items[2];
-	item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
 }
 
 #pragma mark - User actions
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionCleanup
+- (void)actionCancel
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[messages removeAllObjects];
-	[tableMessages reloadData];
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionDone
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	if ([selection count] == 0) { [ProgressHUD showError:@"No recipient selected."]; return; }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	UITabBarItem *item = self.tabBarController.tabBar.items[2];
-	item.badgeValue = nil;
+	[self dismissViewControllerAnimated:YES completion:^{
+		if (delegate != nil)
+		{
+			NSMutableArray *selectedUsers = [[NSMutableArray alloc] init];
+			for (PFUser *user in users)
+			{
+				if ([selection containsObject:user.objectId])
+					[selectedUsers addObject:user];
+			}
+			[selectedUsers addObject:[PFUser currentUser]];
+			[delegate didSelectMultipleUsers:selectedUsers];
+		}
+	}];
 }
 
 #pragma mark - Table view data source
@@ -156,34 +119,23 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return [messages count];
+	return [users count];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	MessagesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MessagesCell" forIndexPath:indexPath];
-	[cell bindData:messages[indexPath.row]];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
+
+	PFUser *user = users[indexPath.row];
+	cell.textLabel.text = user[PF_USER_FULLNAME];
+
+	BOOL selected = [selection containsObject:user.objectId];
+	cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+
 	return cell;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	return YES;
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	DeleteMessageItem(messages[indexPath.row]);
-	[messages removeObjectAtIndex:indexPath.row];
-	[tableMessages deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	[self updateEmptyView];
-	[self updateTabCounter];
 }
 
 #pragma mark - Table view delegate
@@ -194,10 +146,11 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFObject *message = messages[indexPath.row];
-	ChatView *chatView = [[ChatView alloc] initWith:message[PF_MESSAGES_ROOMID]];
-	chatView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:chatView animated:YES];
+	PFUser *user = users[indexPath.row];
+	BOOL selected = [selection containsObject:user.objectId];
+	if (selected) [selection removeObject:user.objectId]; else [selection addObject:user.objectId];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[self.tableView reloadData];
 }
 
 @end

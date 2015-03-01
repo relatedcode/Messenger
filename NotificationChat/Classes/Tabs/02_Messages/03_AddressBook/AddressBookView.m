@@ -17,16 +17,11 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
-#import "messages.h"
-#import "utilities.h"
 
-#import "PrivateView.h"
-#import "ChatView.h"
-#import "SearchView.h"
-#import "NavigationController.h"
+#import "AddressBookView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface PrivateView()
+@interface AddressBookView()
 {
 	NSMutableArray *users1;
 	NSMutableArray *users2;
@@ -36,74 +31,30 @@
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-@implementation PrivateView
+@implementation AddressBookView
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self)
-	{
-		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_private"]];
-		self.tabBarItem.title = @"Private";
-		//-----------------------------------------------------------------------------------------------------------------------------------------
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
-	}
-	return self;
-}
+@synthesize delegate;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)viewDidLoad
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Private";
+	self.title = @"Address Book";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Search" style:UIBarButtonItemStylePlain target:self
-																			 action:@selector(actionSearch)];
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self
+																			action:@selector(actionCancel)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	users1 = [[NSMutableArray alloc] init];
 	users2 = [[NSMutableArray alloc] init];
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewDidAppear:(BOOL)animated
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[super viewDidAppear:animated];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ([PFUser currentUser] != nil)
+	ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, nil);
+	ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error)
 	{
-		ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, nil);
-		ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error)
-		{
-			dispatch_async(dispatch_get_main_queue(), ^{
-				if (granted) [self loadAddressBook];
-			});
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (granted) [self loadAddressBook];
 		});
-	}
-	else LoginUser(self);
-}
-
-#pragma mark - User actions
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionSearch
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	SearchView *searchView = [[SearchView alloc] init];
-	NavigationController *navController = [[NavigationController alloc] initWithRootViewController:searchView];
-	[self presentViewController:navController animated:YES completion:nil];
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionCleanup
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[users1 removeAllObjects];
-	[users2 removeAllObjects];
-	[self.tableView reloadData];
+	});
 }
 
 #pragma mark - Backend methods
@@ -216,6 +167,15 @@
 	}
 }
 
+#pragma mark - User actions
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionCancel
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Table view data source
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -279,13 +239,9 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (indexPath.section == 0)
 	{
-		PFUser *user1 = [PFUser currentUser];
-		PFUser *user2 = users2[indexPath.row];
-		NSString *roomId = StartPrivateChat(user1, user2);
-		//-----------------------------------------------------------------------------------------------------------------------------------------
-		ChatView *chatView = [[ChatView alloc] initWith:roomId];
-		chatView.hidesBottomBarWhenPushed = YES;
-		[self.navigationController pushViewController:chatView animated:YES];
+		[self dismissViewControllerAnimated:YES completion:^{
+			if (delegate != nil) [delegate didSelectAddressBookUser:users2[indexPath.row]];
+		}];
 	}
 	if (indexPath.section == 1)
 	{
@@ -304,7 +260,7 @@
 	{
 		UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel"
 											  destructiveButtonTitle:nil otherButtonTitles:@"Email invitation", @"SMS invitation", nil];
-		[action showFromTabBar:[[self tabBarController] tabBar]];
+		[action showInView:self.view];
 	}
 	else if (([user[@"emails"] count] != 0) && ([user[@"phones"] count] == 0))
 	{

@@ -13,7 +13,7 @@
 #define HEXCOLOR(c) [UIColor colorWithRed:((c>>24)&0xFF)/255.0 green:((c>>16)&0xFF)/255.0 blue:((c>>8)&0xFF)/255.0 alpha:((c)&0xFF)/255.0]
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-#define		DEFAULT_TAB							0
+#define		DEFAULT_TAB							1
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 #define		MESSAGE_INVITE						@"Check out NotificationChat. You can download here: https://github.com/relatedcode/NotificationChat"
@@ -37,18 +37,18 @@
 //-----------------------------------------------------------------------
 #define		PF_CHAT_CLASS_NAME					@"Chat"					//	Class name
 #define		PF_CHAT_USER						@"user"					//	Pointer to User Class
-#define		PF_CHAT_ROOMID						@"roomId"				//	String
+#define		PF_CHAT_GROUPID						@"groupId"				//	String
 #define		PF_CHAT_TEXT						@"text"					//	String
 #define		PF_CHAT_PICTURE						@"picture"				//	File
 #define		PF_CHAT_VIDEO						@"video"				//	File
 #define		PF_CHAT_CREATEDAT					@"createdAt"			//	Date
 //-----------------------------------------------------------------------
-#define		PF_CHATROOMS_CLASS_NAME				@"ChatRooms"			//	Class name
-#define		PF_CHATROOMS_NAME					@"name"					//	String
+#define		PF_GROUPS_CLASS_NAME				@"Groups"				//	Class name
+#define		PF_GROUPS_NAME						@"name"					//	String
 //-----------------------------------------------------------------------
 #define		PF_MESSAGES_CLASS_NAME				@"Messages"				//	Class name
 #define		PF_MESSAGES_USER					@"user"					//	Pointer to User Class
-#define		PF_MESSAGES_ROOMID					@"roomId"				//	String
+#define		PF_MESSAGES_GROUPID					@"groupId"				//	String
 #define		PF_MESSAGES_DESCRIPTION				@"description"			//	String
 #define		PF_MESSAGES_LASTUSER				@"lastUser"				//	Pointer to User Class
 #define		PF_MESSAGES_LASTMESSAGE				@"lastMessage"			//	String

@@ -9,8 +9,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface GroupView : UITableViewController <UIAlertViewDelegate>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+#import <UIKit/UIKit.h>
 
-@end
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+BOOL	ShouldStartCamera			(id target, BOOL canEdit);
+BOOL	ShouldStartPhotoLibrary		(id target, BOOL canEdit);
+BOOL	ShouldStartVideoLibrary		(id target, BOOL canEdit);

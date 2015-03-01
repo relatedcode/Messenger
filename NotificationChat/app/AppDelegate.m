@@ -17,8 +17,7 @@
 #import "utilities.h"
 
 #import "AppDelegate.h"
-#import "GroupView.h"
-#import "PrivateView.h"
+#import "GroupsView.h"
 #import "MessagesView.h"
 #import "ProfileView.h"
 #import "NavigationController.h"
@@ -45,18 +44,16 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-	self.groupView = [[GroupView alloc] init];
-	self.privateView = [[PrivateView alloc] init];
+	self.groupsView = [[GroupsView alloc] init];
 	self.messagesView = [[MessagesView alloc] init];
 	self.profileView = [[ProfileView alloc] init];
 
-	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:self.groupView];
-	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:self.privateView];
-	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:self.messagesView];
-	NavigationController *navController4 = [[NavigationController alloc] initWithRootViewController:self.profileView];
+	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:self.groupsView];
+	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:self.messagesView];
+	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:self.profileView];
 
 	self.tabBarController = [[UITabBarController alloc] init];
-	self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, nil];
 	self.tabBarController.tabBar.translucent = NO;
 	self.tabBarController.selectedIndex = DEFAULT_TAB;
 
@@ -125,7 +122,7 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
+	//NSLog(@"didFailToRegisterForRemoteNotificationsWithError %@", error);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------

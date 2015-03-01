@@ -13,14 +13,11 @@
 #import "ProgressHUD.h"
 
 #import "AppConstant.h"
-#import "messages.h"
-#import "utilities.h"
 
-#import "SearchView.h"
-#import "ChatView.h"
+#import "SelectSingleView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface SearchView()
+@interface SelectSingleView()
 {
 	NSMutableArray *users;
 }
@@ -31,8 +28,9 @@
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
-@implementation SearchView
+@implementation SelectSingleView
 
+@synthesize delegate;
 @synthesize viewHeader, searchBar;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,7 +38,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Search";
+	self.title = @"Select Single";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self
 																			action:@selector(actionCancel)];
@@ -50,13 +48,6 @@
 	users = [[NSMutableArray alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self loadUsers];
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)viewWillAppear:(BOOL)animated
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	[super viewWillAppear:animated];
 }
 
 #pragma mark - Backend methods
@@ -152,12 +143,9 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFUser *user1 = [PFUser currentUser];
-	PFUser *user2 = users[indexPath.row];
-	NSString *roomId = StartPrivateChat(user1, user2);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	ChatView *chatView = [[ChatView alloc] initWith:roomId];
-	[self.navigationController pushViewController:chatView animated:YES];
+	[self dismissViewControllerAnimated:YES completion:^{
+		if (delegate != nil) [delegate didSelectSingleUser:users[indexPath.row]];
+	}];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -188,7 +176,7 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar_
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[self searchBarCancelled];

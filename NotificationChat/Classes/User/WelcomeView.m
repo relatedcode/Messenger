@@ -108,20 +108,19 @@
 	{
 		UIImage *image = (UIImage *)responseObject;
 		//-----------------------------------------------------------------------------------------------------------------------------------------
-		if (image.size.width > 280) image = ResizeImage(image, 280, 280);
+		UIImage *picture = ResizeImage(image, 280, 280);
+		UIImage *thumbnail = ResizeImage(image, 60, 60);
 		//-----------------------------------------------------------------------------------------------------------------------------------------
-		PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+		PFFile *filePicture = [PFFile fileWithName:@"picture.jpg" data:UIImageJPEGRepresentation(picture, 0.6)];
 		[filePicture saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
-			if (error != nil) [ProgressHUD showError:error.userInfo[@"error"]];
+			if (error != nil) [ProgressHUD showError:@"Network error."];
 		}];
 		//-----------------------------------------------------------------------------------------------------------------------------------------
-		if (image.size.width > 60) image = ResizeImage(image, 60, 60);
-		//-----------------------------------------------------------------------------------------------------------------------------------------
-		PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(image, 0.6)];
+		PFFile *fileThumbnail = [PFFile fileWithName:@"thumbnail.jpg" data:UIImageJPEGRepresentation(thumbnail, 0.6)];
 		[fileThumbnail saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 		{
-			if (error != nil) [ProgressHUD showError:error.userInfo[@"error"]];
+			if (error != nil) [ProgressHUD showError:@"Network error."];
 		}];
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		user[PF_USER_EMAILCOPY] = userData[@"email"];

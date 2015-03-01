@@ -12,8 +12,13 @@
 #import <Parse/Parse.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void		ParsePushUserAssign		(void);
-void		ParsePushUserResign		(void);
+NSString*	StartPrivateChat			(PFUser *user1, PFUser *user2);
+NSString*	StartMultipleChat			(NSMutableArray *users);
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void		SendPushNotification	(NSString *roomId, NSString *text);
+void		CreateMessageItem			(PFUser *user, NSString *groupId, NSString *description);
+void		DeleteMessageItem			(PFObject *message);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+void		UpdateMessageCounter		(NSString *groupId, NSString *lastMessage);
+void		ClearMessageCounter			(NSString *groupId);
