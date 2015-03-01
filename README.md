@@ -4,11 +4,11 @@
 
 This is a full native iPhone app to create realtime, text based group or private chat with Parse.
 
-![Chat](http://relatedcode.com/github/chat01.png)
+![Chat](http://relatedcode.com/github/chat101.png)
 .
-![Chat](http://relatedcode.com/github/chat04.png)
+![Chat](http://relatedcode.com/github/chat102.png)
 .
-![Chat](http://relatedcode.com/github/chat03.png)
+![Chat](http://relatedcode.com/github/chat103.png)
 
 The app is using Parse as backend which is basically free. (Free plan: 20 GB File Storage, 20 GB Database Storage, 2 TB Data Transfer, 30 req/s).
 
