@@ -25,6 +25,7 @@
 {
 	NSMutableArray *messages;
 	UIRefreshControl *refreshControl;
+	BOOL isActive;
 }
 
 @property (strong, nonatomic) IBOutlet UITableView *tableMessages;
@@ -74,6 +75,8 @@
 - (void)viewDidAppear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	isActive = YES;
+	
 	[super viewDidAppear:animated];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
@@ -81,6 +84,13 @@
 		[self loadMessages];
 	}
 	else LoginUser(self);
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+    [super viewWillDisappear:animated];
+    isActive = NO;
 }
 
 #pragma mark - Backend methods
@@ -121,13 +131,20 @@
 - (void)updateTabCounter
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	int total = 0;
-	for (PFObject *message in messages)
-	{
-		total += [message[PF_MESSAGES_COUNTER] intValue];
-	}
-	UITabBarItem *item = self.tabBarController.tabBar.items[2];
-	item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+    int total = 0;
+    for (PFObject *message in messages)
+    {
+        total += [message[PF_MESSAGES_COUNTER] intValue];
+    }
+    UITabBarItem *item = self.tabBarController.tabBar.items[0];
+    item.badgeValue = (total == 0) ? nil : [NSString stringWithFormat:@"%d", total];
+    if (isActive == NO)
+    {
+        if (total != 0)
+        {
+            [[JSQSystemSoundPlayer sharedPlayer] playVibrateSound];
+        }
+    }
 }
 
 #pragma mark - User actions
@@ -197,6 +214,7 @@
 	PFObject *message = messages[indexPath.row];
 	ChatView *chatView = [[ChatView alloc] initWith:message[PF_MESSAGES_ROOMID]];
 	chatView.hidesBottomBarWhenPushed = YES;
+	chatView.title = message[PF_MESSAGES_DESCRIPTION];
 	[self.navigationController pushViewController:chatView animated:YES];
 }
 

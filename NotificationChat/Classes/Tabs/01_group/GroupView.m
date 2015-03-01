@@ -194,6 +194,7 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	ChatView *chatView = [[ChatView alloc] initWith:roomId];
 	chatView.hidesBottomBarWhenPushed = YES;
+	chatView.title = chatroom[PF_CHATROOMS_NAME];
 	[self.navigationController pushViewController:chatView animated:YES];
 }
 

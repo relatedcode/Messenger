@@ -285,6 +285,7 @@
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		ChatView *chatView = [[ChatView alloc] initWith:roomId];
 		chatView.hidesBottomBarWhenPushed = YES;
+		chatView.title = user2[PF_USER_FULLNAME];
 		[self.navigationController pushViewController:chatView animated:YES];
 	}
 	if (indexPath.section == 1)

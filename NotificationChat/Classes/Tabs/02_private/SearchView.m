@@ -157,6 +157,7 @@
 	NSString *roomId = StartPrivateChat(user1, user2);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	ChatView *chatView = [[ChatView alloc] initWith:roomId];
+	chatView.title = user2[PF_USER_FULLNAME];
 	[self.navigationController pushViewController:chatView animated:YES];
 }
 

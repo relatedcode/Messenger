@@ -26,6 +26,7 @@
 {
 	NSTimer *timer;
 	BOOL isLoading;
+	BOOL isActive;
 
 	NSString *roomId;
 
@@ -56,7 +57,6 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-	self.title = @"Chat";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	users = [[NSMutableArray alloc] init];
 	messages = [[NSMutableArray alloc] init];
@@ -82,6 +82,8 @@
 - (void)viewDidAppear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	isActive = YES;
+	
 	[super viewDidAppear:animated];
 	self.collectionView.collectionViewLayout.springinessEnabled = YES;
 	timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadMessages) userInfo:nil repeats:YES];
@@ -91,6 +93,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	isActive = NO;
+
 	[super viewWillDisappear:animated];
 	[timer invalidate];
 }
@@ -175,8 +179,20 @@
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[users addObject:user];
-	[messages addObject:message];
+    [messages addObject:message];
+    
+    if (isActive == YES)
+    {
+        if ([message.senderId isEqualToString:self.senderId])
+        {
+            [JSQSystemSoundPlayer jsq_playMessageSentSound];
+        } else
+        {
+            [JSQSystemSoundPlayer jsq_playMessageReceivedSound];
+        }
+    }
 }
+
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture
@@ -411,12 +427,31 @@
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapAvatarImageView:(UIImageView *)avatarImageView
-		   atIndexPath:(NSIndexPath *)indexPath
+           atIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSLog(@"didTapAvatarImageView");
+    PFUser *user1 = [PFUser currentUser];
+    PFUser *user2 = users[indexPath.row];
+    NSString *roomId2 = StartPrivateChat(user1, user2);
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    ChatView *chatView = [[ChatView alloc] initWith:roomId2];
+    if ([roomId isEqualToString:roomId2])
+    {
+        NSLog(@"alreadyPrivateChat");
+    }
+    else
+    {
+    if ([user2.objectId isEqualToString:user1.objectId])
+    {
+        NSLog(@"didTapOwnAvatar");
+    }
+    else
+    {
+    chatView.title = user2[PF_USER_FULLNAME];
+    [self.navigationController pushViewController:chatView animated:YES];
+    }
+    }
 }
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
