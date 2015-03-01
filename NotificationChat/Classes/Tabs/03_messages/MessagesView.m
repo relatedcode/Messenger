@@ -214,6 +214,7 @@
 	PFObject *message = messages[indexPath.row];
 	ChatView *chatView = [[ChatView alloc] initWith:message[PF_MESSAGES_ROOMID]];
 	chatView.hidesBottomBarWhenPushed = YES;
+	chatView.title = message[PF_MESSAGES_DESCRIPTION];
 	[self.navigationController pushViewController:chatView animated:YES];
 }
 
