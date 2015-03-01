@@ -428,12 +428,31 @@
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapAvatarImageView:(UIImageView *)avatarImageView
-		   atIndexPath:(NSIndexPath *)indexPath
+           atIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSLog(@"didTapAvatarImageView");
+    PFUser *user1 = [PFUser currentUser];
+    PFUser *user2 = users[indexPath.row];
+    NSString *roomId2 = StartPrivateChat(user1, user2);
+    //-----------------------------------------------------------------------------------------------------------------------------------------
+    ChatView *chatView = [[ChatView alloc] initWith:roomId2];
+    if ([roomId isEqualToString:roomId2])
+    {
+        NSLog(@"alreadyPrivateChat");
+    }
+    else
+    {
+    if ([user2.objectId isEqualToString:user1.objectId])
+    {
+        NSLog(@"didTapOwnAvatar");
+    }
+    else
+    {
+    chatView.title = user2[PF_USER_FULLNAME];
+    [self.navigationController pushViewController:chatView animated:YES];
+    }
+    }
 }
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)collectionView:(JSQMessagesCollectionView *)collectionView didTapMessageBubbleAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
