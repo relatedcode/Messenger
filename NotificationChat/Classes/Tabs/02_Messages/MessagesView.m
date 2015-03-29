@@ -29,18 +29,11 @@
 @interface MessagesView()
 {
 	NSMutableArray *messages;
-	UIRefreshControl *refreshControl;
 }
-
-@property (strong, nonatomic) IBOutlet UITableView *tableMessages;
-@property (strong, nonatomic) IBOutlet UIView *viewEmpty;
-
 @end
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @implementation MessagesView
-
-@synthesize tableMessages, viewEmpty;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -63,19 +56,15 @@
 	[super viewDidLoad];
 	self.title = @"Messages";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"messages_compose"]
-																	  style:UIBarButtonItemStylePlain target:self action:@selector(actionCompose)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self
+																						   action:@selector(actionCompose)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[tableMessages registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
-	tableMessages.tableFooterView = [[UIView alloc] init];
+	[self.tableView registerNib:[UINib nibWithNibName:@"MessagesCell" bundle:nil] forCellReuseIdentifier:@"MessagesCell"];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	refreshControl = [[UIRefreshControl alloc] init];
-	[refreshControl addTarget:self action:@selector(loadMessages) forControlEvents:UIControlEventValueChanged];
-	[tableMessages addSubview:refreshControl];
+	self.refreshControl = [[UIRefreshControl alloc] init];
+	[self.refreshControl addTarget:self action:@selector(loadMessages) forControlEvents:UIControlEventValueChanged];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	messages = [[NSMutableArray alloc] init];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	viewEmpty.hidden = YES;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,23 +96,15 @@
 		{
 			[messages removeAllObjects];
 			[messages addObjectsFromArray:objects];
-			[tableMessages reloadData];
-			[self updateEmptyView];
+			[self.tableView reloadData];
 			[self updateTabCounter];
 		}
 		else [ProgressHUD showError:@"Network error."];
-		[refreshControl endRefreshing];
+		[self.refreshControl endRefreshing];
 	}];
 }
 
 #pragma mark - Helper methods
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)updateEmptyView
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-{
-	viewEmpty.hidden = ([messages count] != 0);
-}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)updateTabCounter
@@ -154,10 +135,8 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[messages removeAllObjects];
-	[tableMessages reloadData];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	UITabBarItem *item = self.tabBarController.tabBar.items[1];
-	item.badgeValue = nil;
+	[self.tableView reloadData];
+	[self updateTabCounter];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -289,8 +268,7 @@
 {
 	DeleteMessageItem(messages[indexPath.row]);
 	[messages removeObjectAtIndex:indexPath.row];
-	[tableMessages deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	[self updateEmptyView];
+	[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	[self updateTabCounter];
 }
 

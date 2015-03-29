@@ -49,9 +49,12 @@ void ParsePushUserResign(void)
 void SendPushNotification(NSString *groupId, NSString *text)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
+	PFUser *user = [PFUser currentUser];
+	NSString *message = [NSString stringWithFormat:@"%@: %@", user[PF_USER_FULLNAME], text];
+
 	PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGES_CLASS_NAME];
 	[query whereKey:PF_MESSAGES_GROUPID equalTo:groupId];
-	[query whereKey:PF_MESSAGES_USER notEqualTo:[PFUser currentUser]];
+	[query whereKey:PF_MESSAGES_USER notEqualTo:user];
 	[query includeKey:PF_MESSAGES_USER];
 	[query setLimit:1000];
 
@@ -60,7 +63,7 @@ void SendPushNotification(NSString *groupId, NSString *text)
 
 	PFPush *push = [[PFPush alloc] init];
 	[push setQuery:queryInstallation];
-	[push setMessage:text];
+	[push setMessage:message];
 	[push sendPushInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
 		if (error != nil)

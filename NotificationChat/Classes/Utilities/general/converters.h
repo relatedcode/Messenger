@@ -11,15 +11,5 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SelectSingleView.h"
-#import "SelectMultipleView.h"
-#import "AddressBookView.h"
-#import "FacebookFriendsView.h"
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface MessagesView : UITableViewController <UIActionSheetDelegate, SelectSingleDelegate, SelectMultipleDelegate, AddressBookDelegate, FacebookFriendsDelegate>
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-
-- (void)loadMessages;
-
-@end
+NSString*		TimeElapsed				(NSTimeInterval seconds);

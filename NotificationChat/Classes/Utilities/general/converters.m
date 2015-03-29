@@ -9,17 +9,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
-
-#import "SelectSingleView.h"
-#import "SelectMultipleView.h"
-#import "AddressBookView.h"
-#import "FacebookFriendsView.h"
+#import "converters.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface MessagesView : UITableViewController <UIActionSheetDelegate, SelectSingleDelegate, SelectMultipleDelegate, AddressBookDelegate, FacebookFriendsDelegate>
+NSString* TimeElapsed(NSTimeInterval seconds)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-
-- (void)loadMessages;
-
-@end
+{
+	NSString *elapsed;
+	if (seconds < 60)
+	{
+		elapsed = @"Just now";
+	}
+	else if (seconds < 60 * 60)
+	{
+		int minutes = (int) (seconds / 60);
+		elapsed = [NSString stringWithFormat:@"%d %@", minutes, (minutes > 1) ? @"mins" : @"min"];
+	}
+	else if (seconds < 24 * 60 * 60)
+	{
+		int hours = (int) (seconds / (60 * 60));
+		elapsed = [NSString stringWithFormat:@"%d %@", hours, (hours > 1) ? @"hours" : @"hour"];
+	}
+	else
+	{
+		int days = (int) (seconds / (24 * 60 * 60));
+		elapsed = [NSString stringWithFormat:@"%d %@", days, (days > 1) ? @"days" : @"day"];
+	}
+	return elapsed;
+}

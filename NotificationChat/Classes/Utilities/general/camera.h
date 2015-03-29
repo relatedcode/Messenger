@@ -12,6 +12,10 @@
 #import <UIKit/UIKit.h>
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL	ShouldStartCamera			(id target, BOOL canEdit);
+BOOL	ShouldStartPhotoCamera		(id target, BOOL canEdit);
+BOOL	ShouldStartVideoCamera		(id target, BOOL canEdit);
+BOOL	ShouldStartMultiCamera		(id target, BOOL canEdit);
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 BOOL	ShouldStartPhotoLibrary		(id target, BOOL canEdit);
 BOOL	ShouldStartVideoLibrary		(id target, BOOL canEdit);

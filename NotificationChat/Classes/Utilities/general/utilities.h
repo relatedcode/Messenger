@@ -14,7 +14,5 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 void			LoginUser					(id target);
 
-void			PostNotification			(NSString *notification);
-
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-NSString*		TimeElapsed					(NSTimeInterval seconds);
+void			PostNotification			(NSString *notification);

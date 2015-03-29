@@ -38,10 +38,10 @@
 	[super viewDidLoad];
 	self.title = @"Select Multiple";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self
 																			action:@selector(actionCancel)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self
 																			 action:@selector(actionDone)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.tableFooterView = [[UIView alloc] init];

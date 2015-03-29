@@ -163,7 +163,7 @@
 		JSQPhotoMediaItem *mediaItem = [[JSQPhotoMediaItem alloc] initWithImage:nil];
 		mediaItem.appliesMediaViewMaskAsOutgoing = [user.objectId isEqualToString:self.senderId];
 		message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:name date:object.createdAt media:mediaItem];
-
+		//-----------------------------------------------------------------------------------------------------------------------------------------
 		[filePicture getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
 		{
 			if (error == nil)
@@ -241,7 +241,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-											   otherButtonTitles:@"Take photo", @"Choose existing photo", @"Choose existing video", nil];
+											   otherButtonTitles:@"Take photo or video", @"Choose existing photo", @"Choose existing video", nil];
 	[action showInView:self.view];
 }
 
@@ -258,12 +258,11 @@
 			 messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
+	if ([self outgoing:messages[indexPath.item]])
 	{
 		return bubbleImageOutgoing;
 	}
-	return bubbleImageIncoming;
+	else return bubbleImageIncoming;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -274,8 +273,8 @@
 	PFUser *user = users[indexPath.item];
 	if (avatars[user.objectId] == nil)
 	{
-		PFFile *fileThumbnail = user[PF_USER_THUMBNAIL];
-		[fileThumbnail getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
+		PFFile *file = user[PF_USER_THUMBNAIL];
+		[file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
 		{
 			if (error == nil)
 			{
@@ -305,20 +304,19 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
+	if ([self incoming:message])
 	{
-		return nil;
-	}
-
-	if (indexPath.item - 1 > 0)
-	{
-		JSQMessage *previousMessage = messages[indexPath.item-1];
-		if ([previousMessage.senderId isEqualToString:message.senderId])
+		if (indexPath.item > 0)
 		{
-			return nil;
+			JSQMessage *previous = messages[indexPath.item-1];
+			if ([previous.senderId isEqualToString:message.senderId])
+			{
+				return nil;
+			}
 		}
+		return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
 	}
-	return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
+	else return nil;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -342,9 +340,8 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	JSQMessagesCollectionViewCell *cell = (JSQMessagesCollectionViewCell *)[super collectionView:collectionView cellForItemAtIndexPath:indexPath];
-	
-	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
+
+	if ([self outgoing:messages[indexPath.item]])
 	{
 		cell.textView.textColor = [UIColor blackColor];
 	}
@@ -375,20 +372,19 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	JSQMessage *message = messages[indexPath.item];
-	if ([message.senderId isEqualToString:self.senderId])
+	if ([self incoming:message])
 	{
-		return 0;
-	}
-	
-	if (indexPath.item - 1 > 0)
-	{
-		JSQMessage *previousMessage = messages[indexPath.item-1];
-		if ([previousMessage.senderId isEqualToString:message.senderId])
+		if (indexPath.item > 0)
 		{
-			return 0;
+			JSQMessage *previous = messages[indexPath.item-1];
+			if ([previous.senderId isEqualToString:message.senderId])
+			{
+				return 0;
+			}
 		}
+		return kJSQMessagesCollectionViewCellLabelHeightDefault;
 	}
-	return kJSQMessagesCollectionViewCellLabelHeightDefault;
+	else return 0;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -449,7 +445,7 @@
 {
 	if (buttonIndex != actionSheet.cancelButtonIndex)
 	{
-		if (buttonIndex == 0)	ShouldStartCamera(self, YES);
+		if (buttonIndex == 0)	ShouldStartMultiCamera(self, YES);
 		if (buttonIndex == 1)	ShouldStartPhotoLibrary(self, YES);
 		if (buttonIndex == 2)	ShouldStartVideoLibrary(self, YES);
 	}
@@ -467,6 +463,22 @@
 	[self sendMessage:nil Video:video Picture:picture];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Helper methods
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (BOOL)incoming:(JSQMessage *)message
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	return ([message.senderId isEqualToString:self.senderId] == NO);
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (BOOL)outgoing:(JSQMessage *)message
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	return ([message.senderId isEqualToString:self.senderId] == YES);
 }
 
 @end

@@ -16,7 +16,7 @@
 #import "ProfileView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @property (strong, nonatomic) UIWindow *window;
@@ -25,5 +25,8 @@
 @property (strong, nonatomic) GroupsView *groupsView;
 @property (strong, nonatomic) MessagesView *messagesView;
 @property (strong, nonatomic) ProfileView *profileView;
+
+@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 
 @end

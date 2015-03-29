@@ -42,7 +42,7 @@
 	[super viewDidLoad];
 	self.title = @"Address Book";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self
 																			action:@selector(actionCancel)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	users1 = [[NSMutableArray alloc] init];

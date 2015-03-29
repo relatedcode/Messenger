@@ -40,7 +40,7 @@
 	[super viewDidLoad];
 	self.title = @"Select Single";
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self
 																			action:@selector(actionCancel)];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.tableHeaderView = viewHeader;
