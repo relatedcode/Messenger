@@ -296,7 +296,7 @@
 		JSQMessage *message = messages[indexPath.item];
 		return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
 	}
-	return nil;
+	else return nil;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -363,7 +363,7 @@
 	{
 		return kJSQMessagesCollectionViewCellLabelHeightDefault;
 	}
-	return 0;
+	else return 0;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
