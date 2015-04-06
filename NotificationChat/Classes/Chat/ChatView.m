@@ -26,6 +26,7 @@
 {
 	NSTimer *timer;
 	BOOL isLoading;
+	BOOL initialized;
 
 	NSString *groupId;
 
@@ -73,9 +74,8 @@
 	avatarImageBlank = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"chat_blank"] diameter:30.0];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	isLoading = NO;
+	initialized = NO;
 	[self loadMessages];
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	ClearMessageCounter(groupId);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,6 +92,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewWillDisappear:animated];
+	ClearMessageCounter(groupId);
 	[timer invalidate];
 }
 
@@ -116,17 +117,22 @@
 		{
 			if (error == nil)
 			{
+				BOOL incoming = NO;
 				self.automaticallyScrollsToMostRecentMessage = NO;
 				for (PFObject *object in [objects reverseObjectEnumerator])
 				{
-					[self addMessage:object];
+					JSQMessage *message = [self addMessage:object];
+					if ([self incoming:message]) incoming = YES;
 				}
 				if ([objects count] != 0)
 				{
+					if (initialized && incoming)
+						[JSQSystemSoundPlayer jsq_playMessageReceivedSound];
 					[self finishReceivingMessage];
 					[self scrollToBottomAnimated:NO];
 				}
 				self.automaticallyScrollsToMostRecentMessage = YES;
+				initialized = YES;
 			}
 			else [ProgressHUD showError:@"Network error."];
 			isLoading = NO;
@@ -135,7 +141,7 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)addMessage:(PFObject *)object
+- (JSQMessage *)addMessage:(PFObject *)object
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	JSQMessage *message;
@@ -176,6 +182,8 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[users addObject:user];
 	[messages addObject:message];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	return message;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
