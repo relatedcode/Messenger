@@ -1,52 +1,83 @@
-[![RelatedCode](http://relatedcode.com/github/header8.png)](http://relatedcode.com)
+[![RelatedCode](http://relatedcode.com/github/header88.png)](http://relatedcode.com/premium)
 
 ## OVERVIEW
 
 This is a full native iPhone app to create realtime, text based group or private chat with Parse.
 
-![Chat](http://relatedcode.com/github/chat101.png)
+![Chat](http://relatedcode.com/github/chat802.png)
 .
-![Chat](http://relatedcode.com/github/chat102.png)
+![Chat](http://relatedcode.com/github/chat803.png)
 .
-![Chat](http://relatedcode.com/github/chat103.png)
+![Chat](http://relatedcode.com/github/chat804.png)
+
+![Chat](http://relatedcode.com/github/chat805.png)
+.
+![Chat](http://relatedcode.com/github/chat806.png)
+.
+![Chat](http://relatedcode.com/github/chat807.png)
 
 The app is using Parse as backend which is basically free. (Free plan: 20 GB File Storage, 20 GB Database Storage, 2 TB Data Transfer, 30 req/s).
 
 Really easy to setup, just copy/paste the code and use your own chatrooms.
 
-## WHAT'S NEW IN 4.0
-
-- Facebook friend list
-- User interface changes
-- Vendor files updated
-
 ## FEATURES
 
 - Live chat between multiple devices
-- Group and Private chat functionality
-- Push Notification support
-- Picture media support
-- Video media support
-- Address Book access + invite function
-- Facebook friend list
-- Messages view for ongoing chats
-- Multiple chatrooms
-- Dynamically add new chatrooms
-- Register/Login views
-- Facebook login
-- Facebook profile picture is grabbed automatically
-- Basic Profile view is also included
-- Change profile picture possibility
+- Group chat functionality
+- Private chat functionality
+- Single or Multiple recipients
+- Full realtime actions - latency less than 100 ms - **[Premium only](http://relatedcode.com/premium)**
 - No backend programming needed
-- Copy and paste messages
 - Native and easy to customize user interface
+- Push Notification support
+- Deep linking for Push Notification (<i>coming soon</i>) - **[Premium only](http://relatedcode.com/premium)**
+- Login with Email
+- Login with Facebook
+- Login with Twitter
+- Sending text messages
+- Sending pictures
+- Sending videos
+- Sending audio messages - **[Premium only](http://relatedcode.com/premium)**
+- Sending location - **[Premium only](http://relatedcode.com/premium)**
+- Typing indicator - **[Premium only](http://relatedcode.com/premium)**
+- Message delivery receipt - **[Premium only](http://relatedcode.com/premium)**
+- Message read receipt - **[Premium only](http://relatedcode.com/premium)**
+- Delete unread messages - **[Premium only](http://relatedcode.com/premium)**
+- Block user functionality (<i>coming soon</i>) - **[Premium only](http://relatedcode.com/premium)**
+- Report user functionality (<i>coming soon</i>) - **[Premium only](http://relatedcode.com/premium)**
+- Address Book access
+- Invite functionality - email, SMS
+- Facebook friend list
+- Emoji support
+- Video length limit possibility
+- Recent view for ongoing chats
+- Basic Settings view included
+- Map view for shared locations - **[Premium only](http://relatedcode.com/premium)**
+- Picture view for pictures
+- Terms of Service view
+- Privacy Policy view
+- In-app push notification settings (<i>coming soon</i>)
+- Facebook profile picture grabbed automatically
+- Twitter profile picture grabbed automatically (<i>coming soon</i>)
+- Copy and paste messages
 - Send button is enabled/disabled automatically
 - Arbitrary message sizes
-- Data detectors (recognizes phone numbers, links and dates)
+- Data detectors - phone numbers, links, dates
 - Timestamps possibilities
 - Hide keyboard with swipe down
 - Smooth animations
 - Send/Receive sound effects
+- Deployment target: iOS 8
+- Supported devices: iPhone 4/4S/5/5C/5S/6/6 Plus
+
+---
+
+![Chat](http://relatedcode.com/github/chat809.png)
+.
+![Chat](http://relatedcode.com/github/chat811.png)
+.
+![Chat](http://relatedcode.com/github/chat812.png)
+
 
 ## REQUIREMENTS
 
@@ -56,7 +87,7 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 ## INSTALLATION
 
-**1.,** All files located in *Classes* directory. Vendor files located in *Vendor* directory and external Frameworks in *Framework* directory. Some resource files can be found in *Resources* directory. Simply add *Classes*, *Resources*, *Vendor* and *Framework* directories to your project.
+**1.,** All source files located in *Classes* directory. Vendor files located in *Vendor* directory and external Frameworks in *Framework* directory. Some resource files can be found in *Resources* directory. Simply add *Classes*, *Resources*, *Vendor* and *Framework* directories to your project.
 
 **2.,** You also need the latest Parse SDK. (Already included, but you can download from [here](https://www.parse.com/docs/downloads)).
 

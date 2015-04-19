@@ -11,9 +11,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RecentView.h"
 #import "GroupsView.h"
-#import "MessagesView.h"
-#import "ProfileView.h"
+#import "PeopleView.h"
+#import "SettingsView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
@@ -22,9 +23,10 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UITabBarController *tabBarController;
 
+@property (strong, nonatomic) RecentView *recentView;
 @property (strong, nonatomic) GroupsView *groupsView;
-@property (strong, nonatomic) MessagesView *messagesView;
-@property (strong, nonatomic) ProfileView *profileView;
+@property (strong, nonatomic) PeopleView *peopleView;
+@property (strong, nonatomic) SettingsView *settingsView;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) CLLocationCoordinate2D coordinate;

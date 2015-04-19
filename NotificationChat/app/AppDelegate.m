@@ -14,12 +14,13 @@
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 
 #import "AppConstant.h"
-#import "utilities.h"
+#import "common.h"
 
 #import "AppDelegate.h"
+#import "RecentView.h"
 #import "GroupsView.h"
-#import "MessagesView.h"
-#import "ProfileView.h"
+#import "PeopleView.h"
+#import "SettingsView.h"
 #import "NavigationController.h"
 
 @implementation AppDelegate
@@ -28,7 +29,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[Parse setApplicationId:@"vKyyGRKsLBpomdWtDW7vuyA4YBYqHAeBj1QcBaLu" clientKey:@"Z7EZjSlePFRjK6KKOPoNWei8UJPRxCWvRbJhW4SS"];
+	[Parse setApplicationId:@"pUMlpiHK3jSxdV76ZfkUE4EEQlA83F3f4naXkxJ0" clientKey:@"YZhlPk52qS1nJgEl1A0ZJReMEMJOASNo90464Wpw"];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	[PFTwitterUtils initializeWithConsumerKey:@"kS83MvJltZwmfoWVoyE1R6xko" consumerSecret:@"YXSupp9hC2m1rugTfoSyqricST9214TwYapQErBcXlP1BrSfND"];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[PFFacebookUtils initializeFacebook];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,16 +47,18 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
+	self.recentView = [[RecentView alloc] init];
 	self.groupsView = [[GroupsView alloc] init];
-	self.messagesView = [[MessagesView alloc] init];
-	self.profileView = [[ProfileView alloc] init];
+	self.peopleView = [[PeopleView alloc] init];
+	self.settingsView = [[SettingsView alloc] init];
 
-	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:self.groupsView];
-	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:self.messagesView];
-	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:self.profileView];
+	NavigationController *navController1 = [[NavigationController alloc] initWithRootViewController:self.recentView];
+	NavigationController *navController2 = [[NavigationController alloc] initWithRootViewController:self.groupsView];
+	NavigationController *navController3 = [[NavigationController alloc] initWithRootViewController:self.peopleView];
+	NavigationController *navController4 = [[NavigationController alloc] initWithRootViewController:self.settingsView];
 
 	self.tabBarController = [[UITabBarController alloc] init];
-	self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, nil];
+	self.tabBarController.viewControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
 	self.tabBarController.tabBar.translucent = NO;
 	self.tabBarController.selectedIndex = DEFAULT_TAB;
 
@@ -134,15 +139,15 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ([PFUser currentUser] != nil)
 	{
-		[self performSelector:@selector(refreshMessagesView) withObject:nil afterDelay:4.0];
+		[self performSelector:@selector(refreshRecentView) withObject:nil afterDelay:4.0];
 	}
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)refreshMessagesView
+- (void)refreshRecentView
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	[self.messagesView loadMessages];
+	[self.recentView loadRecents];
 }
 
 #pragma mark - Location manager methods

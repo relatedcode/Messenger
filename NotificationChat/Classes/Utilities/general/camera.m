@@ -11,10 +11,12 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
+#import "AppConstant.h"
+
 #import "camera.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartPhotoCamera(id target, BOOL canEdit)
+BOOL PresentPhotoCamera(id target, BOOL canEdit)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) return NO;
@@ -48,7 +50,7 @@ BOOL ShouldStartPhotoCamera(id target, BOOL canEdit)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartVideoCamera(id target, BOOL canEdit)
+BOOL PresentVideoCamera(id target, BOOL canEdit)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) return NO;
@@ -61,6 +63,7 @@ BOOL ShouldStartVideoCamera(id target, BOOL canEdit)
 	{
 		imagePicker.mediaTypes = @[type];
 		imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+		imagePicker.videoMaximumDuration = VIDEO_LENGTH;
 
 		if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])
 		{
@@ -82,7 +85,7 @@ BOOL ShouldStartVideoCamera(id target, BOOL canEdit)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartMultiCamera(id target, BOOL canEdit)
+BOOL PresentMultiCamera(id target, BOOL canEdit)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] == NO) return NO;
@@ -96,6 +99,7 @@ BOOL ShouldStartMultiCamera(id target, BOOL canEdit)
 	{
 		imagePicker.mediaTypes = @[type1, type2];
 		imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+		imagePicker.videoMaximumDuration = VIDEO_LENGTH;
 
 		if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])
 		{
@@ -117,7 +121,7 @@ BOOL ShouldStartMultiCamera(id target, BOOL canEdit)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartPhotoLibrary(id target, BOOL canEdit)
+BOOL PresentPhotoLibrary(id target, BOOL canEdit)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
@@ -148,7 +152,7 @@ BOOL ShouldStartPhotoLibrary(id target, BOOL canEdit)
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-BOOL ShouldStartVideoLibrary(id target, BOOL canEdit)
+BOOL PresentVideoLibrary(id target, BOOL canEdit)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary] == NO
@@ -157,6 +161,8 @@ BOOL ShouldStartVideoLibrary(id target, BOOL canEdit)
 	NSString *type = (NSString *)kUTTypeMovie;
 	UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+	imagePicker.videoMaximumDuration = VIDEO_LENGTH;
+
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]
 		&& [[UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary] containsObject:type])
 	{

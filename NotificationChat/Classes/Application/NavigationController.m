@@ -9,8 +9,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "AppConstant.h"
-
 #import "NavigationController.h"
 
 @implementation NavigationController
@@ -20,10 +18,6 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewDidLoad];
-
-	self.navigationBar.barTintColor = HEXCOLOR(0x19C5FF00);
-	self.navigationBar.tintColor = [UIColor whiteColor];
-	self.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
 	self.navigationBar.translucent = NO;
 }
 

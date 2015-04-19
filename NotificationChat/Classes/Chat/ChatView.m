@@ -13,11 +13,14 @@
 
 #import <Parse/Parse.h>
 #import "ProgressHUD.h"
+#import "IDMPhotoBrowser.h"
 
 #import "AppConstant.h"
 #import "camera.h"
-#import "messages.h"
-#import "pushnotification.h"
+#import "common.h"
+#import "image.h"
+#import "push.h"
+#import "recent.h"
 
 #import "ChatView.h"
 
@@ -68,8 +71,8 @@
 	self.senderDisplayName = user[PF_USER_FULLNAME];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	JSQMessagesBubbleImageFactory *bubbleFactory = [[JSQMessagesBubbleImageFactory alloc] init];
-	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleLightGrayColor]];
-	bubbleImageIncoming = [bubbleFactory incomingMessagesBubbleImageWithColor:[UIColor jsq_messageBubbleGreenColor]];
+	bubbleImageOutgoing = [bubbleFactory outgoingMessagesBubbleImageWithColor:COLOR_OUTGOING];
+	bubbleImageIncoming = [bubbleFactory incomingMessagesBubbleImageWithColor:COLOR_INCOMING];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	avatarImageBlank = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageNamed:@"chat_blank"] diameter:30.0];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +95,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	[super viewWillDisappear:animated];
-	ClearMessageCounter(groupId);
+	ClearRecentCounter(groupId);
 	[timer invalidate];
 }
 
@@ -107,11 +110,11 @@
 		isLoading = YES;
 		JSQMessage *message_last = [messages lastObject];
 
-		PFQuery *query = [PFQuery queryWithClassName:PF_CHAT_CLASS_NAME];
-		[query whereKey:PF_CHAT_GROUPID equalTo:groupId];
-		if (message_last != nil) [query whereKey:PF_CHAT_CREATEDAT greaterThan:message_last.date];
-		[query includeKey:PF_CHAT_USER];
-		[query orderByDescending:PF_CHAT_CREATEDAT];
+		PFQuery *query = [PFQuery queryWithClassName:PF_MESSAGE_CLASS_NAME];
+		[query whereKey:PF_MESSAGE_GROUPID equalTo:groupId];
+		if (message_last != nil) [query whereKey:PF_MESSAGE_CREATEDAT greaterThan:message_last.date];
+		[query includeKey:PF_MESSAGE_USER];
+		[query orderByDescending:PF_MESSAGE_CREATEDAT];
 		[query setLimit:50];
 		[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 		{
@@ -146,15 +149,15 @@
 {
 	JSQMessage *message;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFUser *user = object[PF_CHAT_USER];
+	PFUser *user = object[PF_MESSAGE_USER];
 	NSString *name = user[PF_USER_FULLNAME];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFFile *fileVideo = object[PF_CHAT_VIDEO];
-	PFFile *filePicture = object[PF_CHAT_PICTURE];
+	PFFile *fileVideo = object[PF_MESSAGE_VIDEO];
+	PFFile *filePicture = object[PF_MESSAGE_PICTURE];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if ((filePicture == nil) && (fileVideo == nil))
 	{
-		message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:name date:object.createdAt text:object[PF_CHAT_TEXT]];
+		message = [[JSQMessage alloc] initWithSenderId:user.objectId senderDisplayName:name date:object.createdAt text:object[PF_MESSAGE_TEXT]];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	if (fileVideo != nil)
@@ -187,6 +190,21 @@
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)loadAvatar:(PFUser *)user
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFFile *file = user[PF_USER_THUMBNAIL];
+	[file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
+	{
+		if (error == nil)
+		{
+			avatars[user.objectId] = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageWithData:imageData] diameter:30.0];
+			[self.collectionView reloadData];
+		}
+	}];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)sendMessage:(NSString *)text Video:(NSURL *)video Picture:(UIImage *)picture
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
@@ -213,12 +231,12 @@
 		}];
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFObject *object = [PFObject objectWithClassName:PF_CHAT_CLASS_NAME];
-	object[PF_CHAT_USER] = [PFUser currentUser];
-	object[PF_CHAT_GROUPID] = groupId;
-	object[PF_CHAT_TEXT] = text;
-	if (fileVideo != nil) object[PF_CHAT_VIDEO] = fileVideo;
-	if (filePicture != nil) object[PF_CHAT_PICTURE] = filePicture;
+	PFObject *object = [PFObject objectWithClassName:PF_MESSAGE_CLASS_NAME];
+	object[PF_MESSAGE_USER] = [PFUser currentUser];
+	object[PF_MESSAGE_GROUPID] = groupId;
+	object[PF_MESSAGE_TEXT] = text;
+	if (fileVideo != nil) object[PF_MESSAGE_VIDEO] = fileVideo;
+	if (filePicture != nil) object[PF_MESSAGE_PICTURE] = filePicture;
 	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
 	{
 		if (error == nil)
@@ -230,7 +248,7 @@
 	}];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	SendPushNotification(groupId, text);
-	UpdateMessageCounter(groupId, text);
+	UpdateRecentCounter(groupId, 1, text);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self finishSendingMessage];
 }
@@ -249,7 +267,7 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-											   otherButtonTitles:@"Take photo or video", @"Choose existing photo", @"Choose existing video", nil];
+		   otherButtonTitles:@"Take photo or video", @"Choose existing photo", @"Choose existing video", @"Record audio", @"Send location", nil];
 	[action showInView:self.view];
 }
 
@@ -261,6 +279,7 @@
 {
 	return messages[indexPath.item];
 }
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView
 			 messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -281,15 +300,7 @@
 	PFUser *user = users[indexPath.item];
 	if (avatars[user.objectId] == nil)
 	{
-		PFFile *file = user[PF_USER_THUMBNAIL];
-		[file getDataInBackgroundWithBlock:^(NSData *imageData, NSError *error)
-		{
-			if (error == nil)
-			{
-				avatars[user.objectId] = [JSQMessagesAvatarImageFactory avatarImageWithImage:[UIImage imageWithData:imageData] diameter:30.0];
-				[self.collectionView reloadData];
-			}
-		}];
+		[self loadAvatar:user];
 		return avatarImageBlank;
 	}
 	else return avatars[user.objectId];
@@ -351,11 +362,11 @@
 
 	if ([self outgoing:messages[indexPath.item]])
 	{
-		cell.textView.textColor = [UIColor blackColor];
+		cell.textView.textColor = [UIColor whiteColor];
 	}
 	else
 	{
-		cell.textView.textColor = [UIColor whiteColor];
+		cell.textView.textColor = [UIColor blackColor];
 	}
 	return cell;
 }
@@ -428,6 +439,13 @@
 	JSQMessage *message = messages[indexPath.item];
 	if (message.isMediaMessage)
 	{
+		if ([message.media isKindOfClass:[JSQPhotoMediaItem class]])
+		{
+			JSQPhotoMediaItem *mediaItem = (JSQPhotoMediaItem *)message.media;
+			NSArray *photos = [IDMPhoto photosWithImages:@[mediaItem.image]];
+			IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos];
+			[self presentViewController:browser animated:YES completion:nil];
+		}
 		if ([message.media isKindOfClass:[JSQVideoMediaItem class]])
 		{
 			JSQVideoMediaItem *mediaItem = (JSQVideoMediaItem *)message.media;
@@ -453,9 +471,11 @@
 {
 	if (buttonIndex != actionSheet.cancelButtonIndex)
 	{
-		if (buttonIndex == 0)	ShouldStartMultiCamera(self, YES);
-		if (buttonIndex == 1)	ShouldStartPhotoLibrary(self, YES);
-		if (buttonIndex == 2)	ShouldStartVideoLibrary(self, YES);
+		if (buttonIndex == 0)	PresentMultiCamera(self, YES);
+		if (buttonIndex == 1)	PresentPhotoLibrary(self, YES);
+		if (buttonIndex == 2)	PresentVideoLibrary(self, YES);
+		if (buttonIndex == 3)	PresentPremium(self);
+		if (buttonIndex == 4)	PresentPremium(self);
 	}
 }
 
