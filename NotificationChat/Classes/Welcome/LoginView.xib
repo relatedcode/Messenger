@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -36,7 +36,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wiw-WP-O7Z">
                         <rect key="frame" x="15" y="0.0" width="290" height="50"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next"/>
                         <connections>
                             <outlet property="delegate" destination="-1" id="8qe-Fa-NGr"/>
                         </connections>
@@ -60,7 +60,7 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OZ7-2i-VuJ">
                         <rect key="frame" x="15" y="0.0" width="290" height="50"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                         <connections>
                             <outlet property="delegate" destination="-1" id="71w-8C-eB3"/>
                         </connections>

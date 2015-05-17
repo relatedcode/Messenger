@@ -4,21 +4,19 @@
 
 This is a full native iPhone app to create realtime, text based group or private chat with Parse.
 
-![Chat](http://relatedcode.com/github/chat802.png)
+![Chat](http://relatedcode.com/github/chat817.png)
 .
 ![Chat](http://relatedcode.com/github/chat803.png)
 .
-![Chat](http://relatedcode.com/github/chat804.png)
+![Chat](http://relatedcode.com/github/chat818.png)
 
-![Chat](http://relatedcode.com/github/chat805.png)
+![Chat](http://relatedcode.com/github/chat804.png)
 .
 ![Chat](http://relatedcode.com/github/chat806.png)
 .
-![Chat](http://relatedcode.com/github/chat807.png)
+![Chat](http://relatedcode.com/github/chat819.png)
 
 The app is using Parse as backend which is basically free. (Free plan: 20 GB File Storage, 20 GB Database Storage, 2 TB Data Transfer, 30 req/s).
-
-Really easy to setup, just copy/paste the code and use your own chatrooms.
 
 ## FEATURES
 
@@ -39,26 +37,30 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - Sending videos
 - Sending audio messages - **[Premium only](http://relatedcode.com/premium)**
 - Sending location - **[Premium only](http://relatedcode.com/premium)**
+- Sending stickers (<i>new</i>) - **[Premium only](http://relatedcode.com/premium)**
+- Sending emojis
 - Typing indicator - **[Premium only](http://relatedcode.com/premium)**
 - Message delivery receipt - **[Premium only](http://relatedcode.com/premium)**
 - Message read receipt - **[Premium only](http://relatedcode.com/premium)**
 - Delete unread messages - **[Premium only](http://relatedcode.com/premium)**
-- Block user functionality (<i>coming soon</i>) - **[Premium only](http://relatedcode.com/premium)**
-- Report user functionality (<i>coming soon</i>) - **[Premium only](http://relatedcode.com/premium)**
+- Block user functionality (<i>new</i>) - **[Premium only](http://relatedcode.com/premium)**
+- Report user functionality (<i>new</i>) - **[Premium only](http://relatedcode.com/premium)**
 - Address Book access
-- Invite functionality - email, SMS
+- Invite functionality - SMS, email
 - Facebook friend list
-- Emoji support
-- Video length limit possibility
 - Recent view for ongoing chats
-- Basic Settings view included
 - Map view for shared locations - **[Premium only](http://relatedcode.com/premium)**
 - Picture view for pictures
-- Terms of Service view
+- Basic Settings view included
+- Profile view for users (<i>new</i>)
+- Group settings view for groups (<i>new</i>)
+- Blocked view for blocked users (<i>new</i>)
 - Privacy Policy view
-- In-app push notification settings (<i>coming soon</i>)
+- Terms of Service view
+- In-app push notification settings (<i>coming soon</i>) - **[Premium only](http://relatedcode.com/premium)**
 - Facebook profile picture grabbed automatically
 - Twitter profile picture grabbed automatically (<i>coming soon</i>)
+- Video length limit possibility
 - Copy and paste messages
 - Send button is enabled/disabled automatically
 - Arbitrary message sizes
@@ -68,7 +70,7 @@ Really easy to setup, just copy/paste the code and use your own chatrooms.
 - Smooth animations
 - Send/Receive sound effects
 - Deployment target: iOS 8
-- Supported devices: iPhone 4/4S/5/5C/5S/6/6 Plus
+- Supported devices: iPhone 4S/5/5C/5S/6/6 Plus
 
 ---
 
@@ -104,11 +106,13 @@ More info about how to [install](https://developers.facebook.com/docs/ios/gettin
 **4.,** You also need several external libraries which are included. But if you need, you can download them from here:
 
 https://github.com/AFNetworking/AFNetworking<br>
+https://github.com/ideaismobile/IDMPhotoBrowser<br>
 https://github.com/jessesquires/JSQMessagesViewController<br>
 https://github.com/jessesquires/JSQSystemSoundPlayer<br>
 https://github.com/relatedcode/ProgressHUD<br>
+https://github.com/rnystrom/RNGridMenu<br>
 
-To use these libraries, just add AFNetworking, JSQMessagesViewController, JSQSystemSoundPlayer and ProgressHUD directories to your project.
+To use these libraries, just add AFNetworking, IDMPhotoBrowser, JSQMessagesViewController, JSQSystemSoundPlayer, ProgressHUD and RNGridMenu directories to your project.
 
 **5.,** You need to [register](https://developers.facebook.com/apps) your app at Facebook. More info about how to [configure](https://developers.facebook.com/docs/ios/getting-started) Facebook.
 

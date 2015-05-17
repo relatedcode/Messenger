@@ -12,9 +12,10 @@
 #import <UIKit/UIKit.h>
 
 #import "JSQMessages.h"
+#import "RNGridMenu.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-@interface ChatView : JSQMessagesViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate>
+@interface ChatView : JSQMessagesViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, RNGridMenuDelegate>
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 - (id)initWith:(NSString *)groupId_;

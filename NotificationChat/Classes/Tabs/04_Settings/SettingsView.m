@@ -20,6 +20,7 @@
 #import "push.h"
 
 #import "SettingsView.h"
+#import "BlockedView.h"
 #import "PrivacyView.h"
 #import "TermsView.h"
 #import "NavigationController.h"
@@ -31,6 +32,7 @@
 @property (strong, nonatomic) IBOutlet PFImageView *imageUser;
 @property (strong, nonatomic) IBOutlet UILabel *labelName;
 
+@property (strong, nonatomic) IBOutlet UITableViewCell *cellBlocked;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellPrivacy;
 @property (strong, nonatomic) IBOutlet UITableViewCell *cellTerms;
 
@@ -42,7 +44,7 @@
 @implementation SettingsView
 
 @synthesize viewHeader, imageUser, labelName;
-@synthesize cellPrivacy, cellTerms, cellLogout;
+@synthesize cellBlocked, cellPrivacy, cellTerms, cellLogout;
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -98,6 +100,15 @@
 }
 
 #pragma mark - User actions
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionBlocked
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	BlockedView *blockedView = [[BlockedView alloc] init];
+	blockedView.hidesBottomBarWhenPushed = YES;
+	[self.navigationController pushViewController:blockedView animated:YES];
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (void)actionPrivacy
@@ -206,7 +217,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (section == 0) return 2;
+	if (section == 0) return 3;
 	if (section == 1) return 1;
 	return 0;
 }
@@ -215,8 +226,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if ((indexPath.section == 0) && (indexPath.row == 0)) return cellPrivacy;
-	if ((indexPath.section == 0) && (indexPath.row == 1)) return cellTerms;
+	if ((indexPath.section == 0) && (indexPath.row == 0)) return cellBlocked;
+	if ((indexPath.section == 0) && (indexPath.row == 1)) return cellPrivacy;
+	if ((indexPath.section == 0) && (indexPath.row == 2)) return cellTerms;
 	if ((indexPath.section == 1) && (indexPath.row == 0)) return cellLogout;
 	return nil;
 }
@@ -229,8 +241,9 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	if ((indexPath.section == 0) && (indexPath.row == 0)) [self actionPrivacy];
-	if ((indexPath.section == 0) && (indexPath.row == 1)) [self actionTerms];
+	if ((indexPath.section == 0) && (indexPath.row == 0)) [self actionBlocked];
+	if ((indexPath.section == 0) && (indexPath.row == 1)) [self actionPrivacy];
+	if ((indexPath.section == 0) && (indexPath.row == 2)) [self actionTerms];
 	if ((indexPath.section == 1) && (indexPath.row == 0)) [self actionLogout];
 }
 

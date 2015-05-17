@@ -11,14 +11,16 @@
 
 #import <Parse/Parse.h>
 #import "ProgressHUD.h"
+#import "PFUser+Util.h"
 
 #import "AppConstant.h"
 #import "common.h"
+#import "group.h"
 #import "recent.h"
 
 #import "GroupsView.h"
 #import "CreateGroupView.h"
-#import "ChatView.h"
+#import "GroupSettingsView.h"
 #import "NavigationController.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -40,6 +42,8 @@
 	{
 		[self.tabBarItem setImage:[UIImage imageNamed:@"tab_groups"]];
 		self.tabBarItem.title = @"Groups";
+		//-----------------------------------------------------------------------------------------------------------------------------------------
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(actionCleanup) name:NOTIFICATION_USER_LOGGED_OUT object:nil];
 	}
 	return self;
 }
@@ -53,6 +57,9 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self
 																						   action:@selector(actionNew)];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	self.refreshControl = [[UIRefreshControl alloc] init];
+	[self.refreshControl addTarget:self action:@selector(loadGroups) forControlEvents:UIControlEventValueChanged];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	groups = [[NSMutableArray alloc] init];
 }
@@ -89,6 +96,7 @@
 			[self.tableView reloadData];
 		}
 		else [ProgressHUD showError:@"Network error."];
+		[self.refreshControl endRefreshing];
 	}];
 }
 
@@ -101,6 +109,14 @@
 	CreateGroupView *createGroupView = [[CreateGroupView alloc] init];
 	NavigationController *navController = [[NavigationController alloc] initWithRootViewController:createGroupView];
 	[self presentViewController:navController animated:YES completion:nil];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)actionCleanup
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[groups removeAllObjects];
+	[self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -149,10 +165,10 @@
 	PFObject *group = groups[indexPath.row];
 	[groups removeObject:group];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[group deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-	{
-		if (error != nil) [ProgressHUD showError:@"Network error."];
-	}];
+	PFUser *user1 = [PFUser currentUser];
+	PFUser *user2 = group[PF_GROUP_USER];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	if ([user1 isEqualTo:user2]) RemoveGroupItem(group); else RemoveGroupMember(group, user1);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
@@ -165,14 +181,9 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFObject *group = groups[indexPath.row];
-	NSString *groupId = group.objectId;
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CreateRecentItem([PFUser currentUser], groupId, group[PF_GROUP_NAME]);
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	ChatView *chatView = [[ChatView alloc] initWith:groupId];
-	chatView.hidesBottomBarWhenPushed = YES;
-	[self.navigationController pushViewController:chatView animated:YES];
+	GroupSettingsView *groupSettingsView = [[GroupSettingsView alloc] initWith:groups[indexPath.row]];
+	groupSettingsView.hidesBottomBarWhenPushed = YES;
+	[self.navigationController pushViewController:groupSettingsView animated:YES];
 }
 
 @end

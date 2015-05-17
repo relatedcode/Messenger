@@ -64,23 +64,35 @@
 			{
 				[fbids addObject:[fbuser valueForKey:@"id"]];
 			}
-
-			PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
-			[query whereKey:PF_USER_FACEBOOKID containedIn:fbids];
-			[query orderByAscending:PF_USER_FULLNAME];
-			[query setLimit:1000];
-			[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-			{
-				if (error == nil)
-				{
-					[users removeAllObjects];
-					[users addObjectsFromArray:objects];
-					[self.tableView reloadData];
-				}
-				else [ProgressHUD showError:@"Network error."];
-			}];
+			[self loadUsers:fbids];
 		}
 		else [ProgressHUD showError:@"Facebook request error."];
+	}];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)loadUsers:(NSMutableArray *)fbids
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFUser *user = [PFUser currentUser];
+
+	PFQuery *query1 = [PFQuery queryWithClassName:PF_BLOCKED_CLASS_NAME];
+	[query1 whereKey:PF_BLOCKED_USER1 equalTo:user];
+
+	PFQuery *query2 = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
+	[query2 whereKey:PF_USER_OBJECTID doesNotMatchKey:PF_BLOCKED_USERID2 inQuery:query1];
+	[query2 whereKey:PF_USER_FACEBOOKID containedIn:fbids];
+	[query2 orderByAscending:PF_USER_FULLNAME];
+	[query2 setLimit:1000];
+	[query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	{
+		if (error == nil)
+		{
+			[users removeAllObjects];
+			[users addObjectsFromArray:objects];
+			[self.tableView reloadData];
+		}
+		else [ProgressHUD showError:@"Network error."];
 	}];
 }
 

@@ -10,6 +10,7 @@
 // THE SOFTWARE.
 
 #import <Parse/Parse.h>
+#import "PFUser+Util.h"
 
 #import "AppConstant.h"
 
@@ -24,8 +25,10 @@ NSString* StartPrivateChat(PFUser *user1, PFUser *user2)
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	NSString *groupId = ([id1 compare:id2] < 0) ? [NSString stringWithFormat:@"%@%@", id1, id2] : [NSString stringWithFormat:@"%@%@", id2, id1];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	CreateRecentItem(user1, groupId, user2[PF_USER_FULLNAME]);
-	CreateRecentItem(user2, groupId, user1[PF_USER_FULLNAME]);
+	NSArray *members = @[user1.objectId, user2.objectId];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	CreateRecentItem(user1, groupId, members, user2[PF_USER_FULLNAME]);
+	CreateRecentItem(user2, groupId, members, user1[PF_USER_FULLNAME]);
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	return groupId;
 }
@@ -61,14 +64,14 @@ NSString* StartMultipleChat(NSMutableArray *users)
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	for (PFUser *user in users)
 	{
-		CreateRecentItem(user, groupId, description);
+		CreateRecentItem(user, groupId, userIds, description);
 	}
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	return groupId;
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description)
+void CreateRecentItem(PFUser *user, NSString *groupId, NSArray *members, NSString *description)
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
@@ -83,6 +86,7 @@ void CreateRecentItem(PFUser *user, NSString *groupId, NSString *description)
 				PFObject *recent = [PFObject objectWithClassName:PF_RECENT_CLASS_NAME];
 				recent[PF_RECENT_USER] = user;
 				recent[PF_RECENT_GROUPID] = groupId;
+				recent[PF_RECENT_MEMBERS] = members;
 				recent[PF_RECENT_DESCRIPTION] = description;
 				recent[PF_RECENT_LASTUSER] = [PFUser currentUser];
 				recent[PF_RECENT_LASTMESSAGE] = @"";
@@ -104,6 +108,7 @@ void UpdateRecentCounter(NSString *groupId, NSInteger amount, NSString *lastMess
 {
 	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
 	[query whereKey:PF_RECENT_GROUPID equalTo:groupId];
+	[query includeKey:PF_RECENT_USER];
 	[query setLimit:1000];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
@@ -111,8 +116,7 @@ void UpdateRecentCounter(NSString *groupId, NSInteger amount, NSString *lastMess
 		{
 			for (PFObject *recent in objects)
 			{
-				PFUser *user = recent[PF_RECENT_USER];
-				if ([user.objectId isEqualToString:[PFUser currentUser].objectId] == NO)
+				if ([recent[PF_RECENT_USER] isEqualTo:[PFUser currentUser]] == NO)
 					[recent incrementKey:PF_RECENT_COUNTER byAmount:[NSNumber numberWithInteger:amount]];
 				//---------------------------------------------------------------------------------------------------------------------------------
 				recent[PF_RECENT_LASTUSER] = [PFUser currentUser];
@@ -149,5 +153,28 @@ void ClearRecentCounter(NSString *groupId)
 			}
 		}
 		else NSLog(@"ClearRecentCounter query error.");
+	}];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+void DeleteRecentItems(PFUser *user1, PFUser *user2)
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	PFQuery *query = [PFQuery queryWithClassName:PF_RECENT_CLASS_NAME];
+	[query whereKey:PF_RECENT_USER equalTo:user1];
+	[query whereKey:PF_RECENT_MEMBERS equalTo:user2.objectId];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	{
+		if (error == nil)
+		{
+			for (PFObject *recent in objects)
+			{
+				[recent deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+				{
+					if (error != nil) NSLog(@"DeleteMessageItem delete error.");
+				}];
+			}
+		}
+		else NSLog(@"DeleteMessages query error.");
 	}];
 }

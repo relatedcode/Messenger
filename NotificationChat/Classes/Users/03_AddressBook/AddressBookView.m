@@ -122,12 +122,16 @@
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFUser *user = [PFUser currentUser];
 
-	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
-	[query whereKey:PF_USER_OBJECTID notEqualTo:user.objectId];
-	[query whereKey:PF_USER_EMAILCOPY containedIn:emails];
-	[query orderByAscending:PF_USER_FULLNAME];
-	[query setLimit:1000];
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+	PFQuery *query1 = [PFQuery queryWithClassName:PF_BLOCKED_CLASS_NAME];
+	[query1 whereKey:PF_BLOCKED_USER1 equalTo:user];
+
+	PFQuery *query2 = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
+	[query2 whereKey:PF_USER_OBJECTID notEqualTo:user.objectId];
+	[query2 whereKey:PF_USER_OBJECTID doesNotMatchKey:PF_BLOCKED_USERID2 inQuery:query1];
+	[query2 whereKey:PF_USER_EMAILCOPY containedIn:emails];
+	[query2 orderByAscending:PF_USER_FULLNAME];
+	[query2 setLimit:1000];
+	[query2 findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
 		{
