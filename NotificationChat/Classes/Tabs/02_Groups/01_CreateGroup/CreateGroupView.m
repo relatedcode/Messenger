@@ -11,6 +11,7 @@
 
 #import <Parse/Parse.h>
 #import "ProgressHUD.h"
+#import "PFUser+Util.h"
 
 #import "AppConstant.h"
 #import "common.h"
@@ -21,6 +22,7 @@
 @interface CreateGroupView()
 {
 	NSMutableArray *users;
+	NSMutableArray *sections;
 	NSMutableArray *selection;
 }
 
@@ -52,11 +54,12 @@
 	gestureRecognizer.cancelsTouchesInView = NO;
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	self.tableView.tableHeaderView = viewHeader;
+	self.tableView.tableFooterView = [[UIView alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	users = [[NSMutableArray alloc] init];
 	selection = [[NSMutableArray alloc] init];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	[self loadUsers];
+	[self loadPeople];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,6 +68,14 @@
 {
 	[super viewDidAppear:animated];
 	[fieldName becomeFirstResponder];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)viewWillDisappear:(BOOL)animated
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	[super viewWillDisappear:animated];
+	[self dismissKeyboard];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,25 +88,56 @@
 #pragma mark - Backend actions
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)loadUsers
+- (void)loadPeople
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	PFUser *user = [PFUser currentUser];
-
-	PFQuery *query = [PFQuery queryWithClassName:PF_USER_CLASS_NAME];
-	[query whereKey:PF_USER_OBJECTID notEqualTo:user.objectId];
-	[query orderByAscending:PF_USER_FULLNAME];
+	PFQuery *query = [PFQuery queryWithClassName:PF_PEOPLE_CLASS_NAME];
+	[query whereKey:PF_PEOPLE_USER1 equalTo:[PFUser currentUser]];
+	[query includeKey:PF_PEOPLE_USER2];
 	[query setLimit:1000];
 	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
 	{
 		if (error == nil)
 		{
 			[users removeAllObjects];
-			[users addObjectsFromArray:objects];
+			for (PFObject *people in objects)
+			{
+				PFUser *user = people[PF_PEOPLE_USER2];
+				[users addObject:user];
+			}
+			[self setObjects:users];
 			[self.tableView reloadData];
 		}
 		else [ProgressHUD showError:@"Network error."];
 	}];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (void)setObjects:(NSArray *)objects
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	if (sections != nil) [sections removeAllObjects];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	NSInteger sectionTitlesCount = [[[UILocalizedIndexedCollation currentCollation] sectionTitles] count];
+	sections = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	for (NSUInteger i=0; i<sectionTitlesCount; i++)
+	{
+		[sections addObject:[NSMutableArray array]];
+	}
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	NSArray *sorted = [objects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2)
+	{
+		PFUser *user1 = (PFUser *)obj1;
+		PFUser *user2 = (PFUser *)obj2;
+		return [user1[PF_USER_FULLNAME] compare:user2[PF_USER_FULLNAME]];
+	}];
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	for (PFUser *object in sorted)
+	{
+		NSInteger section = [[UILocalizedIndexedCollation currentCollation] sectionForObject:object collationStringSelector:@selector(fullname)];
+		[sections[section] addObject:object];
+	}
 }
 
 #pragma mark - User actions
@@ -120,6 +162,7 @@
 	[selection addObject:user.objectId];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	PFObject *object = [PFObject objectWithClassName:PF_GROUP_CLASS_NAME];
+	object[PF_GROUP_USER] = [PFUser currentUser];
 	object[PF_GROUP_NAME] = name;
 	object[PF_GROUP_MEMBERS] = selection;
 	[object saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
@@ -138,14 +181,39 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return 1;
+	return [sections count];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	return [users count];
+	return [sections[section] count];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	if ([sections[section] count] != 0)
+	{
+		return [[[UILocalizedIndexedCollation currentCollation] sectionTitles] objectAtIndex:section];
+	}
+	else return nil;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	return [[UILocalizedIndexedCollation currentCollation] sectionIndexTitles];
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+{
+	return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -155,7 +223,8 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
 	if (cell == nil) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"cell"];
 
-	PFUser *user = users[indexPath.row];
+	NSMutableArray *userstemp = sections[indexPath.section];
+	PFUser *user = userstemp[indexPath.row];
 	cell.textLabel.text = user[PF_USER_FULLNAME];
 
 	BOOL selected = [selection containsObject:user.objectId];
@@ -172,7 +241,8 @@
 {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	PFUser *user = users[indexPath.row];
+	NSMutableArray *userstemp = sections[indexPath.section];
+	PFUser *user = userstemp[indexPath.row];
 	BOOL selected = [selection containsObject:user.objectId];
 	if (selected) [selection removeObject:user.objectId]; else [selection addObject:user.objectId];
 	//---------------------------------------------------------------------------------------------------------------------------------------------

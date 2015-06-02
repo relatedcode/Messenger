@@ -4,7 +4,7 @@
 //
 //
 //  Documentation
-//  http://cocoadocs.org/docsets/JSQSystemSoundPlayer
+//  http://www.jessesquires.com/JSQSystemSoundPlayer
 //
 //
 //  GitHub
@@ -12,11 +12,17 @@
 //
 //
 //  License
-//  Copyright (c) 2014 Jesse Squires
+//  Copyright (c) 2015 Jesse Squires
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
 
 #import <Foundation/Foundation.h>
+
+//! Project version number for JSQSystemSoundPlayer.
+FOUNDATION_EXPORT double JSQSystemSoundPlayerVersionNumber;
+
+//! Project version string for JSQSystemSoundPlayer.
+FOUNDATION_EXPORT const unsigned char JSQSystemSoundPlayerVersionString[];
 
 /**
  *  String constant for .caf audio file extension.
@@ -155,16 +161,18 @@ typedef void(^JSQSystemSoundPlayerCompletionBlock)(void);
                         completion:(JSQSystemSoundPlayerCompletionBlock)completionBlock;
 
 /**
- *  On some iOS devices, you can call this method to invoke vibration.
- *  On other iOS devices this functionaly is not available, and calling this method does nothing.
+ *  Available on iOS only. On some iOS devices, you can call this method to invoke vibration.
+ *  If this functionaly is not available, then calling this method does nothing.
  */
+#if TARGET_OS_IPHONE
 - (void)playVibrateSound;
+#endif
 
 /**
  *  Stops playing all sounds immediately.
  *
  *  @warning Any completion blocks attached to any currently playing sound will *not* be executed.
- *  Also, calling this method will purge all `SystemSoundID` objects from cache, regardless of whether or not they were currently playing.
+ *  Calling this method will purge all `SystemSoundID` objects from cache, regardless of whether or not they were currently playing.
  */
 - (void)stopAllSounds;
 
@@ -174,7 +182,7 @@ typedef void(^JSQSystemSoundPlayerCompletionBlock)(void);
  *  @param filename The filename of the sound to stop playing.
  *
  *  @warning If a completion block is attached to the given sound, it will *not* be executed.
- *  Also, calling this method will purge the `SystemSoundID` object for this file from cache, regardless of whether or not it was currently playing.
+ *  Calling this method will purge the `SystemSoundID` object for this file from cache, regardless of whether or not it was currently playing.
  */
 - (void)stopSoundWithFilename:(NSString *)filename;
 

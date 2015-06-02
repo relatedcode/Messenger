@@ -14,6 +14,7 @@
 #import <Parse/Parse.h>
 #import "ProgressHUD.h"
 #import "IDMPhotoBrowser.h"
+#import "RNGridMenu.h"
 
 #import "AppConstant.h"
 #import "camera.h"
@@ -21,8 +22,13 @@
 #import "image.h"
 #import "push.h"
 #import "recent.h"
+#import "video.h"
+
+#import "PhotoMediaItem.h"
+#import "VideoMediaItem.h"
 
 #import "ChatView.h"
+#import "ProfileView.h"
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 @interface ChatView()
@@ -266,9 +272,16 @@
 - (void)didPressAccessoryButton:(UIButton *)sender
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-		   otherButtonTitles:@"Take photo or video", @"Choose existing photo", @"Choose existing video", @"Record audio", @"Send location", nil];
-	[action showInView:self.view];
+	[self.view endEditing:YES];
+	NSArray *menuItems = @[[[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"chat_camera"] title:@"Camera"],
+						   [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"chat_audio"] title:@"Audio"],
+						   [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"chat_pictures"] title:@"Pictures"],
+						   [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"chat_videos"] title:@"Videos"],
+						   [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"chat_location"] title:@"Location"],
+						   [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"chat_stickers"] title:@"Stickers"]];
+	RNGridMenu *gridMenu = [[RNGridMenu alloc] initWithItems:menuItems];
+	gridMenu.delegate = self;
+	[gridMenu showInViewController:self center:CGPointMake(self.view.bounds.size.width/2.f, self.view.bounds.size.height/2.f)];
 }
 
 #pragma mark - JSQMessages CollectionView DataSource
@@ -429,7 +442,12 @@
 		   atIndexPath:(NSIndexPath *)indexPath
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	NSLog(@"didTapAvatarImageView");
+	JSQMessage *message = messages[indexPath.item];
+	if ([self incoming:message])
+	{
+		ProfileView *profileView = [[ProfileView alloc] initWith:message.senderId];
+		[self.navigationController pushViewController:profileView animated:YES];
+	}
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -439,16 +457,16 @@
 	JSQMessage *message = messages[indexPath.item];
 	if (message.isMediaMessage)
 	{
-		if ([message.media isKindOfClass:[JSQPhotoMediaItem class]])
+		if ([message.media isKindOfClass:[PhotoMediaItem class]])
 		{
-			JSQPhotoMediaItem *mediaItem = (JSQPhotoMediaItem *)message.media;
+			PhotoMediaItem *mediaItem = (PhotoMediaItem *)message.media;
 			NSArray *photos = [IDMPhoto photosWithImages:@[mediaItem.image]];
 			IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos];
 			[self presentViewController:browser animated:YES completion:nil];
 		}
-		if ([message.media isKindOfClass:[JSQVideoMediaItem class]])
+		if ([message.media isKindOfClass:[VideoMediaItem class]])
 		{
-			JSQVideoMediaItem *mediaItem = (JSQVideoMediaItem *)message.media;
+			VideoMediaItem *mediaItem = (VideoMediaItem *)message.media;
 			MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:mediaItem.fileURL];
 			[self presentMoviePlayerViewControllerAnimated:moviePlayer];
 			[moviePlayer.moviePlayer play];
@@ -463,20 +481,19 @@
 	NSLog(@"didTapCellAtIndexPath %@", NSStringFromCGPoint(touchLocation));
 }
 
-#pragma mark - UIActionSheetDelegate
+#pragma mark - RNGridMenuDelegate
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)gridMenu:(RNGridMenu *)gridMenu willDismissWithSelectedItem:(RNGridMenuItem *)item atIndex:(NSInteger)itemIndex
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 {
-	if (buttonIndex != actionSheet.cancelButtonIndex)
-	{
-		if (buttonIndex == 0)	PresentMultiCamera(self, YES);
-		if (buttonIndex == 1)	PresentPhotoLibrary(self, YES);
-		if (buttonIndex == 2)	PresentVideoLibrary(self, YES);
-		if (buttonIndex == 3)	PresentPremium(self);
-		if (buttonIndex == 4)	PresentPremium(self);
-	}
+	[gridMenu dismissAnimated:NO];
+	if ([item.title isEqualToString:@"Camera"])		PresentMultiCamera(self, YES);
+	if ([item.title isEqualToString:@"Audio"])		PresentPremium(self);
+	if ([item.title isEqualToString:@"Pictures"])	PresentPhotoLibrary(self, YES);
+	if ([item.title isEqualToString:@"Videos"])		PresentVideoLibrary(self, YES);
+	if ([item.title isEqualToString:@"Location"])	PresentPremium(self);
+	if ([item.title isEqualToString:@"Stickers"])	PresentPremium(self);
 }
 
 #pragma mark - UIImagePickerControllerDelegate
