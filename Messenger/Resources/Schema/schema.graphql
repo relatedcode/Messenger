@@ -1,0 +1,217 @@
+#--------------------------------------------------------------------------------------------------
+# DBDetail
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBDetail($object: InputDBDetail!) {
+	createDBDetail(input: $object) {
+		objectId, chatId, userId, typing, lastRead, mutedUntil, isDeleted, isArchived, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBDetail($object: InputDBDetail!) {
+	updateDBDetail(input: $object) {
+		objectId, chatId, userId, typing, lastRead, mutedUntil, isDeleted, isArchived, createdAt, updatedAt
+	}
+}
+
+query DBDetailQuery($updatedAt: String) {
+	listDBDetails(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, chatId, userId, typing, lastRead, mutedUntil, isDeleted, isArchived, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBDetailSubscription {
+	onUpdateDBDetail {
+		objectId, chatId, userId, typing, lastRead, mutedUntil, isDeleted, isArchived, createdAt, updatedAt
+	}
+}
+
+#--------------------------------------------------------------------------------------------------
+# DBGroup
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBGroup($object: InputDBGroup!) {
+	createDBGroup(input: $object) {
+		objectId, chatId, name, ownerId, members, isDeleted, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBGroup($object: InputDBGroup!) {
+	updateDBGroup(input: $object) {
+		objectId, chatId, name, ownerId, members, isDeleted, createdAt, updatedAt
+	}
+}
+
+query DBGroupQuery($updatedAt: String) {
+	listDBGroups(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, chatId, name, ownerId, members, isDeleted, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBGroupSubscription {
+	onUpdateDBGroup {
+		objectId, chatId, name, ownerId, members, isDeleted, createdAt, updatedAt
+	}
+}
+
+#--------------------------------------------------------------------------------------------------
+# DBMember
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBMember($object: InputDBMember!) {
+	createDBMember(input: $object) {
+		objectId, chatId, userId, isActive, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBMember($object: InputDBMember!) {
+	updateDBMember(input: $object) {
+		objectId, chatId, userId, isActive, createdAt, updatedAt
+	}
+}
+
+query DBMemberQuery($updatedAt: String) {
+	listDBMembers(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, chatId, userId, isActive, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBMemberSubscription {
+	onUpdateDBMember {
+		objectId, chatId, userId, isActive, createdAt, updatedAt
+	}
+}
+
+#--------------------------------------------------------------------------------------------------
+# DBMessage
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBMessage($object: InputDBMessage!) {
+	createDBMessage(input: $object) {
+		objectId, chatId, userId, userFullname, userInitials, userPictureAt, type, text, photoWidth, photoHeight, videoDuration, audioDuration, latitude, longitude, isMediaQueued, isMediaFailed, isDeleted, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBMessage($object: InputDBMessage!) {
+	updateDBMessage(input: $object) {
+		objectId, chatId, userId, userFullname, userInitials, userPictureAt, type, text, photoWidth, photoHeight, videoDuration, audioDuration, latitude, longitude, isMediaQueued, isMediaFailed, isDeleted, createdAt, updatedAt
+	}
+}
+
+query DBMessageQuery($updatedAt: String) {
+	listDBMessages(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, chatId, userId, userFullname, userInitials, userPictureAt, type, text, photoWidth, photoHeight, videoDuration, audioDuration, latitude, longitude, isMediaQueued, isMediaFailed, isDeleted, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBMessageSubscription {
+	onUpdateDBMessage {
+		objectId, chatId, userId, userFullname, userInitials, userPictureAt, type, text, photoWidth, photoHeight, videoDuration, audioDuration, latitude, longitude, isMediaQueued, isMediaFailed, isDeleted, createdAt, updatedAt
+	}
+}
+
+#--------------------------------------------------------------------------------------------------
+# DBRelation
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBRelation($object: InputDBRelation!) {
+	createDBRelation(input: $object) {
+		objectId, userId1, userId2, isFriend, isBlocked, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBRelation($object: InputDBRelation!) {
+	updateDBRelation(input: $object) {
+		objectId, userId1, userId2, isFriend, isBlocked, createdAt, updatedAt
+	}
+}
+
+query DBRelationQuery($updatedAt: String) {
+	listDBRelations(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, userId1, userId2, isFriend, isBlocked, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBRelationSubscription {
+	onUpdateDBRelation {
+		objectId, userId1, userId2, isFriend, isBlocked, createdAt, updatedAt
+	}
+}
+
+#--------------------------------------------------------------------------------------------------
+# DBSingle
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBSingle($object: InputDBSingle!) {
+	createDBSingle(input: $object) {
+		objectId, chatId, userId1, fullname1, initials1, pictureAt1, userId2, fullname2, initials2, pictureAt2, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBSingle($object: InputDBSingle!) {
+	updateDBSingle(input: $object) {
+		objectId, chatId, userId1, fullname1, initials1, pictureAt1, userId2, fullname2, initials2, pictureAt2, createdAt, updatedAt
+	}
+}
+
+query DBSingleQuery($updatedAt: String) {
+	listDBSingles(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, chatId, userId1, fullname1, initials1, pictureAt1, userId2, fullname2, initials2, pictureAt2, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBSingleSubscription {
+	onUpdateDBSingle {
+		objectId, chatId, userId1, fullname1, initials1, pictureAt1, userId2, fullname2, initials2, pictureAt2, createdAt, updatedAt
+	}
+}
+
+#--------------------------------------------------------------------------------------------------
+# DBUser
+#--------------------------------------------------------------------------------------------------
+
+mutation CreateDBUser($object: InputDBUser!) {
+	createDBUser(input: $object) {
+		objectId, email, phone, firstname, lastname, fullname, country, location, pictureAt, status, keepMedia, networkPhoto, networkVideo, networkAudio, lastActive, lastTerminate, createdAt, updatedAt
+	}
+}
+
+mutation UpdateDBUser($object: InputDBUser!) {
+	updateDBUser(input: $object) {
+		objectId, email, phone, firstname, lastname, fullname, country, location, pictureAt, status, keepMedia, networkPhoto, networkVideo, networkAudio, lastActive, lastTerminate, createdAt, updatedAt
+	}
+}
+
+query DBUserQuery($updatedAt: String) {
+	listDBUsers(filter: {updatedAt: {gt: $updatedAt}}) {
+		items {
+			objectId, email, phone, firstname, lastname, fullname, country, location, pictureAt, status, keepMedia, networkPhoto, networkVideo, networkAudio, lastActive, lastTerminate, createdAt, updatedAt
+		}
+	}
+}
+
+query DBUserFetch($objectId: String) {
+	listDBUsers(filter: {objectId: {eq: $objectId}}) {
+		items {
+			objectId, email, phone, firstname, lastname, fullname, country, location, pictureAt, status, keepMedia, networkPhoto, networkVideo, networkAudio, lastActive, lastTerminate, createdAt, updatedAt
+		}
+	}
+}
+
+subscription DBUserSubscription {
+	onUpdateDBUser {
+		objectId, email, phone, firstname, lastname, fullname, country, location, pictureAt, status, keepMedia, networkPhoto, networkVideo, networkAudio, lastActive, lastTerminate, createdAt, updatedAt
+	}
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectUsersView">
+            <connections>
+                <outlet property="searchBar" destination="wIE-rZ-IuR" id="yRk-9a-ht3"/>
+                <outlet property="tableView" destination="i5M-Pr-FkT" id="lyD-HE-CdL"/>
+                <outlet property="view" destination="PpO-Gc-0B7" id="ccK-Tu-foM"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="PpO-Gc-0B7">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="wIE-rZ-IuR">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="zFe-xH-zkD"/>
+                    </constraints>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="8kO-qe-6Fg"/>
+                    </connections>
+                </searchBar>
+                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+                    <rect key="frame" x="0.0" y="56" width="320" height="512"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Tng-2m-Rnh"/>
+                        <outlet property="delegate" destination="-1" id="9aC-8N-iBw"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="wIE-rZ-IuR" firstAttribute="top" secondItem="87d-B8-lij" secondAttribute="top" id="5Fa-lY-9v4"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="87d-B8-lij" secondAttribute="leading" id="9jM-FJ-K2d"/>
+                <constraint firstItem="wIE-rZ-IuR" firstAttribute="leading" secondItem="87d-B8-lij" secondAttribute="leading" id="Nuv-gp-iUO"/>
+                <constraint firstItem="87d-B8-lij" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="Owj-cB-izA"/>
+                <constraint firstItem="87d-B8-lij" firstAttribute="trailing" secondItem="wIE-rZ-IuR" secondAttribute="trailing" id="dUn-ve-bPp"/>
+                <constraint firstItem="87d-B8-lij" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="utR-LV-lSC"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="87d-B8-lij" secondAttribute="top" constant="56" id="ynG-Xb-45p"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="87d-B8-lij"/>
+            <point key="canvasLocation" x="325" y="979"/>
+        </view>
+    </objects>
+</document>

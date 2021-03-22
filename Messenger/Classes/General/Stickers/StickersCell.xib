@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="StickersCell" customModule="app">
+            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nd-tE-MF4">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6GU-lc-VQ8">
+                                <rect key="frame" x="5" y="5" width="70" height="70"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6GU-lc-VQ8" secondAttribute="bottom" constant="5" id="N9i-OJ-Idt"/>
+                            <constraint firstItem="6GU-lc-VQ8" firstAttribute="top" secondItem="8nd-tE-MF4" secondAttribute="top" constant="5" id="Qkq-57-VfO"/>
+                            <constraint firstAttribute="trailing" secondItem="6GU-lc-VQ8" secondAttribute="trailing" constant="5" id="awy-9f-chR"/>
+                            <constraint firstItem="6GU-lc-VQ8" firstAttribute="leading" secondItem="8nd-tE-MF4" secondAttribute="leading" constant="5" id="coo-Am-Zuz"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="8nd-tE-MF4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Hke-ZY-W8D"/>
+                <constraint firstAttribute="bottom" secondItem="8nd-tE-MF4" secondAttribute="bottom" id="hU0-z0-ej7"/>
+                <constraint firstAttribute="trailing" secondItem="8nd-tE-MF4" secondAttribute="trailing" id="n1U-Wm-l4K"/>
+                <constraint firstItem="8nd-tE-MF4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oGO-z8-f7J"/>
+            </constraints>
+            <connections>
+                <outlet property="imageItem" destination="6GU-lc-VQ8" id="5pR-uT-BNC"/>
+            </connections>
+            <point key="canvasLocation" x="80" y="16"/>
+        </collectionViewCell>
+    </objects>
+</document>
