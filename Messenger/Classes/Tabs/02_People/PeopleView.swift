@@ -130,10 +130,10 @@ class PeopleView: UIViewController {
 
 		if (GQLAuth.userId() == "") || (observerId != nil) { return }
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 		let condition = String(format: "OBJ.objectId != '%@'", GQLAuth.userId())
 
-		observerId = DBUser.createObserver(gqldb, types, condition) { method, prefix, objectId in
+		observerId = DBUser.createObserver(gqldb, types, condition) { method, objectId in
 			DispatchQueue.main.async {
 				self.loadUsers()
 			}

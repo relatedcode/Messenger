@@ -103,9 +103,9 @@ class ChatsView: UIViewController {
 
 		if (GQLAuth.userId() == "") || (observerId != nil) { return }
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerId = ChatObject.createObserver(gqldb, types) { method, prefix, objectId in
+		observerId = ChatObject.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async {
 				self.loadChats()
 			}

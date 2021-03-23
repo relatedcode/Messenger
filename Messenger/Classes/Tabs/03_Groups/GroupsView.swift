@@ -101,9 +101,9 @@ class GroupsView: UIViewController {
 
 		if (GQLAuth.userId() == "") || (observerId != nil) { return }
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerId = DBGroup.createObserver(gqldb, types) { method, prefix, objectId in
+		observerId = DBGroup.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async {
 				self.loadGroups()
 			}

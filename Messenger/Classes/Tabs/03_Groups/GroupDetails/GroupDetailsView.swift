@@ -103,10 +103,9 @@ class GroupDetailsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func createObserver() {
 
-		let types: [GQLObserverType] = [.updateNew]
 		let condition = String(format: "OBJ.objectId = '%@'", chatId)
 
-		observerId = DBGroup.createObserver(gqldb, types, condition) { method, prefix, objectId in
+		observerId = DBGroup.createObserver(gqldb, .update, condition) { method, objectId in
 			DispatchQueue.main.async {
 				self.loadMembers()
 			}

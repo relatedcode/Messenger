@@ -73,9 +73,9 @@ class ChatObserver: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func observerGroups() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerIdGroup = DBGroup.createObserver(gqldb, types) { method, prefix, objectId in
+		observerIdGroup = DBGroup.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async {
 				if let dbgroup = DBGroup.fetchOne(gqldb, key: objectId) {
 					self.update(with: dbgroup)
@@ -87,9 +87,9 @@ class ChatObserver: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func observerSingles() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerIdSingle = DBSingle.createObserver(gqldb, types) { method, prefix, objectId in
+		observerIdSingle = DBSingle.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async {
 				if let dbsingle = DBSingle.fetchOne(gqldb, key: objectId) {
 					self.update(with: dbsingle)
@@ -101,9 +101,9 @@ class ChatObserver: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func observerDetails() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerIdDetail = DBDetail.createObserver(gqldb, types) { method, prefix, objectId in
+		observerIdDetail = DBDetail.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async(after: 0.2) {
 				if let dbdetail = DBDetail.fetchOne(gqldb, key: objectId) {
 					self.update(with: dbdetail)
@@ -115,9 +115,9 @@ class ChatObserver: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func observerMessages() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerIdMessage = DBMessage.createObserver(gqldb, types) { method, prefix, objectId in
+		observerIdMessage = DBMessage.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async(after: 0.4) {
 				if let dbmessage = DBMessage.fetchOne(gqldb, key: objectId) {
 					self.update(with: dbmessage)

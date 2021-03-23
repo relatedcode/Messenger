@@ -125,10 +125,10 @@ class ChatPrivateView: RCMessagesView, UIGestureRecognizerDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func observerDetails() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 		let condition = String(format: "OBJ.chatId = '%@' AND OBJ.userId != '%@'", chatId, GQLAuth.userId())
 
-		observerIdDetail = DBDetail.createObserver(gqldb, types, condition) { method, prefix, objectId in
+		observerIdDetail = DBDetail.createObserver(gqldb, types, condition) { method, objectId in
 			DispatchQueue.main.async {
 				if let dbdetail = DBDetail.fetchOne(gqldb, key: objectId) {
 					self.refreshDetail(dbdetail)
@@ -151,10 +151,10 @@ class ChatPrivateView: RCMessagesView, UIGestureRecognizerDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func observerMessages() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 		let condition = String(format: "OBJ.chatId = '%@'", chatId)
 
-		observerIdMessage = DBMessage.createObserver(gqldb, types, condition) { method, prefix, objectId in
+		observerIdMessage = DBMessage.createObserver(gqldb, types, condition) { method, objectId in
 			DispatchQueue.main.async {
 				if let dbmessage = DBMessage.fetchOne(gqldb, key: objectId) {
 					if (method == "INSERT") { self.messageInsert(dbmessage) }

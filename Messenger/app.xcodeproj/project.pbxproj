@@ -42,8 +42,6 @@
 		295AB361254B574C0096FA02 /* DBDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295AB360254B574C0096FA02 /* DBDetail.swift */; };
 		295AB364254B58190096FA02 /* DBMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295AB363254B58190096FA02 /* DBMessage.swift */; };
 		295BA19625E699E300C2B870 /* DataObservers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295BA19525E699E300C2B870 /* DataObservers.swift */; };
-		295C44A52608AB18003E5FEF /* GraphQLite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; };
-		295C44A62608AB18003E5FEF /* GraphQLite.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		295D93842094930400A222CA /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D937A2094930400A222CA /* GroupsView.swift */; };
 		295D93852094930400A222CA /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D937B2094930400A222CA /* GroupsCell.swift */; };
 		295D93862094930400A222CA /* GroupsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 295D937C2094930400A222CA /* GroupsView.xib */; };
@@ -153,6 +151,8 @@
 		29B44CFB25B6E769004F5966 /* LastUpdated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B44CFA25B6E769004F5966 /* LastUpdated.swift */; };
 		29B44D9E25F40461007BC5B3 /* NYTPhotoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B44D9C25F40461007BC5B3 /* NYTPhotoSource.swift */; };
 		29B44D9F25F40461007BC5B3 /* NYTPhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B44D9D25F40461007BC5B3 /* NYTPhotoItem.swift */; };
+		29B7907C260A193C0042BD65 /* GraphQLite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; };
+		29B7907D260A193C0042BD65 /* GraphQLite.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29BED8A9230B07A40071C11F /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BED89B230B07A30071C11F /* Password.swift */; };
 		29BED8AB230B07A40071C11F /* Dir.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BED89D230B07A30071C11F /* Dir.swift */; };
 		29BED8AE230B07A40071C11F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BED8A0230B07A30071C11F /* Video.swift */; };
@@ -191,13 +191,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		295C44A72608AB18003E5FEF /* Embed Frameworks */ = {
+		29B7907E260A193C0042BD65 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				295C44A62608AB18003E5FEF /* GraphQLite.xcframework in Embed Frameworks */,
+				29B7907D260A193C0042BD65 /* GraphQLite.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,7 +398,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				295C44A52608AB18003E5FEF /* GraphQLite.xcframework in Frameworks */,
+				29B7907C260A193C0042BD65 /* GraphQLite.xcframework in Frameworks */,
 				D7839A9774FE8638B5D4F985 /* Pods_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1138,7 +1138,7 @@
 				29D29EEE1D9A59E4006CA074 /* Frameworks */,
 				29D29EEF1D9A59E4006CA074 /* Resources */,
 				D9FB444C950EEEB5414E94A4 /* [CP] Embed Pods Frameworks */,
-				295C44A72608AB18003E5FEF /* Embed Frameworks */,
+				29B7907E260A193C0042BD65 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1585,7 +1585,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.4;
+				MARKETING_VERSION = 6.4.1;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1615,7 +1615,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.4;
+				MARKETING_VERSION = 6.4.1;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";

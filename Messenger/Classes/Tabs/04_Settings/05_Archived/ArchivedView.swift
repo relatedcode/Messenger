@@ -68,9 +68,9 @@ class ArchivedView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func createObserver() {
 
-		let types: [GQLObserverType] = [.insert, .updateNew]
+		let types: [GQLObserverType] = [.insert, .update]
 
-		observerId = ChatObject.createObserver(gqldb, types) { method, prefix, objectId in
+		observerId = ChatObject.createObserver(gqldb, types) { method, objectId in
 			DispatchQueue.main.async {
 				self.loadChats()
 			}
