@@ -1,4 +1,4 @@
-<a href="https://github.com/relatedcode/Messenger"><img src="https://related.chat/github/header31.png" width="880"></a>
+<img src="https://related.chat/github/header31.png" width="880">
 
 ## OVERVIEW
 
