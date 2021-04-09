@@ -12,6 +12,7 @@
 import UIKit
 import CoreSpotlight
 import ProgressHUD
+import PasscodeKit
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,6 +87,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_ = settingsView.view
 
 		//---------------------------------------------------------------------------------------------------------------------------------------
+		// PasscodeKit initialization
+		//---------------------------------------------------------------------------------------------------------------------------------------
+		PasscodeKit.delegate = self
+		PasscodeKit.start()
+
+		//---------------------------------------------------------------------------------------------------------------------------------------
 		// ProgressHUD initialization
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		ProgressHUD.colorProgress = UIColor.systemBlue
@@ -97,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func applicationWillResignActive(_ application: UIApplication) {
 
+		NotificationCenter.post(notification: Notifications.AppWillResign)
 		DBUsers.updateTerminate()
 		Location.stop()
 	}
@@ -116,8 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		Location.start()
 		Media.cleanupExpired()
-
-		NotificationCenter.post(notification: Notifications.AppStarted)
 
 		DispatchQueue.main.async(after: 0.5) {
 			DBUsers.updateActive()
@@ -227,5 +233,37 @@ extension AppDelegate {
 			viewController = viewController?.presentedViewController
 		}
 		return viewController
+	}
+}
+
+// MARK: - PasscodeKitDelegate
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: PasscodeKitDelegate {
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func passcodeCheckedButDisabled() {
+
+		NotificationCenter.post(notification: Notifications.AppStarted)
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func passcodeEnteredSuccessfully() {
+
+		NotificationCenter.post(notification: Notifications.AppStarted)
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func passcodeMaximumFailedAttempts() {
+
+		ProgressHUD.colorAnimation = UIColor.systemRed
+		ProgressHUD.show(nil, interaction: false)
+
+		Users.prepareLogout()
+		DispatchQueue.main.async(after: 1.0) {
+			Users.performLogout()
+			DispatchQueue.main.async(after: 0.5) {
+				exit(0)
+			}
+		}
 	}
 }

@@ -58,9 +58,17 @@ class RCMessagesView: UIViewController {
 		tableView.register(RCFooterCell2.self, forCellReuseIdentifier: "RCFooterCell2")
 
 		tableView.tableHeaderView = viewLoadEarlier
+	}
 
-		configureKeyboardActions()
-		configureMessageInputBar()
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func viewWillAppear(_ animated: Bool) {
+
+		super.viewWillAppear(animated)
+
+		DispatchQueue.main.async(after: 0.15) {
+			self.configureKeyboardActions()
+			self.configureMessageInputBar()
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -396,6 +404,9 @@ extension RCMessagesView {
 			self.actionAttachMessage()
 		}
 
+		let longPress = UILongPressGestureRecognizer(target: self, action: #selector(actionLongPress(_:)))
+		button.addGestureRecognizer(longPress)
+
 		messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
 
 		messageInputBar.sendButton.title = nil
@@ -406,6 +417,19 @@ extension RCMessagesView {
 		messageInputBar.setRightStackViewWidthConstant(to: 36, animated: true)
 
 		messageInputBar.inputTextView.isImagePasteEnabled = false
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	@objc func actionLongPress(_ gesture: UILongPressGestureRecognizer) {
+
+		if (gesture.state == .began) {
+			actionAttachLong()
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	@objc func actionAttachLong() {
+
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

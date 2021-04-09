@@ -8,5 +8,6 @@ target 'app' do
 	pod 'GraphQLite'
 	pod 'InputBarAccessoryView'
 	pod 'NYTPhotoViewer'
+	pod 'PasscodeKit'
 	pod 'ProgressHUD'
 end

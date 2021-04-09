@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		29104BC020EFC21B003BD623 /* RCAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29104BBE20EFC21B003BD623 /* RCAudioPlayer.swift */; };
+		2910687A2618F88A00C48FA9 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291068782618F88A00C48FA9 /* PasscodeView.xib */; };
+		2910687B2618F88A00C48FA9 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291068792618F88A00C48FA9 /* PasscodeView.swift */; };
 		291D2AA8255895C700E4619E /* DBRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291D2AA7255895C700E4619E /* DBRelation.swift */; };
 		291D2AAB2558967800E4619E /* DBRelations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291D2AAA2558967800E4619E /* DBRelations.swift */; };
 		2920670124842CCE00F95244 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2920670024842CCE00F95244 /* Data+Extension.swift */; };
@@ -24,6 +26,8 @@
 		29336BC3253DF8E4006F4BB2 /* RCMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29336BC2253DF8E4006F4BB2 /* RCMenuItem.swift */; };
 		293B55B325B5ED6700B46EA1 /* ChatObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293B55B225B5ED6700B46EA1 /* ChatObject.swift */; };
 		293B55B825B5EE3D00B46EA1 /* MediaQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293B55B725B5EE3D00B46EA1 /* MediaQueue.swift */; };
+		29402CC12620B11E0011707D /* GraphQLite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; };
+		29402CC22620B11E0011707D /* GraphQLite.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2941800F23E72FEA00C94845 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941800E23E72FEA00C94845 /* UIImage+Extension.swift */; };
 		29454922254C25C700493DBF /* DBDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29454921254C25C700493DBF /* DBDetails.swift */; };
 		29454925254C363F00493DBF /* DBGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29454924254C363F00493DBF /* DBGroups.swift */; };
@@ -151,8 +155,6 @@
 		29B44CFB25B6E769004F5966 /* LastUpdated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B44CFA25B6E769004F5966 /* LastUpdated.swift */; };
 		29B44D9E25F40461007BC5B3 /* NYTPhotoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B44D9C25F40461007BC5B3 /* NYTPhotoSource.swift */; };
 		29B44D9F25F40461007BC5B3 /* NYTPhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B44D9D25F40461007BC5B3 /* NYTPhotoItem.swift */; };
-		29B7907C260A193C0042BD65 /* GraphQLite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; };
-		29B7907D260A193C0042BD65 /* GraphQLite.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		29BED8A9230B07A40071C11F /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BED89B230B07A30071C11F /* Password.swift */; };
 		29BED8AB230B07A40071C11F /* Dir.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BED89D230B07A30071C11F /* Dir.swift */; };
 		29BED8AE230B07A40071C11F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BED8A0230B07A30071C11F /* Video.swift */; };
@@ -191,13 +193,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		29B7907E260A193C0042BD65 /* Embed Frameworks */ = {
+		29402CC32620B11E0011707D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				29B7907D260A193C0042BD65 /* GraphQLite.xcframework in Embed Frameworks */,
+				29402CC22620B11E0011707D /* GraphQLite.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +208,8 @@
 
 /* Begin PBXFileReference section */
 		29104BBE20EFC21B003BD623 /* RCAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioPlayer.swift; sourceTree = "<group>"; };
+		291068782618F88A00C48FA9 /* PasscodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
+		291068792618F88A00C48FA9 /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
 		291D2AA7255895C700E4619E /* DBRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBRelation.swift; sourceTree = "<group>"; };
 		291D2AAA2558967800E4619E /* DBRelations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBRelations.swift; sourceTree = "<group>"; };
 		2920670024842CCE00F95244 /* Data+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
@@ -398,7 +402,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29B7907C260A193C0042BD65 /* GraphQLite.xcframework in Frameworks */,
+				29402CC12620B11E0011707D /* GraphQLite.xcframework in Frameworks */,
 				D7839A9774FE8638B5D4F985 /* Pods_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,6 +428,15 @@
 				29104BBE20EFC21B003BD623 /* RCAudioPlayer.swift */,
 			);
 			path = RCAudioPlayer;
+			sourceTree = "<group>";
+		};
+		291068772618F88A00C48FA9 /* 03_Passcode */ = {
+			isa = PBXGroup;
+			children = (
+				291068792618F88A00C48FA9 /* PasscodeView.swift */,
+				291068782618F88A00C48FA9 /* PasscodeView.xib */,
+			);
+			path = 03_Passcode;
 			sourceTree = "<group>";
 		};
 		2911A4AC253B237E00CB0482 /* syncobjects */ = {
@@ -657,6 +670,7 @@
 			children = (
 				296020591F2CF5F600544468 /* 01_EditProfile */,
 				2960205D1F2CF5F600544468 /* 02_Password */,
+				291068772618F88A00C48FA9 /* 03_Passcode */,
 				296020611F2CF5F600544468 /* 03_Status */,
 				296020691F2CF5F600544468 /* 04_Blocked */,
 				296020701F2CF5F600544468 /* 05_Archived */,
@@ -1138,7 +1152,7 @@
 				29D29EEE1D9A59E4006CA074 /* Frameworks */,
 				29D29EEF1D9A59E4006CA074 /* Resources */,
 				D9FB444C950EEEB5414E94A4 /* [CP] Embed Pods Frameworks */,
-				29B7907E260A193C0042BD65 /* Embed Frameworks */,
+				29402CC32620B11E0011707D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1210,6 +1224,7 @@
 				2952FAE225A9C2DA00FA9E71 /* schema.graphql in Resources */,
 				29D29F011D9A59E4006CA074 /* Assets.xcassets in Resources */,
 				296021991F2CF5F600544468 /* NetworkView.xib in Resources */,
+				2910687A2618F88A00C48FA9 /* PasscodeView.xib in Resources */,
 				2950E2EB23F89B0600C40714 /* app_logo@2x.png in Resources */,
 				295D93882094930400A222CA /* GroupCreateView.xib in Resources */,
 				29B0031D23C78AAE0092A338 /* rckit_audiopause@2x.png in Resources */,
@@ -1295,6 +1310,7 @@
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/PasscodeKit/PasscodeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1304,6 +1320,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasscodeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1360,6 +1377,7 @@
 				29DD6A0924E008FE00FC3B22 /* AllMediaView.swift in Sources */,
 				294E496A1F8A6AA800045345 /* AddFriendsView.swift in Sources */,
 				2960218A1F2CF5F600544468 /* StatusView.swift in Sources */,
+				2910687B2618F88A00C48FA9 /* PasscodeView.swift in Sources */,
 				29B002FC23C785190092A338 /* MediaDownload.swift in Sources */,
 				29E1B300230C10A20036E3EC /* UserDefaults+Extension.swift in Sources */,
 				29BED8B4230B07A40071C11F /* Shortcut.swift in Sources */,

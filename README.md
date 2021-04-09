@@ -6,17 +6,17 @@ This is a native iOS Messenger app, with realtime chat conversations (full offli
 
 ---
 
-<img src="https://related.chat/screen64/chat03x.png" width="270">.<img src="https://related.chat/screen64/chats01.png" width="270">.<img src="https://related.chat/screen64/allmediax.png" width="270">
-<img src="https://related.chat/screen64/chat07.png" width="270">.<img src="https://related.chat/screen64/chats02x.png" width="270">.<img src="https://related.chat/screen64/settings1.png" width="270">
+<img src="https://related.chat/screen64/chat03x.png" width="270">.<img src="https://related.chat/screen64/chats01.png" width="270">.<img src="https://related.chat/screen64/profile3x.png" width="270">
+<img src="https://related.chat/screen64/chat07.png" width="270">.<img src="https://related.chat/screen64/chats02x.png" width="270">.<img src="https://related.chat/screen64/allmedia.png" width="270">
 
 ---
 
 ## NEW FEATURES
 
+- Passcode support
 - GraphQL server support
 - Auth0 user authentication
 - Amazon S3 file storage
-
 
 ## FEATURES
 - Private chat functionality
@@ -75,8 +75,8 @@ This is a native iOS Messenger app, with realtime chat conversations (full offli
 
 ---
 
+<img src="https://related.chat/screen64/passcode1.png" width="270">.<img src="https://related.chat/screen64/people.png" width="270">.<img src="https://related.chat/screen64/chat06.png" width="270">
 <img src="https://related.chat/screen64/addfriendsx.png" width="270">.<img src="https://related.chat/screen64/stickersx.png" width="270">.<img src="https://related.chat/screen64/picture1.png" width="270">
-<img src="https://related.chat/screen64/settings_cache.png" width="270">.<img src="https://related.chat/screen64/settings_archive1.png" width="270">.<img src="https://related.chat/screen64/chat04.png" width="270">
 
 ---
 
@@ -100,8 +100,8 @@ This is a native iOS Messenger app, with realtime chat conversations (full offli
 
 ---
 
-<img src="https://related.chat/screen64/profile2.png" width="270">.<img src="https://related.chat/screen64/people.png" width="270">.<img src="https://related.chat/screen64/chat06.png" width="270">
-<img src="https://related.chat/screen64/chat05x.png" width="270">.<img src="https://related.chat/screen64/settings2x.png" width="270">.<img src="https://related.chat/screen64/chats03x.png" width="270">
+<img src="https://related.chat/screen64/settings_cache.png" width="270">.<img src="https://related.chat/screen64/settings_archive1.png" width="270">.<img src="https://related.chat/screen64/chat04.png" width="270">
+<img src="https://related.chat/screen64/chat05x.png" width="270">.<img src="https://related.chat/screen64/settings1x.png" width="270">.<img src="https://related.chat/screen64/chats03x.png" width="270">
 
 ---
 
@@ -131,4 +131,4 @@ SOFTWARE.
 
 ---
 
-<img src="https://related.chat/screen64/chat01.png" width="270">.<img src="https://related.chat/screen64/settings_status1x.png" width="270">.<img src="https://related.chat/screen64/profile1.png" width="270">
+<img src="https://related.chat/screen64/chat01.png" width="270">.<img src="https://related.chat/screen64/settings_status1x.png" width="270">.<img src="https://related.chat/screen64/settings2.png" width="270">

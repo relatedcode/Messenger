@@ -15,6 +15,7 @@
                 <outlet property="cellCache" destination="DjV-hq-RP0" id="KBl-3c-TTP"/>
                 <outlet property="cellLogout" destination="8xF-qI-TWS" id="eTj-bM-SOb"/>
                 <outlet property="cellMedia" destination="UOC-eD-kCW" id="72b-5O-erl"/>
+                <outlet property="cellPasscode" destination="VIJ-3e-qXb" id="AVr-rB-3r4"/>
                 <outlet property="cellPassword" destination="5Ge-vf-v3w" id="usc-7L-JJN"/>
                 <outlet property="cellPrivacy" destination="LNT-oc-w73" id="8oc-wh-TGy"/>
                 <outlet property="cellProfile" destination="NH3-nC-Etw" id="Smx-fg-3TL"/>
@@ -27,7 +28,7 @@
                 <outlet property="viewHeader" destination="9Oi-fY-zxx" id="fWF-WS-tWV"/>
             </connections>
         </placeholder>
-        <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="insetGrouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="18" id="i5M-Pr-FkT">
+        <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bouncesZoom="NO" style="insetGrouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="10" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <connections>
@@ -123,6 +124,31 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="741" y="126"/>
         </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="X1s-kR-5Hb" detailTextLabel="isd-GJ-xA9" style="IBUITableViewCellStyleValue1" id="VIJ-3e-qXb">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VIJ-3e-qXb" id="oFV-JT-heg">
+                <rect key="frame" x="0.0" y="0.0" width="293" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Passcode Lock" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="X1s-kR-5Hb">
+                        <rect key="frame" x="16" y="16" width="109" height="19.5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text=" " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="isd-GJ-xA9">
+                        <rect key="frame" x="280.5" y="16" width="4.5" height="19.5"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="741" y="218"/>
+        </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="tnX-oP-wet" style="IBUITableViewCellStyleDefault" id="wNU-C5-MnA">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
@@ -139,7 +165,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="220"/>
+            <point key="canvasLocation" x="741" y="312"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="kxa-b0-82l" style="IBUITableViewCellStyleDefault" id="wey-y3-eco">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -157,7 +183,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="313"/>
+            <point key="canvasLocation" x="741" y="405"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Jlx-kd-lO1" style="IBUITableViewCellStyleDefault" id="KbT-JM-1tb">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -175,7 +201,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="408"/>
+            <point key="canvasLocation" x="741" y="500"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="csv-Pj-3aW" style="IBUITableViewCellStyleDefault" id="DjV-hq-RP0">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -193,7 +219,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="504"/>
+            <point key="canvasLocation" x="741" y="596"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Al9-6K-88B" style="IBUITableViewCellStyleDefault" id="UOC-eD-kCW">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -211,7 +237,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="597"/>
+            <point key="canvasLocation" x="741" y="689"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="A1Q-T5-VK5" style="IBUITableViewCellStyleDefault" id="LNT-oc-w73">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -229,7 +255,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="702"/>
+            <point key="canvasLocation" x="741" y="793"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="thw-sD-x9a" style="IBUITableViewCellStyleDefault" id="zsl-bM-eoc">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -247,7 +273,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="798"/>
+            <point key="canvasLocation" x="741" y="889"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="epl-8y-7rv" style="IBUITableViewCellStyleDefault" id="8xF-qI-TWS">
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
@@ -265,7 +291,7 @@
                     </label>
                 </subviews>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="741" y="894"/>
+            <point key="canvasLocation" x="741" y="986"/>
         </tableViewCell>
     </objects>
     <resources>

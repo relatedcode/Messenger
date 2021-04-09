@@ -10,55 +10,74 @@
 // THE SOFTWARE.
 
 import UIKit
+import PasscodeKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class NetworkView: UIViewController {
+class PasscodeView: UIViewController {
 
 	@IBOutlet private var tableView: UITableView!
-	@IBOutlet private var cellManual: UITableViewCell!
-	@IBOutlet private var cellWiFi: UITableViewCell!
-	@IBOutlet private var cellAll: UITableViewCell!
 
-	private var mediaType = 0
-	private var selectedNetwork = 0
+	@IBOutlet private var cellTurnPasscode: UITableViewCell!
+	@IBOutlet private var cellChangePasscode: UITableViewCell!
+	@IBOutlet private var cellBiometric: UITableViewCell!
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(mediaType: Int) {
-
-		super.init(nibName: nil, bundle: nil)
-
-		self.mediaType = mediaType
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	required init?(coder: NSCoder) {
-
-		super.init(coder: coder)
-	}
+	@IBOutlet private var switchBiometric: UISwitch!
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
+		title = "Passcode"
 
-		if (mediaType == MediaType.Photo) { title = "Photo" }
-		if (mediaType == MediaType.Video) { title = "Video" }
-		if (mediaType == MediaType.Audio) { title = "Audio" }
+		switchBiometric.addTarget(self, action: #selector(actionBiometric), for: .valueChanged)
+	}
 
-		if (mediaType == MediaType.Photo) { selectedNetwork = DBUsers.networkPhoto() }
-		if (mediaType == MediaType.Video) { selectedNetwork = DBUsers.networkVideo() }
-		if (mediaType == MediaType.Audio) { selectedNetwork = DBUsers.networkAudio() }
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func viewWillAppear(_ animated: Bool) {
 
-		updateDetails()
+		super.viewWillAppear(animated)
+
+		updateViewDetails()
+	}
+
+	// MARK: - User actions
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func actionTurnPasscode() {
+
+		if (PasscodeKit.enabled()) {
+			PasscodeKit.removePasscode(self)
+		} else {
+			PasscodeKit.createPasscode(self)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func actionChangePasscode() {
+
+		if (PasscodeKit.enabled()) {
+			PasscodeKit.changePasscode(self)
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	@objc func actionBiometric() {
+
+		PasscodeKit.biometric(switchBiometric.isOn)
 	}
 
 	// MARK: - Helper methods
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func updateDetails() {
+	func updateViewDetails() {
 
-		cellManual.accessoryType = (selectedNetwork == Network.Manual) ? .checkmark : .none
-		cellWiFi.accessoryType	 = (selectedNetwork == Network.WiFi) ? .checkmark : .none
-		cellAll.accessoryType	 = (selectedNetwork == Network.All) ? .checkmark : .none
+		if (PasscodeKit.enabled()) {
+			cellTurnPasscode.textLabel?.text = "Turn Passcode Off"
+			cellChangePasscode.textLabel?.textColor = UIColor.systemBlue
+		} else {
+			cellTurnPasscode.textLabel?.text = "Turn Passcode On"
+			cellChangePasscode.textLabel?.textColor = UIColor.lightGray
+		}
+
+		switchBiometric.isOn = PasscodeKit.biometric()
 
 		tableView.reloadData()
 	}
@@ -66,26 +85,37 @@ class NetworkView: UIViewController {
 
 // MARK: - UITableViewDataSource
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension NetworkView: UITableViewDataSource {
+extension PasscodeView: UITableViewDataSource {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func numberOfSections(in tableView: UITableView) -> Int {
 
-		return 1
+		return PasscodeKit.enabled() ? 2 : 1
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-		return 3
+		if (section == 0) { return 2 }
+		if (section == 1) { return 1 }
+
+		return 0
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+
+		if (section == 1) { return "Allow to use Face ID (or Touch ID) to unlock the app." }
+
+		return nil
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-		if (indexPath.section == 0) && (indexPath.row == 0) { return cellManual	}
-		if (indexPath.section == 0) && (indexPath.row == 1) { return cellWiFi	}
-		if (indexPath.section == 0) && (indexPath.row == 2) { return cellAll	}
+		if (indexPath.section == 0) && (indexPath.row == 0) { return cellTurnPasscode	}
+		if (indexPath.section == 0) && (indexPath.row == 1) { return cellChangePasscode	}
+		if (indexPath.section == 1) && (indexPath.row == 0) { return cellBiometric		}
 
 		return UITableViewCell()
 	}
@@ -93,21 +123,14 @@ extension NetworkView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension NetworkView: UITableViewDelegate {
+extension PasscodeView: UITableViewDelegate {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
 		tableView.deselectRow(at: indexPath, animated: true)
 
-		if (indexPath.section == 0) && (indexPath.row == 0) { selectedNetwork = Network.Manual	}
-		if (indexPath.section == 0) && (indexPath.row == 1) { selectedNetwork = Network.WiFi	}
-		if (indexPath.section == 0) && (indexPath.row == 2) { selectedNetwork = Network.All		}
-
-		if (mediaType == MediaType.Photo) { DBUsers.update(networkPhoto: selectedNetwork) }
-		if (mediaType == MediaType.Video) { DBUsers.update(networkVideo: selectedNetwork) }
-		if (mediaType == MediaType.Audio) { DBUsers.update(networkAudio: selectedNetwork) }
-
-		updateDetails()
+		if (indexPath.section == 0) && (indexPath.row == 0) { actionTurnPasscode()		}
+		if (indexPath.section == 0) && (indexPath.row == 1) { actionChangePasscode()	}
 	}
 }

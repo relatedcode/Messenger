@@ -11,6 +11,7 @@
 
 import UIKit
 import ProgressHUD
+import PasscodeKit
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -22,6 +23,7 @@ class SettingsView: UITableViewController {
 	@IBOutlet private var labelName: UILabel!
 	@IBOutlet private var cellProfile: UITableViewCell!
 	@IBOutlet private var cellPassword: UITableViewCell!
+	@IBOutlet private var cellPasscode: UITableViewCell!
 	@IBOutlet private var cellStatus: UITableViewCell!
 	@IBOutlet private var cellBlocked: UITableViewCell!
 	@IBOutlet private var cellArchive: UITableViewCell!
@@ -44,9 +46,9 @@ class SettingsView: UITableViewController {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder: NSCoder) {
 
-		super.init(coder: aDecoder)
+		super.init(coder: coder)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,7 +100,10 @@ class SettingsView: UITableViewController {
 
 		labelName.text = dbuser.fullname
 
+		cellPasscode.detailTextLabel?.text = PasscodeKit.enabled() ? "On" : "Off"
+
 		cellStatus.textLabel?.text = dbuser.status
+
 		tableView.reloadData()
 	}
 
@@ -121,6 +126,14 @@ class SettingsView: UITableViewController {
 		navController.isModalInPresentation = true
 		navController.modalPresentationStyle = .fullScreen
 		present(navController, animated: true)
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func actionPasscode() {
+
+		let passcodeView = PasscodeView()
+		passcodeView.hidesBottomBarWhenPushed = true
+		navigationController?.pushViewController(passcodeView, animated: true)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -222,7 +235,7 @@ class SettingsView: UITableViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-		if (section == 0) { return 2 }
+		if (section == 0) { return 3 }
 		if (section == 1) { return 1 }
 		if (section == 2) { return 4 }
 		if (section == 3) { return 2 }
@@ -244,6 +257,7 @@ class SettingsView: UITableViewController {
 
 		if (indexPath.section == 0) && (indexPath.row == 0) { return cellProfile	}
 		if (indexPath.section == 0) && (indexPath.row == 1) { return cellPassword	}
+		if (indexPath.section == 0) && (indexPath.row == 2) { return cellPasscode	}
 		if (indexPath.section == 1) && (indexPath.row == 0) { return cellStatus		}
 		if (indexPath.section == 2) && (indexPath.row == 0) { return cellBlocked	}
 		if (indexPath.section == 2) && (indexPath.row == 1) { return cellArchive	}
@@ -264,6 +278,7 @@ class SettingsView: UITableViewController {
 
 		if (indexPath.section == 0) && (indexPath.row == 0) { actionProfile()		}
 		if (indexPath.section == 0) && (indexPath.row == 1) { actionPassword()		}
+		if (indexPath.section == 0) && (indexPath.row == 2) { actionPasscode()		}
 		if (indexPath.section == 1) && (indexPath.row == 0) { actionStatus()		}
 		if (indexPath.section == 2) && (indexPath.row == 0) { actionBlocked()		}
 		if (indexPath.section == 2) && (indexPath.row == 1) { actionArchive()		}

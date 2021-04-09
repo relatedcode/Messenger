@@ -44,6 +44,7 @@ class GraphQLite: NSObject {
 		initStorage()
 		initPush()
 
+		GQLNetwork.setup()
 		ChatObserver.setup()
 		DataObservers.setup()
 	}

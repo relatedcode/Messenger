@@ -12,6 +12,22 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
+class RCTextView: UITextView {
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+
+		return false
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func becomeFirstResponder() -> Bool {
+
+		return true
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
 class RCTextCell: RCBaseCell {
 
 	private var textView: UITextView!
@@ -26,7 +42,7 @@ class RCTextCell: RCBaseCell {
 		viewBubble.backgroundColor = rcmessage.incoming ? RCKit.textBubbleColorIncoming : RCKit.textBubbleColorOutgoing
 
 		if (textView == nil) {
-			textView = UITextView()
+			textView = RCTextView()
 			textView.font = RCKit.textFont
 			textView.isEditable = false
 			textView.isSelectable = false
@@ -35,10 +51,16 @@ class RCTextCell: RCBaseCell {
 			textView.backgroundColor = UIColor.clear
 			textView.textContainer.lineFragmentPadding = 0
 			textView.textContainerInset = RCKit.textInset
+
+			textView.isSelectable = true
+			textView.dataDetectorTypes = .link
+			textView.isUserInteractionEnabled = true
+
 			viewBubble.addSubview(textView)
 		}
 
 		textView.textColor = rcmessage.incoming ? RCKit.textTextColorIncoming : RCKit.textTextColorOutgoing
+		textView.tintColor = rcmessage.incoming ? RCKit.textTextColorIncoming : RCKit.textTextColorOutgoing
 
 		textView.text = rcmessage.text
 	}

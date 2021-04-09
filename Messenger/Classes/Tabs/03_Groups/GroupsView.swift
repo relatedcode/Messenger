@@ -35,9 +35,9 @@ class GroupsView: UIViewController {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder: NSCoder) {
 
-		super.init(coder: aDecoder)
+		super.init(coder: coder)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -132,6 +132,8 @@ class GroupsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionChatGroup(chatId: String) {
 
+
+		view.endEditing(true)
 
 		let chatGroupView = ChatGroupView(chatId: chatId)
 		chatGroupView.hidesBottomBarWhenPushed = true

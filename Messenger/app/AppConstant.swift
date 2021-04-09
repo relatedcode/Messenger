@@ -14,11 +14,13 @@ import Foundation
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 enum Notifications {
 
-	static let AppStarted			= "NotificationAppStarted"
-	static let UserLoggedIn			= "NotificationUserLoggedIn"
-	static let UserLoggedOut		= "NotificationUserLoggedOut"
+	static let AppStarted		= "NotificationAppStarted"
+	static let AppWillResign	= "NotificationAppWillResign"
 
-	static let CleanupChatView		= "NotificationCleanupChatView"
+	static let UserLoggedIn		= "NotificationUserLoggedIn"
+	static let UserLoggedOut	= "NotificationUserLoggedOut"
+
+	static let CleanupChatView	= "NotificationCleanupChatView"
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,9 +88,7 @@ enum AudioStatus {
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 enum App {
 
-	static let DefaultTab			= 0
-
-	static let MaxVideoDuration		= TimeInterval(10)
-
-	static let TextShareApp			= "Check out https://related.chat"
+	static let DefaultTab		= 0
+	static let MaxVideoDuration	= TimeInterval(10)
+	static let TextShareApp		= "Check out https://related.chat"
 }

@@ -40,13 +40,11 @@ class DataObservers: NSObject {
 
 		super.init()
 
-		NotificationCenter.addObserver(target: self, selector: #selector(connect), name: UIApplication.didBecomeActiveNotification.rawValue)
-		NotificationCenter.addObserver(target: self, selector: #selector(disconnect), name: UIApplication.willResignActiveNotification.rawValue)
+		NotificationCenter.addObserver(target: self, selector: #selector(connect), name: Notifications.AppStarted)
+		NotificationCenter.addObserver(target: self, selector: #selector(disconnect), name: Notifications.AppWillResign)
 
 		NotificationCenter.addObserver(target: self, selector: #selector(connect), name: Notifications.UserLoggedIn)
 		NotificationCenter.addObserver(target: self, selector: #selector(disconnect), name: Notifications.UserLoggedOut)
-
-		NotificationCenter.addObserver(target: self, selector: #selector(networkChanged), name: "GQLNetworkChanged")
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,6 +67,8 @@ class DataObservers: NSObject {
 				}
 			}
 		}
+
+		NotificationCenter.addObserver(target: self, selector: #selector(networkChanged), name: "GQLNetworkChanged")
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

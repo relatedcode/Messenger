@@ -35,9 +35,9 @@ class ChatsView: UIViewController {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder: NSCoder) {
 
-		super.init(coder: aDecoder)
+		super.init(coder: coder)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,6 +162,8 @@ class ChatsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionChatPrivate(_ chatId: String, _ recipientId: String) {
 
+		view.endEditing(true)
+
 		let chatPrivateView = ChatPrivateView(chatId: chatId, recipientId: recipientId)
 		chatPrivateView.hidesBottomBarWhenPushed = true
 		navigationController?.pushViewController(chatPrivateView, animated: true)
@@ -169,6 +171,8 @@ class ChatsView: UIViewController {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionChatGroup(_ chatId: String) {
+
+		view.endEditing(true)
 
 		let chatGroupView = ChatGroupView(chatId: chatId)
 		chatGroupView.hidesBottomBarWhenPushed = true

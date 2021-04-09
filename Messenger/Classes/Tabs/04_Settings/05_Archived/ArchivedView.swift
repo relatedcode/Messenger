@@ -88,12 +88,16 @@ class ArchivedView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionChatPrivate(_ chatId: String, _ recipientId: String) {
 
+		view.endEditing(true)
+
 		let chatPrivateView = ChatPrivateView(chatId: chatId, recipientId: recipientId)
 		navigationController?.pushViewController(chatPrivateView, animated: true)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionChatGroup(_ chatId: String) {
+
+		view.endEditing(true)
 
 		let chatGroupView = ChatGroupView(chatId: chatId)
 		navigationController?.pushViewController(chatGroupView, animated: true)

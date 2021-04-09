@@ -47,9 +47,9 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder: NSCoder) {
 
-		super.init(coder: aDecoder)
+		super.init(coder: coder)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

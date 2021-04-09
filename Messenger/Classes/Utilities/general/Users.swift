@@ -12,6 +12,7 @@
 import UIKit
 import CoreSpotlight
 import ProgressHUD
+import PasscodeKit
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,6 +73,8 @@ class Users: NSObject {
 		NotificationCenter.post(notification: Notifications.UserLoggedOut)
 
 		Media.cleanupManual(logout: true)
+
+		PasscodeKit.remove()
 
 		gqldb.cleanupDatabase()
 		gqlsync.cleanup()
