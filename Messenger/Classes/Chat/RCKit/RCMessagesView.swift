@@ -58,14 +58,9 @@ class RCMessagesView: UIViewController {
 		tableView.register(RCFooterCell2.self, forCellReuseIdentifier: "RCFooterCell2")
 
 		tableView.tableHeaderView = viewLoadEarlier
-	}
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override func viewWillAppear(_ animated: Bool) {
-
-		super.viewWillAppear(animated)
-
-		DispatchQueue.main.async(after: 0.15) {
+		let delay = (keyboardHeight() == 0) ? 0 : 0.25
+		DispatchQueue.main.async(after: delay) {
 			self.configureKeyboardActions()
 			self.configureMessageInputBar()
 		}
@@ -374,6 +369,30 @@ extension RCMessagesView {
 	func dismissKeyboard() {
 
 		messageInputBar.inputTextView.resignFirstResponder()
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	private func keyboardHeight() -> CGFloat {
+
+		if let keyboardWindowClass = NSClassFromString("UIRemoteKeyboardWindow"),
+			let inputSetContainerView = NSClassFromString("UIInputSetContainerView"),
+			let inputSetHostView = NSClassFromString("UIInputSetHostView") {
+
+			for window in UIApplication.shared.windows {
+				if window.isKind(of: keyboardWindowClass) {
+					for firstSubView in window.subviews {
+						if firstSubView.isKind(of: inputSetContainerView) {
+							for secondSubView in firstSubView.subviews {
+								if secondSubView.isKind(of: inputSetHostView) {
+									return secondSubView.frame.size.height
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return 0
 	}
 }
 
