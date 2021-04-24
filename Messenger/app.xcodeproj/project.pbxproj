@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,8 +26,6 @@
 		29336BC3253DF8E4006F4BB2 /* RCMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29336BC2253DF8E4006F4BB2 /* RCMenuItem.swift */; };
 		293B55B325B5ED6700B46EA1 /* ChatObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293B55B225B5ED6700B46EA1 /* ChatObject.swift */; };
 		293B55B825B5EE3D00B46EA1 /* MediaQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293B55B725B5EE3D00B46EA1 /* MediaQueue.swift */; };
-		29402CC12620B11E0011707D /* GraphQLite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; };
-		29402CC22620B11E0011707D /* GraphQLite.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 295C44A42608AB18003E5FEF /* GraphQLite.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2941800F23E72FEA00C94845 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2941800E23E72FEA00C94845 /* UIImage+Extension.swift */; };
 		29454922254C25C700493DBF /* DBDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29454921254C25C700493DBF /* DBDetails.swift */; };
 		29454925254C363F00493DBF /* DBGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29454924254C363F00493DBF /* DBGroups.swift */; };
@@ -191,20 +189,6 @@
 		29FB7B242607F05100DD2DB7 /* users.csv in Resources */ = {isa = PBXBuildFile; fileRef = 29FB7B232607F05100DD2DB7 /* users.csv */; };
 		D7839A9774FE8638B5D4F985 /* Pods_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B492906BF341248A9DF8E /* Pods_app.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		29402CC32620B11E0011707D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				29402CC22620B11E0011707D /* GraphQLite.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		29104BBE20EFC21B003BD623 /* RCAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioPlayer.swift; sourceTree = "<group>"; };
@@ -402,7 +386,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29402CC12620B11E0011707D /* GraphQLite.xcframework in Frameworks */,
 				D7839A9774FE8638B5D4F985 /* Pods_app.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1152,7 +1135,6 @@
 				29D29EEE1D9A59E4006CA074 /* Frameworks */,
 				29D29EEF1D9A59E4006CA074 /* Resources */,
 				D9FB444C950EEEB5414E94A4 /* [CP] Embed Pods Frameworks */,
-				29402CC32620B11E0011707D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1312,6 +1294,7 @@
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
 				"${BUILT_PRODUCTS_DIR}/PasscodeKit/PasscodeKit.framework",
 				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/GraphQLite/GraphQLite.framework/GraphQLite",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1322,6 +1305,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasscodeKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GraphQLite.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1599,11 +1583,8 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 6.5.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 6.5.2;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1629,11 +1610,8 @@
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 6.5.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 6.5.2;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
