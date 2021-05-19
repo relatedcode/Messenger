@@ -36,8 +36,8 @@ class MediaUploader: NSObject {
 
 		super.init()
 
-		NotificationCenter.addObserver(target: self, selector: #selector(initTimer), name: Notifications.UserLoggedIn)
-		NotificationCenter.addObserver(target: self, selector: #selector(stopTimer), name: Notifications.UserLoggedOut)
+		NotificationCenter.addObserver(self, selector: #selector(initTimer), text: Notifications.UserLoggedIn)
+		NotificationCenter.addObserver(self, selector: #selector(stopTimer), text: Notifications.UserLoggedOut)
 
 		if (GQLAuth.userId() != "") {
 			initTimer()
@@ -106,7 +106,7 @@ extension MediaUploader {
 
 		if let path = Media.path(photoId: dbmessage.objectId) {
 			if let data = Data(path: path) {
-				MediaUpload.photo(dbmessage.objectId, data: data) { error in
+				MediaUpload.photo(dbmessage.objectId, data) { error in
 					completion(error)
 				}
 			} else { completion(NSError("Media file error.", code: 102)) }
@@ -119,7 +119,7 @@ extension MediaUploader {
 		if let path = Media.path(videoId: dbmessage.objectId) {
 			if let data = Data(path: path) {
 				if let encrypted = Cryptor.encrypt(data: data) {
-					MediaUpload.video(dbmessage.objectId, data: encrypted) { error in
+					MediaUpload.video(dbmessage.objectId, encrypted) { error in
 						completion(error)
 					}
 				} else { completion(NSError("Media encryption error.", code: 101)) }
@@ -133,7 +133,7 @@ extension MediaUploader {
 		if let path = Media.path(audioId: dbmessage.objectId) {
 			if let data = Data(path: path) {
 				if let encrypted = Cryptor.encrypt(data: data) {
-					MediaUpload.audio(dbmessage.objectId, data: encrypted) { error in
+					MediaUpload.audio(dbmessage.objectId, encrypted) { error in
 						completion(error)
 					}
 				} else { completion(NSError("Media encryption error.", code: 101)) }

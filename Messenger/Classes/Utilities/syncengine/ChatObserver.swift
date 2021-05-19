@@ -37,8 +37,8 @@ class ChatObserver: NSObject {
 
 		super.init()
 
-		NotificationCenter.addObserver(target: self, selector: #selector(initObservers), name: Notifications.UserLoggedIn)
-		NotificationCenter.addObserver(target: self, selector: #selector(stopObservers), name: Notifications.UserLoggedOut)
+		NotificationCenter.addObserver(self, selector: #selector(initObservers), text: Notifications.UserLoggedIn)
+		NotificationCenter.addObserver(self, selector: #selector(stopObservers), text: Notifications.UserLoggedOut)
 
 		initObservers()
 	}

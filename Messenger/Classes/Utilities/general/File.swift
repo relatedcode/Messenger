@@ -15,7 +15,7 @@ import Foundation
 class File: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func temp(ext: String) -> String {
+	class func temp(_ ext: String) -> String {
 
 		let name = UUID().uuidString
 		let file = "\(name).\(ext)"
@@ -23,43 +23,47 @@ class File: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func exist(path: String) -> Bool {
+	class func exist(_ path: String) -> Bool {
 
 		return FileManager.default.fileExists(atPath: path)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func remove(path: String) {
+	class func remove(_ path: String) {
 
 		try? FileManager.default.removeItem(at: URL(fileURLWithPath: path))
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func copy(src: String, dest: String, overwrite: Bool) {
+	class func copy(_ src: String, _ dest: String, _ overwrite: Bool) {
 
-		if (overwrite) { remove(path: dest) }
+		if (overwrite) { remove(dest) }
 
-		if (exist(path: dest) == false) {
+		if (exist(dest) == false) {
 			try? FileManager.default.copyItem(atPath: src, toPath: dest)
 		}
 	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension File {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func created(path: String) -> Date {
+	class func created(_ path: String) -> Date {
 
 		let attributes = try! FileManager.default.attributesOfItem(atPath: path)
 		return attributes[.creationDate] as! Date
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func modified(path: String) -> Date {
+	class func modified(_ path: String) -> Date {
 
 		let attributes = try! FileManager.default.attributesOfItem(atPath: path)
 		return attributes[.modificationDate] as! Date
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func size(path: String) -> Int64 {
+	class func size(_ path: String) -> Int64 {
 
 		let attributes = try! FileManager.default.attributesOfItem(atPath: path)
 		return attributes[.size] as! Int64

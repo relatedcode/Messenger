@@ -59,7 +59,7 @@ class RCMessagesView: UIViewController {
 
 		tableView.tableHeaderView = viewLoadEarlier
 
-		let delay = (keyboardHeight() == 0) ? 0 : 0.25
+		let delay = (keyboardHeight() == 0) ? 0.10 : 0.25
 		DispatchQueue.main.async(after: delay) {
 			self.configureKeyboardActions()
 			self.configureMessageInputBar()
@@ -308,13 +308,9 @@ extension RCMessagesView {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func configureKeyboardActions() {
 
-		let notificationWillShow	= UIResponder.keyboardWillShowNotification
-		let notificationWillHide	= UIResponder.keyboardWillHideNotification
-		let notificationWillChange	= UIResponder.keyboardWillChangeFrameNotification
-
-		NotificationCenter.addObserver(target: self, selector: #selector(keyboardWillShow(_:)), name: notificationWillShow.rawValue)
-		NotificationCenter.addObserver(target: self, selector: #selector(keyboardWillHide(_:)), name: notificationWillHide.rawValue)
-		NotificationCenter.addObserver(target: self, selector: #selector(keyboardWillChange(_:)), name: notificationWillChange.rawValue)
+		NotificationCenter.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification)
+		NotificationCenter.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification)
+		NotificationCenter.addObserver(self, selector: #selector(keyboardWillChange(_:)), name: UIResponder.keyboardWillChangeFrameNotification)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

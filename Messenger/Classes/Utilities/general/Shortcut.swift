@@ -27,15 +27,15 @@ class Shortcut: NSObject {
 
 		var items: [UIApplicationShortcutItem] = []
 
-		if let item = createItem(type: "newchat", title: "New Chat", iconType: .compose, userInfo: nil)		{ items.append(item) }
-		if let item = createItem(type: "newgroup", title: "New Group", iconType: .add, userInfo: nil)		{ items.append(item) }
-		if let item = createItem(type: "shareapp", title: "Share Chat", iconType: .share, userInfo: nil)	{ items.append(item) }
+		if let item = createItem("newchat", "New Chat", .compose, nil)	{ items.append(item) }
+		if let item = createItem("newgroup", "New Group", .add, nil)	{ items.append(item) }
+		if let item = createItem("shareapp", "Share Chat", .share, nil)	{ items.append(item) }
 
 		UIApplication.shared.shortcutItems = items
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(userId: String) {
+	class func update(_ userId: String) {
 
 		guard let dbuser = DBUser.fetchOne(gqldb, key: userId) else { return }
 
@@ -45,16 +45,16 @@ class Shortcut: NSObject {
 		let fullname = dbuser.fullname
 		let userInfo = ["userId": objectId]
 
-		if let item = createItem(type: "newchat", title: "New Chat", iconType: .compose, userInfo: nil)			{ items.append(item) }
-		if let item = createItem(type: "newgroup", title: "New Group", iconType: .add, userInfo: nil)			{ items.append(item) }
-		if let item = createItem(type: "recentuser", title: fullname, iconType: .contact, userInfo: userInfo)	{ items.append(item) }
-		if let item = createItem(type: "shareapp", title: "Share Chat", iconType: .share, userInfo: nil)		{ items.append(item) }
+		if let item = createItem("newchat", "New Chat", .compose, nil)			{ items.append(item) }
+		if let item = createItem("newgroup", "New Group", .add, nil)			{ items.append(item) }
+		if let item = createItem("recentuser", fullname, .contact, userInfo)	{ items.append(item) }
+		if let item = createItem("shareapp", "Share Chat", .share, nil)			{ items.append(item) }
 
 		UIApplication.shared.shortcutItems = items
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private class func createItem(type: String, title: String, iconType: UIApplicationShortcutIcon.IconType, userInfo: [String: String]?) -> UIApplicationShortcutItem? {
+	private class func createItem(_ type: String, _ title: String, _ iconType: UIApplicationShortcutIcon.IconType, _ userInfo: [String: String]?) -> UIApplicationShortcutItem? {
 
 		let icon = UIApplicationShortcutIcon(type: iconType)
 

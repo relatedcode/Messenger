@@ -16,7 +16,7 @@ import AVFoundation
 class Video: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func thumbnail(path: String) -> UIImage {
+	class func thumbnail(_ path: String) -> UIImage {
 
 		let asset = AVURLAsset(url: URL(fileURLWithPath: path))
 		let generator = AVAssetImageGenerator(asset: asset)
@@ -34,7 +34,7 @@ class Video: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func duration(path: String) -> Int {
+	class func duration(_ path: String) -> Int {
 
 		let asset = AVURLAsset(url: URL(fileURLWithPath: path))
 		return Int(round(CMTimeGetSeconds(asset.duration)))

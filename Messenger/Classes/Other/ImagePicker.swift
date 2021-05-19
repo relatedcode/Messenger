@@ -16,7 +16,7 @@ import MobileCoreServices
 class ImagePicker: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func cameraPhoto(target viewController: UIViewController, edit: Bool) {
+	class func cameraPhoto(_ viewController: UIViewController, edit: Bool) {
 
 		let type = kUTTypeImage as String
 
@@ -44,7 +44,7 @@ class ImagePicker: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func cameraVideo(target viewController: UIViewController, edit: Bool) {
+	class func cameraVideo(_ viewController: UIViewController, edit: Bool) {
 
 		let type = kUTTypeMovie as String
 
@@ -73,7 +73,7 @@ class ImagePicker: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func cameraMulti(target viewController: UIViewController, edit: Bool) {
+	class func cameraMulti(_ viewController: UIViewController, edit: Bool) {
 
 		let type1 = kUTTypeImage as String
 		let type2 = kUTTypeMovie as String
@@ -103,7 +103,7 @@ class ImagePicker: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func photoLibrary(target viewController: UIViewController, edit: Bool) {
+	class func photoLibrary(_ viewController: UIViewController, edit: Bool) {
 
 		let type = kUTTypeImage as String
 
@@ -138,7 +138,7 @@ class ImagePicker: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func videoLibrary(target viewController: UIViewController, edit: Bool) {
+	class func videoLibrary(_ viewController: UIViewController, edit: Bool) {
 
 		let type = kUTTypeMovie as String
 

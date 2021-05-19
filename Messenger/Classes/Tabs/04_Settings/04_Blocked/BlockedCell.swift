@@ -45,7 +45,7 @@ class BlockedCell: UITableViewCell {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func downloadImage(_ dbuser: DBUser) {
 
-		MediaDownload.user(dbuser.objectId, pictureAt: dbuser.pictureAt) { image, error in
+		MediaDownload.user(dbuser.objectId, dbuser.pictureAt) { image, error in
 			if (self.objectId == dbuser.objectId) {
 				if (error == nil) {
 					self.imageUser.image = image?.square(to: 40)

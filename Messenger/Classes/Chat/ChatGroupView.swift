@@ -39,7 +39,7 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 	private var audioController: RCAudioController?
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(chatId: String) {
+	init(_ chatId: String) {
 
 		super.init(nibName: "RCMessagesView", bundle: nil)
 
@@ -60,7 +60,7 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 
 		navigationController?.interactivePopGestureRecognizer?.delegate = self
 
-		NotificationCenter.addObserver(target: self, selector: #selector(actionCleanup), name: Notifications.CleanupChatView)
+		NotificationCenter.addObserver(self, selector: #selector(actionCleanup), text: Notifications.CleanupChatView)
 
 		loadDetail()
 		loadDetails()
@@ -263,14 +263,14 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func messageSend(text: String?, photo: UIImage?, video: URL?, audio: String?) {
 
-		DBMessages.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio)
+		DBMessages.send(chatId, text, photo, video, audio)
 	}
 
 	// MARK: - User actions
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func actionTitle() {
 
-		let groupDetailsView = GroupDetailsView(chatId: chatId)
+		let groupDetailsView = GroupDetailsView(chatId)
 		navigationController?.pushViewController(groupDetailsView, animated: true)
 	}
 
@@ -305,9 +305,9 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 
 		let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-		alert.addAction(UIAlertAction(title: "Resend", style: .destructive, handler: { action in
+		alert.addAction(UIAlertAction(title: "Resend", style: .destructive) { action in
 			MediaQueue.restart(rcmessage.messageId)
-		}))
+		})
 
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
@@ -342,7 +342,7 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 
 		dbdetail?.update(typing: false)
 
-		NotificationCenter.removeObserver(target: self)
+		NotificationCenter.removeObserver(self)
 	}
 
 }
@@ -446,7 +446,7 @@ extension ChatGroupView {
 		}
 
 		if (imageAvatar == nil) {
-			MediaDownload.user(rcmessage.userId, pictureAt: rcmessage.userPictureAt) { image, error in
+			MediaDownload.user(rcmessage.userId, rcmessage.userPictureAt) { image, error in
 				if (error == nil) {
 					self.refreshTableView()
 				}
@@ -536,7 +536,7 @@ extension ChatGroupView {
 		let rcmessage = rcmessageAt(indexPath)
 
 		if (rcmessage.userId != GQLAuth.userId()) {
-			let profileView = ProfileView(userId: rcmessage.userId, chat: false)
+			let profileView = ProfileView(rcmessage.userId, chat: false)
 			navigationController?.pushViewController(profileView, animated: true)
 		}
 	}
@@ -614,8 +614,8 @@ extension ChatGroupView {
 				}
 				if (rcmessage.type == MessageType.Audio) {
 					if let path = rcmessage.audioPath {
-						let temp = File.temp(ext: "mp4")
-						File.copy(src: path, dest: temp, overwrite: true)
+						let temp = File.temp("mp4")
+						File.copy(path, temp, true)
 						UISaveVideoAtPathToSavedPhotosAlbum(temp, self, #selector(video(_:didFinishSavingWithError:contextInfo:)), nil)
 					}
 				}
@@ -658,13 +658,13 @@ extension ChatGroupView {
 		let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
 		let alertCamera = UIAlertAction(title: "Camera", style: .default) { action in
-			ImagePicker.cameraMulti(target: self, edit: true)
+			ImagePicker.cameraMulti(self, edit: true)
 		}
 		let alertPhoto = UIAlertAction(title: "Photo", style: .default) { action in
-			ImagePicker.photoLibrary(target: self, edit: true)
+			ImagePicker.photoLibrary(self, edit: true)
 		}
 		let alertVideo = UIAlertAction(title: "Video", style: .default) { action in
-			ImagePicker.videoLibrary(target: self, edit: true)
+			ImagePicker.videoLibrary(self, edit: true)
 		}
 		let alertAudio = UIAlertAction(title: "Audio", style: .default) { action in
 			self.actionAudio()

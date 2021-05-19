@@ -15,20 +15,26 @@ import Foundation
 extension NotificationCenter {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func addObserver(target: Any, selector: Selector, name: String) {
+	class func addObserver(_ target: Any, selector: Selector, name: NSNotification.Name) {
 
-		NotificationCenter.default.addObserver(target, selector: selector, name: NSNotification.Name(name), object: nil)
+		NotificationCenter.default.addObserver(target, selector: selector, name: name, object: nil)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func removeObserver(target: Any) {
+	class func addObserver(_ target: Any, selector: Selector, text: String) {
+
+		NotificationCenter.default.addObserver(target, selector: selector, name: NSNotification.Name(text), object: nil)
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func removeObserver(_ target: Any) {
 
 		NotificationCenter.default.removeObserver(target)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func post(notification: String) {
+	class func post(_ text: String) {
 
-		NotificationCenter.default.post(name: NSNotification.Name(notification), object: nil)
+		NotificationCenter.default.post(name: NSNotification.Name(text), object: nil)
 	}
 }

@@ -29,9 +29,9 @@ class ChatsView: UIViewController {
 		tabBarItem.image = UIImage(systemName: "text.bubble")
 		tabBarItem.title = "Chats"
 
-		NotificationCenter.addObserver(target: self, selector: #selector(createObserver), name: Notifications.AppStarted)
-		NotificationCenter.addObserver(target: self, selector: #selector(createObserver), name: Notifications.UserLoggedIn)
-		NotificationCenter.addObserver(target: self, selector: #selector(actionCleanup), name: Notifications.UserLoggedOut)
+		NotificationCenter.addObserver(self, selector: #selector(createObserver), text: Notifications.AppStarted)
+		NotificationCenter.addObserver(self, selector: #selector(createObserver), text: Notifications.UserLoggedIn)
+		NotificationCenter.addObserver(self, selector: #selector(actionCleanup), text: Notifications.UserLoggedOut)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,8 +72,8 @@ class ChatsView: UIViewController {
 		if (GQLAuth.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
-			} else { Users.onboard(target: self) }
-		} else { Users.login(target: self) }
+			} else { Users.onboard(self) }
+		} else { Users.login(self) }
 	}
 
 	// MARK: - Database methods
@@ -164,7 +164,7 @@ class ChatsView: UIViewController {
 
 		view.endEditing(true)
 
-		let chatPrivateView = ChatPrivateView(chatId: chatId, recipientId: recipientId)
+		let chatPrivateView = ChatPrivateView(chatId, recipientId)
 		chatPrivateView.hidesBottomBarWhenPushed = true
 		navigationController?.pushViewController(chatPrivateView, animated: true)
 	}
@@ -174,7 +174,7 @@ class ChatsView: UIViewController {
 
 		view.endEditing(true)
 
-		let chatGroupView = ChatGroupView(chatId: chatId)
+		let chatGroupView = ChatGroupView(chatId)
 		chatGroupView.hidesBottomBarWhenPushed = true
 		navigationController?.pushViewController(chatGroupView, animated: true)
 	}

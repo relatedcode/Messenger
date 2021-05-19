@@ -40,8 +40,11 @@ class Dir: NSObject {
 
 		return path
 	}
+}
 
-	// MARK: -
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension Dir {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func document() -> String {
 
@@ -55,7 +58,7 @@ class Dir: NSObject {
 
 		path = (path as NSString).appendingPathComponent(component)
 
-		createIntermediate(path: path)
+		createIntermediate(path)
 
 		return path
 	}
@@ -68,12 +71,15 @@ class Dir: NSObject {
 		path = (path as NSString).appendingPathComponent(component1)
 		path = (path as NSString).appendingPathComponent(component2)
 
-		createIntermediate(path: path)
+		createIntermediate(path)
 
 		return path
 	}
+}
 
-	// MARK: -
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension Dir {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func cache() -> String {
 
@@ -87,29 +93,32 @@ class Dir: NSObject {
 
 		path = (path as NSString).appendingPathComponent(component)
 
-		createIntermediate(path: path)
+		createIntermediate(path)
 
 		return path
 	}
+}
 
-	// MARK: -
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension Dir {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func createIntermediate(path: String) {
+	private class func createIntermediate(_ path: String) {
 
 		let directory = (path as NSString).deletingLastPathComponent
-		if (exist(path: directory) == false) {
-			create(directory: directory)
+		if (exist(directory) == false) {
+			create(directory)
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(directory: String) {
+	private class func create(_ directory: String) {
 
 		try? FileManager.default.createDirectory(atPath: directory, withIntermediateDirectories: true, attributes: nil)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func exist(path: String) -> Bool {
+	private class func exist(_ path: String) -> Bool {
 
 		return FileManager.default.fileExists(atPath: path)
 	}

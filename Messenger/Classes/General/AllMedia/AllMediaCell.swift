@@ -47,7 +47,7 @@ class AllMediaCell: UICollectionViewCell {
 
 		if let path = Media.path(videoId: dbmessage.objectId) {
 			DispatchQueue(label: "bindVideo").async {
-				let thumbnail = Video.thumbnail(path: path)
+				let thumbnail = Video.thumbnail(path)
 				DispatchQueue.main.async {
 					self.imageItem.image = thumbnail.square(to: 160)
 				}

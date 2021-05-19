@@ -13,28 +13,22 @@ import Foundation
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class LastUpdated: NSObject, GQLObject {
+class LastUpdated: NSObject {
 
-	@objc var name = ""
-	@objc var updatedAt: TimeInterval = 0
+	private static var initialized = false
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func primaryKey() -> String {
-
-		return "name"
-	}
-}
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-extension LastUpdated {
+	private static var cache: [String: TimeInterval] = [:]
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class subscript(_ table: String) -> String {
 
-		let lastUpdated = LastUpdated.fetchOne(gqldb, key: table)
-		let updatedAt = lastUpdated?.updatedAt ?? 0
+		loadCache()
 
-		return GQLDate[updatedAt]
+		if let cached = cache[table] {
+			return GQLDate[cached]
+		}
+
+		return GQLDate[0]
 	}
 }
 
@@ -42,29 +36,73 @@ extension LastUpdated {
 extension LastUpdated {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(_ table: String, _ value: String) {
+	private class func loadCache() {
 
-		let updatedAt = GQLDate[value].timeIntervalSince1970
+		if (initialized) { return }
 
-		if let lastUpdated = LastUpdated.fetchOne(gqldb, key: table) {
-			if (updatedAt > lastUpdated.updatedAt) {
-				lastUpdated.updatedAt = updatedAt
-				lastUpdated.update(gqldb)
-			}
-		} else {
-			let lastUpdated = LastUpdated()
-			lastUpdated.name = table
-			lastUpdated.updatedAt = updatedAt
-			lastUpdated.insert(gqldb)
+		if let temp = UserDefaults.object(key: "LastUpdated") as? [String: TimeInterval] {
+			cache = temp
+		}
+
+		initialized = true
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	private class func saveCache() {
+
+		UserDefaults.setObject(cache, key: "LastUpdated")
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension LastUpdated {
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func update(_ table: String, _ values: [String: Any]) {
+
+		if let updatedAt = values["updatedAt"] as? String {
+			update(table, updatedAt)
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func update(_ table: String, _ updatedAt: String) {
+
+		update(table, GQLDate[updatedAt].timeIntervalSince1970)
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func update(_ table: String, _ updatedAt: TimeInterval) {
+
+		loadCache()
+
+		if let cached = cache[table] {
+			if (updatedAt <= cached) {
+				return
+			}
+		}
+		cache[table] = updatedAt
+
+		saveCache()
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension LastUpdated {
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func clear(_ table: String) {
 
-		let lastUpdated = LastUpdated()
-		lastUpdated.name = table
-		lastUpdated.updatedAt = 0
-		lastUpdated.update(gqldb)
+		cache.removeValue(forKey: table)
+
+		saveCache()
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	class func cleanup() {
+
+		cache.removeAll()
+
+		saveCache()
 	}
 }

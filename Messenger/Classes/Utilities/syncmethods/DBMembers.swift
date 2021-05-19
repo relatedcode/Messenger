@@ -15,7 +15,7 @@ import Foundation
 class DBMembers: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(chatId: String, userIds: [String]) {
+	class func create(_ chatId: String, _ userIds: [String]) {
 
 		for userId in userIds {
 			update(chatId, userId, isActive: true)
@@ -48,7 +48,7 @@ extension DBMembers {
 extension DBMembers {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func userIds(chatId: String) -> [String] {
+	class func userIds(_ chatId: String) -> [String] {
 
 		var userIds: [String] = []
 

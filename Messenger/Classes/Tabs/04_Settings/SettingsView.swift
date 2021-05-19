@@ -41,8 +41,8 @@ class SettingsView: UITableViewController {
 		tabBarItem.image = UIImage(systemName: "gear")
 		tabBarItem.title = "Settings"
 
-		NotificationCenter.addObserver(target: self, selector: #selector(loadUser), name: Notifications.UserLoggedIn)
-		NotificationCenter.addObserver(target: self, selector: #selector(actionCleanup), name: Notifications.UserLoggedOut)
+		NotificationCenter.addObserver(self, selector: #selector(loadUser), text: Notifications.UserLoggedIn)
+		NotificationCenter.addObserver(self, selector: #selector(actionCleanup), text: Notifications.UserLoggedOut)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,8 +80,8 @@ class SettingsView: UITableViewController {
 		if (GQLAuth.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
-			} else { Users.onboard(target: self) }
-		} else { Users.login(target: self) }
+			} else { Users.onboard(self) }
+		} else { Users.login(self) }
 	}
 
 	// MARK: - Database methods
@@ -91,7 +91,7 @@ class SettingsView: UITableViewController {
 		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else { return }
 
 		labelInitials.text = dbuser.initials()
-		MediaDownload.user(dbuser.objectId, pictureAt: dbuser.pictureAt) { image, error in
+		MediaDownload.user(dbuser.objectId, dbuser.pictureAt) { image, error in
 			if (error == nil) {
 				self.imageUser.image = image?.square(to: 70)
 				self.labelInitials.text = nil
@@ -111,7 +111,7 @@ class SettingsView: UITableViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionProfile() {
 
-		let editProfileView = EditProfileView(isOnboard: false)
+		let editProfileView = EditProfileView(onboard: false)
 		let navController = NavigationController(rootViewController: editProfileView)
 		navController.isModalInPresentation = true
 		navController.modalPresentationStyle = .fullScreen

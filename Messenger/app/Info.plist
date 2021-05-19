@@ -33,6 +33,8 @@
 	<string>We use your camera to capture photos and videos.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>We use your contacts to sync Chat contacts with this device.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>We use Face ID to unlock Messenger.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We use your location to send location messages.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -43,8 +45,6 @@
 	<string>We use photo library to save picture and video messages.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We use photo library to send picture and video messages.</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>We use Face ID to unlock Messenger.</string>
 	<key>OneSignal_disable_badge_clearing</key>
 	<true/>
 	<key>UIBackgroundModes</key>

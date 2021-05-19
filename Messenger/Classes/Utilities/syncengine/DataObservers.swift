@@ -15,13 +15,13 @@ import GraphQLite
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 class DataObservers: NSObject {
 
-	private var observerIdUser:		String?
-	private var observerIdRelation:	String?
-	private var observerIdMember:	String?
-	private var observerIdSingle:	String?
-	private var observerIdGroup:	String?
-	private var observerIdDetail:	String?
-	private var observerIdMessage:	String?
+	private var callbackIdUser:		String?
+	private var callbackIdRelation:	String?
+	private var callbackIdMember:	String?
+	private var callbackIdSingle:	String?
+	private var callbackIdGroup:	String?
+	private var callbackIdDetail:	String?
+	private var callbackIdMessage:	String?
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: DataObservers = {
@@ -40,11 +40,11 @@ class DataObservers: NSObject {
 
 		super.init()
 
-		NotificationCenter.addObserver(target: self, selector: #selector(connect), name: Notifications.AppStarted)
-		NotificationCenter.addObserver(target: self, selector: #selector(disconnect), name: Notifications.AppWillResign)
+		NotificationCenter.addObserver(self, selector: #selector(connect), text: Notifications.AppStarted)
+		NotificationCenter.addObserver(self, selector: #selector(disconnect), text: Notifications.AppWillResign)
 
-		NotificationCenter.addObserver(target: self, selector: #selector(connect), name: Notifications.UserLoggedIn)
-		NotificationCenter.addObserver(target: self, selector: #selector(disconnect), name: Notifications.UserLoggedOut)
+		NotificationCenter.addObserver(self, selector: #selector(connect), text: Notifications.UserLoggedIn)
+		NotificationCenter.addObserver(self, selector: #selector(disconnect), text: Notifications.UserLoggedOut)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ class DataObservers: NSObject {
 			}
 		}
 
-		NotificationCenter.addObserver(target: self, selector: #selector(networkChanged), name: "GQLNetworkChanged")
+		NotificationCenter.addObserver(self, selector: #selector(networkChanged), text: "GQLNetworkChanged")
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -83,25 +83,29 @@ class DataObservers: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func initObservers() {
 
-		if (observerIdUser == nil)		{ createObserverUser()		}
-		if (observerIdRelation == nil)	{ createObserverRelation()	}
-		if (observerIdMember == nil)	{ createObserverMember()	}
-		if (observerIdSingle == nil)	{ createObserverSingle()	}
-		if (observerIdGroup == nil)		{ createObserverGroup()		}
-		if (observerIdDetail == nil)	{ createObserverDetail()	}
-		if (observerIdMessage == nil)	{ createObserverMessage()	}
+		subscribeUser()
+		subscribeRelation()
+		subscribeMember()
+
+		subscribeSingle() { [self] in
+			subscribeGroup() { [self] in
+				subscribeDetail() { [self] in
+					subscribeMessage()
+				}
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func stopObservers() {
 
-		if (observerIdUser != nil)		{ removeObserverUser()		}
-		if (observerIdRelation != nil)	{ removeObserverRelation()	}
-		if (observerIdMember != nil)	{ removeObserverMember()	}
-		if (observerIdSingle != nil)	{ removeObserverSingle()	}
-		if (observerIdGroup != nil)		{ removeObserverGroup()		}
-		if (observerIdDetail != nil)	{ removeObserverDetail()	}
-		if (observerIdMessage != nil)	{ removeObserverMessage()	}
+		unsubscribeUser()
+		unsubscribeRelation()
+		unsubscribeMember()
+		unsubscribeSingle()
+		unsubscribeGroup()
+		unsubscribeDetail()
+		unsubscribeMessage()
 	}
 }
 
@@ -109,7 +113,9 @@ class DataObservers: NSObject {
 extension DataObservers {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func fetch(_ query: String, _ variables: [String: Any], _ table: String) {
+	private func fetch(_ queryName: String, _ variables: [String: Any], _ table: String, completion: @escaping () -> Void) {
+
+		let query = GQLQuery[queryName]
 
 		gqlserver.query(query, variables) { result, error in
 			if let error = error {
@@ -123,13 +129,16 @@ extension DataObservers {
 					}
 				}
 			}
+			completion()
 		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func subscribe(_ query: String, _ variables: [String: Any], _ table: String) -> String {
+	private func subscribe(_ queryName: String, _ table: String) -> String {
 
-		let callbackId = gqlserver.subscription(query, variables) { result, error in
+		let query = GQLQuery[queryName]
+
+		let callbackId = gqlserver.subscription(query, [:]) { result, error in
 			if let error = error {
 				print(error.localizedDescription)
 			} else {
@@ -157,10 +166,7 @@ extension DataObservers {
 	private func updateDatabase(_ table: String, _ values: [String: Any]) {
 
 		gqldb.updateInsert(table, values)
-
-		if let updatedAt = values["updatedAt"] as? String {
-			LastUpdated.update(table, updatedAt)
-		}
+		LastUpdated.update(table, values)
 	}
 }
 
@@ -169,162 +175,150 @@ extension DataObservers {
 
 	// MARK: - User
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverUser() {
+	private func subscribeUser() {
 
-		let table = "DBUser"
-
-		let query = GQLQuery["DBUserQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBUserSubscription"]
-		observerIdUser = subscribe(subscription, [:], table)
+		if (callbackIdUser == nil) {
+			let updatedAt = LastUpdated["DBUser"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBUserQuery", variables, "DBUser") { [self] in
+				callbackIdUser = subscribe("DBUserSubscription", "DBUser")
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverUser() {
+	private func unsubscribeUser() {
 
-		unsubscribe(observerIdUser)
-		observerIdUser = nil
+		unsubscribe(callbackIdUser)
+		callbackIdUser = nil
 	}
 
 	// MARK: - Relation
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverRelation() {
+	private func subscribeRelation() {
 
-		let table = "DBRelation"
-
-		let query = GQLQuery["DBRelationQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBRelationSubscription"]
-		observerIdRelation = subscribe(subscription, [:], table)
+		if (callbackIdRelation == nil) {
+			let updatedAt = LastUpdated["DBRelation"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBRelationQuery", variables, "DBRelation") { [self] in
+				callbackIdRelation = subscribe("DBRelationSubscription", "DBRelation")
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverRelation() {
+	private func unsubscribeRelation() {
 
-		unsubscribe(observerIdRelation)
-		observerIdRelation = nil
+		unsubscribe(callbackIdRelation)
+		callbackIdRelation = nil
 	}
 
 	// MARK: - Member
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverMember() {
+	private func subscribeMember() {
 
-		let table = "DBMember"
-
-		let query = GQLQuery["DBMemberQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBMemberSubscription"]
-		observerIdMember = subscribe(subscription, [:], table)
+		if (callbackIdMember == nil) {
+			let updatedAt = LastUpdated["DBMember"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBMemberQuery", variables, "DBMember") { [self] in
+				callbackIdMember = subscribe("DBMemberSubscription", "DBMember")
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverMember() {
+	private func unsubscribeMember() {
 
-		unsubscribe(observerIdMember)
-		observerIdMember = nil
+		unsubscribe(callbackIdMember)
+		callbackIdMember = nil
 	}
 
 	// MARK: - Single
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverSingle() {
+	private func subscribeSingle(completion: @escaping () -> Void) {
 
-		let table = "DBSingle"
-
-		let query = GQLQuery["DBSingleQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBSingleSubscription"]
-		observerIdSingle = subscribe(subscription, [:], table)
+		if (callbackIdSingle == nil) {
+			let updatedAt = LastUpdated["DBSingle"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBSingleQuery", variables, "DBSingle") { [self] in
+				callbackIdSingle = subscribe("DBSingleSubscription", "DBSingle")
+				completion()
+			}
+		} else {
+			completion()
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverSingle() {
+	private func unsubscribeSingle() {
 
-		unsubscribe(observerIdSingle)
-		observerIdSingle = nil
+		unsubscribe(callbackIdSingle)
+		callbackIdSingle = nil
 	}
 
 	// MARK: - Group
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverGroup() {
+	private func subscribeGroup(completion: @escaping () -> Void) {
 
-		let table = "DBGroup"
-
-		let query = GQLQuery["DBGroupQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBGroupSubscription"]
-		observerIdGroup = subscribe(subscription, [:], table)
+		if (callbackIdGroup == nil) {
+			let updatedAt = LastUpdated["DBGroup"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBGroupQuery", variables, "DBGroup") { [self] in
+				callbackIdGroup = subscribe("DBGroupSubscription", "DBGroup")
+				completion()
+			}
+		} else {
+			completion()
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverGroup() {
+	private func unsubscribeGroup() {
 
-		unsubscribe(observerIdGroup)
-		observerIdGroup = nil
+		unsubscribe(callbackIdGroup)
+		callbackIdGroup = nil
 	}
 
 	// MARK: - Detail
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverDetail() {
+	private func subscribeDetail(completion: @escaping () -> Void) {
 
-		let table = "DBDetail"
-
-		let query = GQLQuery["DBDetailQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBDetailSubscription"]
-		observerIdDetail = subscribe(subscription, [:], table)
+		if (callbackIdDetail == nil) {
+			let updatedAt = LastUpdated["DBDetail"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBDetailQuery", variables, "DBDetail") { [self] in
+				callbackIdDetail = subscribe("DBDetailSubscription", "DBDetail")
+				completion()
+			}
+		} else {
+			completion()
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverDetail() {
+	private func unsubscribeDetail() {
 
-		unsubscribe(observerIdDetail)
-		observerIdDetail = nil
+		unsubscribe(callbackIdDetail)
+		callbackIdDetail = nil
 	}
 
 	// MARK: - Message
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverMessage() {
+	private func subscribeMessage() {
 
-		let table = "DBMessage"
-
-		let query = GQLQuery["DBMessageQuery"]
-		let updatedAt = LastUpdated[table]
-		let variables = ["updatedAt": updatedAt]
-
-		fetch(query, variables, table)
-
-		let subscription = GQLQuery["DBMessageSubscription"]
-		observerIdMessage = subscribe(subscription, [:], table)
+		if (callbackIdMessage == nil) {
+			let updatedAt = LastUpdated["DBMessage"]
+			let variables = ["updatedAt": updatedAt]
+			fetch("DBMessageQuery", variables, "DBMessage") { [self] in
+				callbackIdMessage = subscribe("DBMessageSubscription", "DBMessage")
+			}
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private func removeObserverMessage() {
+	private func unsubscribeMessage() {
 
-		unsubscribe(observerIdMessage)
-		observerIdMessage = nil
+		unsubscribe(callbackIdMessage)
+		callbackIdMessage = nil
 	}
 }

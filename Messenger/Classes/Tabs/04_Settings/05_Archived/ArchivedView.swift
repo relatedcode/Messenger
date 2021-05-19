@@ -90,7 +90,7 @@ class ArchivedView: UIViewController {
 
 		view.endEditing(true)
 
-		let chatPrivateView = ChatPrivateView(chatId: chatId, recipientId: recipientId)
+		let chatPrivateView = ChatPrivateView(chatId, recipientId)
 		navigationController?.pushViewController(chatPrivateView, animated: true)
 	}
 
@@ -99,7 +99,7 @@ class ArchivedView: UIViewController {
 
 		view.endEditing(true)
 
-		let chatGroupView = ChatGroupView(chatId: chatId)
+		let chatGroupView = ChatGroupView(chatId)
 		navigationController?.pushViewController(chatGroupView, animated: true)
 	}
 

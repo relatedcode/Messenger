@@ -51,7 +51,7 @@ class MediaView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionNetwork(mediaType: Int) {
 
-		let networkView = NetworkView(mediaType: mediaType)
+		let networkView = NetworkView(mediaType)
 		navigationController?.pushViewController(networkView, animated: true)
 	}
 }

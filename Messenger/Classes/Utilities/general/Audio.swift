@@ -15,7 +15,7 @@ import AVFoundation
 class Audio: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func duration(path: String) -> Int {
+	class func duration(_ path: String) -> Int {
 
 		let asset = AVURLAsset(url: URL(fileURLWithPath: path))
 		return Int(round(CMTimeGetSeconds(asset.duration)))

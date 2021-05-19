@@ -13,7 +13,7 @@ import UIKit
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-@objc protocol SelectUserDelegate: class {
+@objc protocol SelectUserDelegate: AnyObject {
 
 	func didSelectUser(dbuser: DBUser)
 }

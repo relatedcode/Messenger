@@ -57,6 +57,7 @@ class RCTextCell: RCBaseCell {
 			textView.isUserInteractionEnabled = true
 
 			viewBubble.addSubview(textView)
+			bubbleGestureRecognizer(textView)
 		}
 
 		textView.textColor = rcmessage.incoming ? RCKit.textTextColorIncoming : RCKit.textTextColorOutgoing

@@ -29,8 +29,8 @@ class DBSingles: NSObject {
 		guard let dbuser1 = DBUser.fetchOne(gqldb, key: userId1) else { fatalError("Sender user must exists in the local database.")	 }
 		guard let dbuser2 = DBUser.fetchOne(gqldb, key: userId2) else { fatalError("Recipient user must exists in the local database.") }
 
-		DBDetails.create(chatId: objectId, userIds: userIds)
-		DBMembers.create(chatId: objectId, userIds: userIds)
+		DBDetails.create(objectId, userIds)
+		DBMembers.create(objectId, userIds)
 
 		let dbsingle = DBSingle()
 

@@ -50,8 +50,7 @@ class VideoView: UIViewController {
 
 		super.viewDidLoad()
 
-		let notification = NSNotification.Name.AVPlayerItemDidPlayToEndTime
-		NotificationCenter.addObserver(target: self, selector: #selector(actionDone), name: notification.rawValue)
+		NotificationCenter.addObserver(self, selector: #selector(actionDone), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +76,7 @@ class VideoView: UIViewController {
 
 		super.viewWillDisappear(animated)
 
-		NotificationCenter.removeObserver(target: self)
+		NotificationCenter.removeObserver(self)
 	}
 
 	// MARK: - User actions

@@ -23,7 +23,7 @@ class NetworkView: UIViewController {
 	private var selectedNetwork = 0
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(mediaType: Int) {
+	init(_ mediaType: Int) {
 
 		super.init(nibName: nil, bundle: nil)
 

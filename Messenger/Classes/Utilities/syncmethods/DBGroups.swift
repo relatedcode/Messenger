@@ -16,12 +16,12 @@ import GraphQLite
 class DBGroups: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(_ name: String, userIds: [String]) {
+	class func create(_ name: String, _ userIds: [String]) {
 
 		let objectId = UUID().uuidString
 
-		DBDetails.create(chatId: objectId, userIds: userIds)
-		DBMembers.create(chatId: objectId, userIds: userIds)
+		DBDetails.create(objectId, userIds)
+		DBMembers.create(objectId, userIds)
 
 		let dbgroup = DBGroup()
 		dbgroup.objectId = objectId

@@ -46,7 +46,7 @@ class ProfileView: UIViewController {
 	private var isChatEnabled = false
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(userId: String, chat: Bool) {
+	init(_ userId: String, chat: Bool) {
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -88,7 +88,7 @@ class ProfileView: UIViewController {
 		dbuser = DBUser.fetchOne(gqldb, key: userId)
 
 		labelInitials.text = dbuser.initials()
-		MediaDownload.user(dbuser.objectId, pictureAt: dbuser.pictureAt) { image, error in
+		MediaDownload.user(dbuser.objectId, dbuser.pictureAt) { image, error in
 			if (error == nil) {
 				self.imageUser.image = image?.square(to: 70)
 				self.labelInitials.text = nil
@@ -125,7 +125,7 @@ class ProfileView: UIViewController {
 	@IBAction func actionHeader1(_ sender: Any) {
 
 		let chatId = DBSingles.create(userId)
-		let chatPrivateView = ChatPrivateView(chatId: chatId, recipientId: userId)
+		let chatPrivateView = ChatPrivateView(chatId, userId)
 		navigationController?.pushViewController(chatPrivateView, animated: true)
 	}
 
@@ -181,7 +181,7 @@ class ProfileView: UIViewController {
 	func actionMedia() {
 
 		let chatId = DBSingles.chatId(userId)
-		let allMediaView = AllMediaView(chatId: chatId)
+		let allMediaView = AllMediaView(chatId)
 		navigationController?.pushViewController(allMediaView, animated: true)
 	}
 

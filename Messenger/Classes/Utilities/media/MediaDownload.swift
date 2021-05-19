@@ -16,10 +16,10 @@ import GraphQLite
 class MediaDownload: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func user(_ name: String, pictureAt: TimeInterval, completion: @escaping (UIImage?, Error?) -> Void) {
+	class func user(_ name: String, _ pictureAt: TimeInterval, completion: @escaping (UIImage?, Error?) -> Void) {
 
 		if (pictureAt != 0) {
-			start(dir: "user", name: name, ext: "jpg", manual: false) { path, error in
+			start("user", name, "jpg", false) { path, error in
 				if (error == nil) {
 					completion(UIImage(path: path), nil)
 				} else {
@@ -35,24 +35,24 @@ class MediaDownload: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func photo(_ name: String, completion: @escaping (String, Error?) -> Void) {
 
-		start(dir: "media", name: name, ext: "jpg", manual: true, completion: completion)
+		start("media", name, "jpg", true, completion)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func video(_ name: String, completion: @escaping (String, Error?) -> Void) {
 
-		start(dir: "media", name: name, ext: "mp4", manual: true, completion: completion)
+		start("media", name, "mp4", true, completion)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func audio(_ name: String, completion: @escaping (String, Error?) -> Void) {
 
-		start(dir: "media", name: name, ext: "m4a", manual: true, completion: completion)
+		start("media", name, "m4a", true, completion)
 	}
 
 	// MARK: -
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private class func start(dir: String, name: String, ext: String, manual: Bool, completion: @escaping (String, Error?) -> Void) {
+	private class func start(_ dir: String, _ name: String, _ ext: String, _ manual: Bool, _ completion: @escaping (String, Error?) -> Void) {
 
 		let file = "\(name).\(ext)"
 		let path = Dir.document(dir, and: file)
@@ -65,7 +65,7 @@ class MediaDownload: NSObject {
 
 		// Check if file is already downloaded
 		//---------------------------------------------------------------------------------------------------------------------------------------
-		if (File.exist(path: path)) {
+		if (File.exist(path)) {
 			completion(path, nil)
 			return
 		}
@@ -73,7 +73,7 @@ class MediaDownload: NSObject {
 		// Check if manual download is required
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		if (manual) {
-			if (File.exist(path: pathManual)) {
+			if (File.exist(pathManual)) {
 				completion("", NSError("Manual download required.", code: 101))
 				return
 			}
@@ -84,7 +84,7 @@ class MediaDownload: NSObject {
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		let time = Int(Date().timeIntervalSince1970)
 
-		if (File.exist(path: pathLoading)) {
+		if (File.exist(pathLoading)) {
 			if let temp = try? String(contentsOfFile: pathLoading, encoding: .utf8) {
 				if let check = Int(temp) {
 					if (time - check < 60) {
@@ -102,7 +102,7 @@ class MediaDownload: NSObject {
 		let key = "\(dir)/\(name).\(ext)"
 
 		gqlstorage.download(bucket, key) { data, error in
-			File.remove(path: pathLoading)
+			File.remove(pathLoading)
 			data?.write(path: path, options: .atomic)
 			DispatchQueue.main.async {
 				completion(path, error)

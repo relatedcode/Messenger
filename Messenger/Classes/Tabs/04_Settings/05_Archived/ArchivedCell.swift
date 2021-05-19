@@ -60,7 +60,7 @@ class ArchivedCell: UITableViewCell {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func downloadImage(_ chatObject: ChatObject) {
 
-		MediaDownload.user(chatObject.userId, pictureAt: chatObject.pictureAt) { image, error in
+		MediaDownload.user(chatObject.userId, chatObject.pictureAt) { image, error in
 			if (self.objectId == chatObject.objectId) {
 				if (error == nil) {
 					self.imageUser.image = image?.square(to: 50)

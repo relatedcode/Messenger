@@ -14,7 +14,7 @@ import ProgressHUD
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-@objc protocol SelectUsersDelegate: class {
+@objc protocol SelectUsersDelegate: AnyObject {
 
 	func didSelectUsers(userIds: [String])
 }

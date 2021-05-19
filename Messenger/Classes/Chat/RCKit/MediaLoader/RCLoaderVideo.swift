@@ -64,7 +64,7 @@ class RCLoaderVideo: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private class func showMedia(_ rcmessage: RCMessage, path: String) {
 
-		let thumbnail = Video.thumbnail(path: path)
+		let thumbnail = Video.thumbnail(path)
 
 		rcmessage.videoPath = path
 		rcmessage.videoThumbnail = thumbnail.square(to: 200)

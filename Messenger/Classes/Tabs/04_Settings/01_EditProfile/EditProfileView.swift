@@ -37,11 +37,11 @@ class EditProfileView: UIViewController {
 	private var dbuser: DBUser!
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(isOnboard: Bool) {
+	init(onboard: Bool) {
 
 		super.init(nibName: nil, bundle: nil)
 
-		self.isOnboard = isOnboard
+		isOnboard = onboard
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ class EditProfileView: UIViewController {
 		dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
 
 		labelInitials.text = dbuser.initials()
-		MediaDownload.user(dbuser.objectId, pictureAt: dbuser.pictureAt) { image, error in
+		MediaDownload.user(dbuser.objectId, dbuser.pictureAt) { image, error in
 			if (error == nil) {
 				self.imageUser.image = image?.square(to: 70)
 				self.labelInitials.text = nil
@@ -156,10 +156,10 @@ class EditProfileView: UIViewController {
 		let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
 		alert.addAction(UIAlertAction(title: "Open Camera", style: .default) { action in
-			ImagePicker.cameraPhoto(target: self, edit: true)
+			ImagePicker.cameraPhoto(self, edit: true)
 		})
 		alert.addAction(UIAlertAction(title: "Photo Library", style: .default) { action in
-			ImagePicker.photoLibrary(target: self, edit: true)
+			ImagePicker.photoLibrary(self, edit: true)
 		})
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
@@ -184,7 +184,7 @@ class EditProfileView: UIViewController {
 		let squared = image.square(to: 300)
 		if let data = squared.jpegData(compressionQuality: 0.6) {
 			if let encrypted = Cryptor.encrypt(data: data) {
-				MediaUpload.user(GQLAuth.userId(), data: encrypted) { error in
+				MediaUpload.user(GQLAuth.userId(), encrypted) { error in
 					if (error == nil) {
 						self.pictureUploaded(image: squared, data: data)
 					} else {

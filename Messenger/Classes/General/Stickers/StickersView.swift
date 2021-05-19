@@ -12,7 +12,7 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-@objc protocol StickersDelegate: class {
+@objc protocol StickersDelegate: AnyObject {
 
 	func didSelectSticker(sticker: UIImage)
 }

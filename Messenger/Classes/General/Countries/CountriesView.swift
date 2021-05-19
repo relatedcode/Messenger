@@ -12,7 +12,7 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-@objc protocol CountriesDelegate: class {
+@objc protocol CountriesDelegate: AnyObject {
 
 	func didSelectCountry(name: String, code: String)
 }

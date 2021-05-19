@@ -29,9 +29,9 @@ class GroupsView: UIViewController {
 		tabBarItem.image = UIImage(systemName: "person.2")
 		tabBarItem.title = "Groups"
 
-		NotificationCenter.addObserver(target: self, selector: #selector(createObserver), name: Notifications.AppStarted)
-		NotificationCenter.addObserver(target: self, selector: #selector(createObserver), name: Notifications.UserLoggedIn)
-		NotificationCenter.addObserver(target: self, selector: #selector(actionCleanup), name: Notifications.UserLoggedOut)
+		NotificationCenter.addObserver(self, selector: #selector(createObserver), text: Notifications.AppStarted)
+		NotificationCenter.addObserver(self, selector: #selector(createObserver), text: Notifications.UserLoggedIn)
+		NotificationCenter.addObserver(self, selector: #selector(actionCleanup), text: Notifications.UserLoggedOut)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,8 +72,8 @@ class GroupsView: UIViewController {
 		if (GQLAuth.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
-			} else { Users.onboard(target: self) }
-		} else { Users.login(target: self) }
+			} else { Users.onboard(self) }
+		} else { Users.login(self) }
 	}
 
 	// MARK: - Database methods
@@ -135,7 +135,7 @@ class GroupsView: UIViewController {
 
 		view.endEditing(true)
 
-		let chatGroupView = ChatGroupView(chatId: chatId)
+		let chatGroupView = ChatGroupView(chatId)
 		chatGroupView.hidesBottomBarWhenPushed = true
 		navigationController?.pushViewController(chatGroupView, animated: true)
 	}

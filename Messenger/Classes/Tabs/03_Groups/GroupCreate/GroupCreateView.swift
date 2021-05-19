@@ -116,7 +116,7 @@ class GroupCreateView: UIViewController {
 		var userIds = selection
 		userIds.append(GQLAuth.userId())
 
-		DBGroups.create(name, userIds: userIds)
+		DBGroups.create(name, userIds)
 
 		dismiss(animated: true)
 	}

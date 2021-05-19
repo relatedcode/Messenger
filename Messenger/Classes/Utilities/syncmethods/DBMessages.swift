@@ -16,7 +16,7 @@ import GraphQLite
 class DBMessages: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func send(chatId: String, text: String?, photo: UIImage?, video: URL?, audio: String?) {
+	class func send(_ chatId: String, _ text: String?, _ photo: UIImage?, _ video: URL?, _ audio: String?) {
 
 		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else {
 			fatalError("Sender user must exists in the local database.") }
@@ -115,7 +115,7 @@ extension DBMessages {
 		dbmessage.type = MessageType.Video
 		dbmessage.text = "Video message"
 
-		dbmessage.videoDuration = Video.duration(path: video.path)
+		dbmessage.videoDuration = Video.duration(video.path)
 		dbmessage.isMediaQueued = true
 
 		if let data = Data(path: video.path) {
@@ -130,7 +130,7 @@ extension DBMessages {
 		dbmessage.type = MessageType.Audio
 		dbmessage.text = "Audio message"
 
-		dbmessage.audioDuration = Audio.duration(path: audio)
+		dbmessage.audioDuration = Audio.duration(audio)
 		dbmessage.isMediaQueued = true
 
 		if let data = Data(path: audio) {
@@ -162,7 +162,7 @@ extension DBMessages {
 
 		if let pathSource = Media.path(photoId: dbsource.objectId) {
 			let pathMessage = Media.xpath(photoId: dbmessage.objectId)
-			File.copy(src: pathSource, dest: pathMessage, overwrite: true)
+			File.copy(pathSource, pathMessage, true)
 			createMessage(dbmessage)
 		}
 	}
@@ -174,7 +174,7 @@ extension DBMessages {
 
 		if let pathSource = Media.path(videoId: dbsource.objectId) {
 			let pathMessage = Media.xpath(videoId: dbmessage.objectId)
-			File.copy(src: pathSource, dest: pathMessage, overwrite: true)
+			File.copy(pathSource, pathMessage, true)
 			createMessage(dbmessage)
 		}
 	}
@@ -186,7 +186,7 @@ extension DBMessages {
 
 		if let pathSource = Media.path(audioId: dbsource.objectId) {
 			let pathMessage = Media.xpath(audioId: dbmessage.objectId)
-			File.copy(src: pathSource, dest: pathMessage, overwrite: true)
+			File.copy(pathSource, pathMessage, true)
 			createMessage(dbmessage)
 		}
 	}
@@ -226,7 +226,7 @@ extension DBMessages {
 		if (type == MessageType.Location)	{ text = text + (" sent you a location.")		}
 
 		let chatId = dbmessage.chatId
-		var userIds = DBMembers.userIds(chatId: chatId)
+		var userIds = DBMembers.userIds(chatId)
 
 		for dbdetail in DBDetail.fetchAll(gqldb, "chatId = ?", [chatId]) {
 			if (dbdetail.mutedUntil > Date().timestamp()) {

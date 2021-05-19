@@ -16,7 +16,7 @@ import GraphQLite
 class DBDetails: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(chatId: String, userIds: [String]) {
+	class func create(_ chatId: String, _ userIds: [String]) {
 
 		for userId in userIds {
 			create(chatId, userId)

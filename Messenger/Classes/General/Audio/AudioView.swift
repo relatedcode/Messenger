@@ -13,7 +13,7 @@ import UIKit
 import AVFoundation
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-@objc protocol AudioDelegate: class {
+@objc protocol AudioDelegate: AnyObject {
 
 	func didRecordAudio(path: String)
 }
@@ -110,7 +110,7 @@ class AudioView: UIViewController {
 		try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
 
 		let settings = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 44100, AVNumberOfChannelsKey: 2]
-		audioRecorder = try? AVAudioRecorder(url: URL(fileURLWithPath: File.temp(ext: "m4a")), settings: settings)
+		audioRecorder = try? AVAudioRecorder(url: URL(fileURLWithPath: File.temp("m4a")), settings: settings)
 		audioRecorder?.prepareToRecord()
 		audioRecorder?.record()
 	}

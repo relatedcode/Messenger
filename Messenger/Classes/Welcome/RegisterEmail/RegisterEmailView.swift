@@ -14,7 +14,7 @@ import ProgressHUD
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-@objc protocol RegisterEmailDelegate: class {
+@objc protocol RegisterEmailDelegate: AnyObject {
 
 	func didRegisterUser()
 }

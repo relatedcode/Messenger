@@ -19,7 +19,7 @@ import GraphQLite
 class Users: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func login(target viewController: UIViewController) {
+	class func login(_ viewController: UIViewController) {
 
 		let welcomeView = WelcomeView()
 		welcomeView.isModalInPresentation = true
@@ -28,9 +28,9 @@ class Users: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func onboard(target viewController: UIViewController) {
+	class func onboard(_ viewController: UIViewController) {
 
-		let editProfileView = EditProfileView(isOnboard: true)
+		let editProfileView = EditProfileView(onboard: true)
 		let navController = NavigationController(rootViewController: editProfileView)
 		navController.isModalInPresentation = true
 		navController.modalPresentationStyle = .fullScreen
@@ -49,7 +49,7 @@ class Users: NSObject {
 			ProgressHUD.showSucceed("Welcome!")
 		}
 
-		NotificationCenter.post(notification: Notifications.UserLoggedIn)
+		NotificationCenter.post(Notifications.UserLoggedIn)
 
 		DispatchQueue.main.async(after: 0.5) {
 			DBUsers.updateActive()
@@ -70,7 +70,7 @@ class Users: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func performLogout() {
 
-		NotificationCenter.post(notification: Notifications.UserLoggedOut)
+		NotificationCenter.post(Notifications.UserLoggedOut)
 
 		Media.cleanupManual(logout: true)
 
@@ -78,6 +78,8 @@ class Users: NSObject {
 
 		gqldb.cleanupDatabase()
 		gqlsync.cleanup()
+
+		LastUpdated.cleanup()
 
 		CSSearchableIndex.default().deleteAllSearchableItems()
 

@@ -20,7 +20,7 @@ class AllMediaView: UIViewController {
 	private var dbmessages: [DBMessage] = []
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(chatId: String) {
+	init(_ chatId: String) {
 
 		super.init(nibName: nil, bundle: nil)
 

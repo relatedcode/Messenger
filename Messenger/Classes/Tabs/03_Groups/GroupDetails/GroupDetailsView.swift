@@ -32,7 +32,7 @@ class GroupDetailsView: UIViewController {
 	private var dbusers: [DBUser] = []
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	init(chatId: String) {
+	init(_ chatId: String) {
 
 		super.init(nibName: nil, bundle: nil)
 
@@ -192,7 +192,7 @@ class GroupDetailsView: UIViewController {
 
 		dbgroup.update(isDeleted: true)
 
-		NotificationCenter.post(notification: Notifications.CleanupChatView)
+		NotificationCenter.post(Notifications.CleanupChatView)
 
 		navigationController?.popToRootViewController(animated: true)
 	}
@@ -217,7 +217,7 @@ class GroupDetailsView: UIViewController {
 
 		dbgroup.update(members: dbgroup.members-1)
 
-		NotificationCenter.post(notification: Notifications.CleanupChatView)
+		NotificationCenter.post(Notifications.CleanupChatView)
 
 		navigationController?.popToRootViewController(animated: true)
 	}
@@ -235,14 +235,14 @@ class GroupDetailsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionAllMedia() {
 
-		let allMediaView = AllMediaView(chatId: chatId)
+		let allMediaView = AllMediaView(chatId)
 		navigationController?.pushViewController(allMediaView, animated: true)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionProfile(_ userId: String) {
 
-		let profileView = ProfileView(userId: userId, chat: true)
+		let profileView = ProfileView(userId, chat: true)
 		navigationController?.pushViewController(profileView, animated: true)
 	}
 
@@ -268,13 +268,13 @@ extension GroupDetailsView: SelectUsersDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func didSelectUsers(userIds: [String]) {
 
-		var memberIds = DBMembers.userIds(chatId: chatId)
+		var memberIds = DBMembers.userIds(chatId)
 		for userId in userIds {
 			memberIds.appendUnique(userId)
 		}
 
-		DBDetails.create(chatId: chatId, userIds: userIds)
-		DBMembers.create(chatId: chatId, userIds: userIds)
+		DBDetails.create(chatId, userIds)
+		DBMembers.create(chatId, userIds)
 
 		dbgroup.update(members: memberIds.count)
 	}

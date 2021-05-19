@@ -34,7 +34,7 @@ class RCBaseCell: RCMessagesCell {
 			viewBubble = UIView()
 			viewBubble.layer.cornerRadius = RCKit.bubbleRadius
 			contentView.addSubview(viewBubble)
-			bubbleGestureRecognizer()
+			bubbleGestureRecognizer(viewBubble)
 		}
 
 		if (imageAvatar == nil) {
@@ -78,14 +78,14 @@ class RCBaseCell: RCMessagesCell {
 
 	// MARK: - Gesture recognizer methods
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func bubbleGestureRecognizer() {
+	func bubbleGestureRecognizer(_ view: UIView) {
 
 		let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapBubble))
-		viewBubble.addGestureRecognizer(tapGesture)
 		tapGesture.cancelsTouchesInView = false
+		view.addGestureRecognizer(tapGesture)
 
 		let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(actionLongBubble(_:)))
-		viewBubble.addGestureRecognizer(longGesture)
+		view.addGestureRecognizer(longGesture)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -117,16 +117,6 @@ class RCBaseCell: RCMessagesCell {
 		switch gestureRecognizer.state {
 			case .began:
 				actionMenu()
-			case .changed:
-				break
-			case .ended:
-				break
-			case .possible:
-				break
-			case .cancelled:
-				break
-			case .failed:
-				break
 			default:
 				break
 		}
@@ -135,17 +125,18 @@ class RCBaseCell: RCMessagesCell {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionMenu() {
 
-		if (messagesView.messageInputBar.inputTextView.isFirstResponder == false) {
-			let menuController = UIMenuController.shared
-			menuController.menuItems = messagesView.menuItems(indexPath)
-			if #available(iOS 13.0, *) {
-				menuController.showMenu(from: contentView, rect: viewBubble.frame)
-			} else {
-				menuController.setTargetRect(viewBubble.frame, in: contentView)
-				menuController.setMenuVisible(true, animated: true)
-			}
+		messagesView.dismissKeyboard()
+
+		let menuController = UIMenuController.shared
+		menuController.menuItems = messagesView.menuItems(indexPath)
+
+		if #available(iOS 13.0, *) {
+			menuController.showMenu(from: contentView, rect: viewBubble.frame)
 		} else {
-			messagesView.messageInputBar.inputTextView.resignFirstResponder()
+			menuController.setTargetRect(viewBubble.frame, in: contentView)
+			menuController.setMenuVisible(true, animated: true)
 		}
+
+		UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
 	}
 }

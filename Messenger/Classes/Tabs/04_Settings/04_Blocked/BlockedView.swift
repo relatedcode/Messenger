@@ -109,7 +109,7 @@ extension BlockedView: UITableViewDelegate {
 		tableView.deselectRow(at: indexPath, animated: true)
 
 		let dbuser = dbusers[indexPath.row]
-		let profileView = ProfileView(userId: dbuser.objectId, chat: true)
+		let profileView = ProfileView(dbuser.objectId, chat: true)
 		navigationController?.pushViewController(profileView, animated: true)
 	}
 }

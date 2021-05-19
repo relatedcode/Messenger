@@ -16,31 +16,31 @@ import GraphQLite
 class MediaUpload: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func user(_ name: String, data: Data, completion: @escaping (Error?) -> Void) {
+	class func user(_ name: String, _ data: Data, completion: @escaping (Error?) -> Void) {
 
-		start(dir: "user", name: name, ext: "jpg", data: data, completion: completion)
+		start("user", name, "jpg", data, completion)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func photo(_ name: String, data: Data, completion: @escaping (Error?) -> Void) {
+	class func photo(_ name: String, _ data: Data, completion: @escaping (Error?) -> Void) {
 
-		start(dir: "media", name: name, ext: "jpg", data: data, completion: completion)
+		start("media", name, "jpg", data, completion)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func video(_ name: String, data: Data, completion: @escaping (Error?) -> Void) {
+	class func video(_ name: String, _ data: Data, completion: @escaping (Error?) -> Void) {
 
-		start(dir: "media", name: name, ext: "mp4", data: data, completion: completion)
+		start("media", name, "mp4", data, completion)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func audio(_ name: String, data: Data, completion: @escaping (Error?) -> Void) {
+	class func audio(_ name: String, _ data: Data, completion: @escaping (Error?) -> Void) {
 
-		start(dir: "media", name: name, ext: "m4a", data: data, completion: completion)
+		start("media", name, "m4a", data, completion)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private class func start(dir: String, name: String, ext: String, data: Data, completion: @escaping (Error?) -> Void) {
+	private class func start(_ dir: String, _ name: String, _ ext: String, _ data: Data, _ completion: @escaping (Error?) -> Void) {
 
 		let bucket = "messenger-ios"
 		let key = "\(dir)/\(name).\(ext)"

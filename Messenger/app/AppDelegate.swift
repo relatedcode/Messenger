@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func applicationWillResignActive(_ application: UIApplication) {
 
-		NotificationCenter.post(notification: Notifications.AppWillResign)
+		NotificationCenter.post(Notifications.AppWillResign)
 		DBUsers.updateTerminate()
 		Location.stop()
 	}
@@ -243,13 +243,13 @@ extension AppDelegate: PasscodeKitDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func passcodeCheckedButDisabled() {
 
-		NotificationCenter.post(notification: Notifications.AppStarted)
+		NotificationCenter.post(Notifications.AppStarted)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func passcodeEnteredSuccessfully() {
 
-		NotificationCenter.post(notification: Notifications.AppStarted)
+		NotificationCenter.post(Notifications.AppStarted)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

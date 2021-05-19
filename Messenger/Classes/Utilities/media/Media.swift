@@ -27,7 +27,7 @@ class Media: NSObject {
 		let file = "\(name).\(ext)"
 		let path = Dir.document(dir, and: file)
 
-		return File.exist(path: path) ? path : nil
+		return File.exist(path) ? path : nil
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,8 +62,8 @@ extension Media {
 		let fileLoading = file + ".loading"
 		let pathLoading = Dir.document(dir, and: fileLoading)
 
-		File.remove(path: pathManual)
-		File.remove(path: pathLoading)
+		File.remove(pathManual)
+		File.remove(pathLoading)
 	}
 }
 
@@ -128,9 +128,9 @@ extension Media {
 				if (isDir.boolValue == false) {
 					let ext = (path as NSString).pathExtension
 					if (extensions.contains(ext)) {
-						let created = File.created(path: path)
+						let created = File.created(path)
 						if (created.compare(past) == .orderedAscending) {
-							File.remove(path: path)
+							File.remove(path)
 						}
 					}
 				}
@@ -146,9 +146,9 @@ extension Media {
 				if (isDir.boolValue == false) {
 					let ext = (path as NSString).pathExtension
 					if (ext == "mp4") {
-						let created = File.created(path: path)
+						let created = File.created(path)
 						if (created.compare(past) == .orderedAscending) {
-							File.remove(path: path)
+							File.remove(path)
 						}
 					}
 				}
@@ -171,7 +171,7 @@ extension Media {
 				if (isDir.boolValue == false) {
 					let ext = (path as NSString).pathExtension
 					if (extensions.contains(ext)) {
-						File.remove(path: path)
+						File.remove(path)
 					}
 				}
 			}
@@ -186,7 +186,7 @@ extension Media {
 				if (isDir.boolValue == false) {
 					let ext = (path as NSString).pathExtension
 					if (ext == "mp4") {
-						File.remove(path: path)
+						File.remove(path)
 					}
 				}
 			}
@@ -214,7 +214,7 @@ extension Media {
 				if (isDir.boolValue == false) {
 					let ext = (path as NSString).pathExtension
 					if (extensions.contains(ext)) {
-						total += File.size(path: path)
+						total += File.size(path)
 					}
 				}
 			}
@@ -229,7 +229,7 @@ extension Media {
 				if (isDir.boolValue == false) {
 					let ext = (path as NSString).pathExtension
 					if (ext == "mp4") {
-						total += File.size(path: path)
+						total += File.size(path)
 					}
 				}
 			}
