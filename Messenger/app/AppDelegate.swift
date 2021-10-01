@@ -78,6 +78,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		tabBarController.tabBar.isTranslucent = false
 		tabBarController.selectedIndex = App.DefaultTab
 
+		if #available(iOS 15.0, *) {
+			let appearance = UITabBarAppearance()
+			appearance.configureWithOpaqueBackground()
+			tabBarController.tabBar.standardAppearance = appearance
+			tabBarController.tabBar.scrollEdgeAppearance = appearance
+		}
+
 		window?.rootViewController = tabBarController
 		window?.makeKeyAndVisible()
 

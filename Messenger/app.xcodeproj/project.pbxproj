@@ -1584,7 +1584,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 6.5.3;
+				MARKETING_VERSION = 6.5.4;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1611,7 +1611,7 @@
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 6.5.3;
+				MARKETING_VERSION = 6.5.4;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
