@@ -1,0 +1,62 @@
+PODS:
+  - GraphQLite (1.1.8)
+  - InputBarAccessoryView (5.2.3):
+    - InputBarAccessoryView/Core (= 5.2.3)
+  - InputBarAccessoryView/Core (5.2.3)
+  - NYTPhotoViewer (5.0.5):
+    - NYTPhotoViewer/AnimatedGifSupport (= 5.0.5)
+    - NYTPhotoViewer/Core (= 5.0.5)
+  - NYTPhotoViewer/AnimatedGifSupport (5.0.5):
+    - NYTPhotoViewer/Core
+    - PINRemoteImage/iOS (~> 3.0.1)
+    - PINRemoteImage/PINCache
+  - NYTPhotoViewer/Core (5.0.5)
+  - PasscodeKit (1.0.1)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+  - PINRemoteImage/Core (3.0.3):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.3):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.3):
+    - PINCache (~> 3.0.3)
+    - PINRemoteImage/Core
+  - ProgressHUD (13.6)
+
+DEPENDENCIES:
+  - GraphQLite (= 1.1.8)
+  - InputBarAccessoryView (= 5.2.3)
+  - NYTPhotoViewer
+  - PasscodeKit
+  - ProgressHUD
+
+SPEC REPOS:
+  trunk:
+    - GraphQLite
+    - InputBarAccessoryView
+    - NYTPhotoViewer
+    - PasscodeKit
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
+    - ProgressHUD
+
+SPEC CHECKSUMS:
+  GraphQLite: 768887cc6f1d16086ef2d08fa30dbd73f63d829e
+  InputBarAccessoryView: f814a0317d47687fafc6bac9e4df6015eaf5b764
+  NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
+  PasscodeKit: 495d98d2d5e68c5e34c58917b4022eba66182616
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
+  ProgressHUD: 4bdaa0d2ddf676b23324b199f9facffb5c3a1620
+
+PODFILE CHECKSUM: 5adf1bb1a416281a2acc2e61ef511d86b665e550
+
+COCOAPODS: 1.11.2
