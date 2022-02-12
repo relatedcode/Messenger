@@ -196,7 +196,7 @@ extension AppDelegate {
 
 		if (userActivity.activityType == CSSearchableItemActionType) {
 			if let userId = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
-				if (GQLAuth.userId() != "") {
+				if (GQLAuth0.userId() != "") {
 					peopleView.actionUser(userId: userId)
 					return true
 				}
@@ -213,7 +213,7 @@ extension AppDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (shortcutItem.type == "newchat") {
 				chatsView.actionNewChat()
 			}

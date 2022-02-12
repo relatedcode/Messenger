@@ -88,7 +88,7 @@ class EditProfileView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadUser() {
 
-		dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 
 		labelInitials.text = dbuser.initials()
 		MediaDownload.user(dbuser.objectId, dbuser.pictureAt) { image, error in
@@ -184,7 +184,7 @@ class EditProfileView: UIViewController {
 		let squared = image.square(to: 300)
 		if let data = squared.jpegData(compressionQuality: 0.6) {
 			if let encrypted = Cryptor.encrypt(data: data) {
-				MediaUpload.user(GQLAuth.userId(), encrypted) { error in
+				MediaUpload.user(GQLAuth0.userId(), encrypted) { error in
 					if (error == nil) {
 						self.pictureUploaded(image: squared, data: data)
 					} else {
@@ -198,7 +198,7 @@ class EditProfileView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func pictureUploaded(image: UIImage, data: Data) {
 
-		Media.save(userId: GQLAuth.userId(), data: data)
+		Media.save(userId: GQLAuth0.userId(), data: data)
 
 		dbuser.pictureAt = Date().timestamp()
 

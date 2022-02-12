@@ -18,7 +18,7 @@ class DBMessages: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func send(_ chatId: String, _ text: String?, _ photo: UIImage?, _ video: URL?, _ audio: String?) {
 
-		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else {
+		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) else {
 			fatalError("Sender user must exists in the local database.") }
 
 		let dbmessage = DBMessage()
@@ -41,7 +41,7 @@ class DBMessages: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func forward(_ chatId: String, _ dbsource: DBMessage) {
 
-		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else {
+		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) else {
 			fatalError("Sender user must exists in the local database.") }
 
 		let dbmessage = DBMessage()
@@ -233,7 +233,7 @@ extension DBMessages {
 				userIds.remove(dbdetail.userId)
 			}
 		}
-		userIds.remove(GQLAuth.userId())
+		userIds.remove(GQLAuth0.userId())
 
 		GQLPush.send(chatId, userIds, text)
 	}

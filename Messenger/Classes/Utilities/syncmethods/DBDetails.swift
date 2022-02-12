@@ -44,7 +44,7 @@ extension DBDetails {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(chatId: String, mutedUntil: TimeInterval) {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let objectId = "\(chatId)-\(userId)".sha1()
 
 		if let dbdetail = DBDetail.fetchOne(gqldb, key: objectId) {
@@ -55,7 +55,7 @@ extension DBDetails {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(chatId: String, isDeleted: Bool) {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let objectId = "\(chatId)-\(userId)".sha1()
 
 		if let dbdetail = DBDetail.fetchOne(gqldb, key: objectId) {
@@ -66,7 +66,7 @@ extension DBDetails {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(chatId: String, isArchived: Bool) {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let objectId = "\(chatId)-\(userId)".sha1()
 
 		if let dbdetail = DBDetail.fetchOne(gqldb, key: objectId) {

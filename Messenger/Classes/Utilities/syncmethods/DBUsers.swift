@@ -31,42 +31,42 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func fullname() -> String {
 
-		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 		return dbuser?.fullname ?? ""
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func status() -> String {
 
-		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 		return dbuser?.status ?? ""
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func keepMedia() -> Int {
 
-		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 		return dbuser?.keepMedia ?? KeepMedia.Forever
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func networkPhoto() -> Int {
 
-		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 		return dbuser?.networkPhoto ?? Network.All
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func networkVideo() -> Int {
 
-		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 		return dbuser?.networkVideo ?? Network.All
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func networkAudio() -> Int {
 
-		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
+		let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId())
 		return dbuser?.networkAudio ?? Network.All
 	}
 }
@@ -77,7 +77,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(status: String) {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(status: status)
 		}
 	}
@@ -85,7 +85,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(keepMedia: Int) {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(keepMedia: keepMedia)
 		}
 	}
@@ -93,7 +93,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(networkPhoto: Int) {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(networkPhoto: networkPhoto)
 		}
 	}
@@ -101,7 +101,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(networkVideo: Int) {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(networkVideo: networkVideo)
 		}
 	}
@@ -109,7 +109,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(networkAudio: Int) {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(networkAudio: networkAudio)
 		}
 	}
@@ -121,7 +121,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func updateActive() {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(lastActive: Date().timestamp())
 		}
 	}
@@ -129,7 +129,7 @@ extension DBUsers {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func updateTerminate() {
 
-		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) {
+		if let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) {
 			dbuser.update(lastTerminate: Date().timestamp())
 		}
 	}

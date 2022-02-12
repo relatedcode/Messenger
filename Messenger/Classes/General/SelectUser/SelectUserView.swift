@@ -62,7 +62,7 @@ class SelectUserView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadUsers() {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let text = searchBar.text ?? ""
 
 		let arguments: [String: Any] = [":userId": userId, ":true": true, ":text": "%%\(text)%%"]

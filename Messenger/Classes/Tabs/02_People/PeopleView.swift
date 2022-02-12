@@ -65,7 +65,7 @@ class PeopleView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			loadUsers()
 		}
 	}
@@ -75,7 +75,7 @@ class PeopleView: UIViewController {
 
 		super.viewDidAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
 			} else { Users.onboard(self) }
@@ -86,7 +86,7 @@ class PeopleView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadUsers() {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let text = searchBar.text ?? ""
 
 		let arguments: [String: Any] = [":userId": userId, ":true": true, ":text": "%%\(text)%%"]
@@ -128,10 +128,10 @@ class PeopleView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func createObserver() {
 
-		if (GQLAuth.userId() == "") || (observerId != nil) { return }
+		if (GQLAuth0.userId() == "") || (observerId != nil) { return }
 
 		let types: [GQLObserverType] = [.insert, .update]
-		let condition = String(format: "OBJ.objectId != '%@'", GQLAuth.userId())
+		let condition = String(format: "OBJ.objectId != '%@'", GQLAuth0.userId())
 
 		observerId = DBUser.createObserver(gqldb, types, condition) { method, objectId in
 			DispatchQueue.main.async {

@@ -5,8 +5,8 @@ use_frameworks!
 inhibit_all_warnings!
 
 target 'app' do
-	pod 'GraphQLite', '1.1.8'
-	pod 'InputBarAccessoryView', '5.2.3'
+	pod 'GraphQLite'
+	pod 'InputBarAccessoryView'
 	pod 'NYTPhotoViewer'
 	pod 'PasscodeKit'
 	pod 'ProgressHUD'

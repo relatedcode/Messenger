@@ -75,7 +75,7 @@ class RegisterEmailView: UIViewController {
 
 		ProgressHUD.show(nil, interaction: false)
 
-		GQLAuth.signUp(email: email, password: password) { error in
+		GQLAuth0.signUp(email, password) { error in
 			if let error = error {
 				ProgressHUD.showFailed(error.localizedDescription)
 			} else {
@@ -88,7 +88,7 @@ class RegisterEmailView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func createUser(_ email: String) {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		DBUsers.create(userId, email)
 
 		DispatchQueue.main.async {

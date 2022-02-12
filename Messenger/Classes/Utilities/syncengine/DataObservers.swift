@@ -56,7 +56,7 @@ class DataObservers: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func connect() {
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (GQLNetwork.isReachable()) {
 				gqlserver.connect() { error in
 					if let error = error {

@@ -49,7 +49,7 @@ class BlockedView: UIViewController {
 
 		let text = searchBar.text ?? ""
 
-		let arguments: [String: Any] = [":userId": GQLAuth.userId(), ":true": true, ":false": false, ":text": "%%\(text)%%"]
+		let arguments: [String: Any] = [":userId": GQLAuth0.userId(), ":true": true, ":false": false, ":text": "%%\(text)%%"]
 
 		let condition = "objectId IN (SELECT userId2 FROM DBRelation WHERE userId1 = :userId AND isBlocked = :true) AND fullname LIKE :text"
 

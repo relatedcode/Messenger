@@ -76,7 +76,7 @@ class LoginEmailView: UIViewController {
 
 		ProgressHUD.show(nil, interaction: false)
 
-		GQLAuth.signIn(email: email, password: password) { error in
+		GQLAuth0.signIn(email, password) { error in
 			if let error = error {
 				ProgressHUD.showFailed(error.localizedDescription)
 			} else {
@@ -90,12 +90,12 @@ class LoginEmailView: UIViewController {
 	func checkUser(_ email: String) {
 
 		let query = GQLQuery["DBUserFetch"]
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let variables = ["objectId": userId]
 
 		gqlserver.query(query, variables) { result, error in
 			if let error = error {
-				GQLAuth.signOut()
+				GQLAuth0.signOut()
 				ProgressHUD.showFailed(error.localizedDescription)
 			} else {
 				self.checkUser(email, result)
@@ -130,7 +130,7 @@ class LoginEmailView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func createUser(_ email: String) {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		DBUsers.create(userId, email)
 
 		DispatchQueue.main.async {

@@ -104,13 +104,13 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadDetail() {
 
-		dbdetail = DBDetail.fetchOne(gqldb, "chatId = ? AND userId = ?", [chatId, GQLAuth.userId()])
+		dbdetail = DBDetail.fetchOne(gqldb, "chatId = ? AND userId = ?", [chatId, GQLAuth0.userId()])
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadDetails() {
 
-		for dbdetail in DBDetail.fetchAll(gqldb, "chatId = ? AND userId != ?", [chatId, GQLAuth.userId()]) {
+		for dbdetail in DBDetail.fetchAll(gqldb, "chatId = ? AND userId != ?", [chatId, GQLAuth0.userId()]) {
 			refreshDetail(dbdetail)
 		}
 	}
@@ -119,7 +119,7 @@ class ChatGroupView: RCMessagesView, UIGestureRecognizerDelegate {
 	func observerDetails() {
 
 		let types: [GQLObserverType] = [.insert, .update]
-		let condition = String(format: "OBJ.chatId = '%@' AND OBJ.userId != '%@'", chatId, GQLAuth.userId())
+		let condition = String(format: "OBJ.chatId = '%@' AND OBJ.userId != '%@'", chatId, GQLAuth0.userId())
 
 		observerIdDetail = DBDetail.createObserver(gqldb, types, condition) { method, objectId in
 			DispatchQueue.main.async {
@@ -535,7 +535,7 @@ extension ChatGroupView {
 
 		let rcmessage = rcmessageAt(indexPath)
 
-		if (rcmessage.userId != GQLAuth.userId()) {
+		if (rcmessage.userId != GQLAuth0.userId()) {
 			let profileView = ProfileView(rcmessage.userId, chat: false)
 			navigationController?.pushViewController(profileView, animated: true)
 		}

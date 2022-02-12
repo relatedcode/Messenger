@@ -104,7 +104,7 @@ extension Media {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func cleanupExpired() {
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			let keepMedia = DBUsers.keepMedia()
 			if (keepMedia == KeepMedia.Week) { cleanupExpired(days: 7) }
 			if (keepMedia == KeepMedia.Month) { cleanupExpired(days: 30) }

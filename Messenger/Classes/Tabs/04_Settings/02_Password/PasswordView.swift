@@ -67,7 +67,7 @@ class PasswordView: UIViewController {
 		let password = fieldPassword0.text ?? ""
 
 		ProgressHUD.show(nil, interaction: false)
-		GQLAuth.checkPassword(password: password) { error in
+		GQLAuth0.checkPassword(password) { error in
 			if let error = error {
 				ProgressHUD.showFailed(error.localizedDescription)
 			} else {
@@ -83,7 +83,7 @@ class PasswordView: UIViewController {
 
 		let password = fieldPassword1.text ?? ""
 
-		GQLAuth.updatePassword(password: password) { error in
+		GQLAuth0.updatePassword(password) { error in
 			if let error = error {
 				ProgressHUD.showFailed(error.localizedDescription)
 			} else {

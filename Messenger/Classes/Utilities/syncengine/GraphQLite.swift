@@ -59,7 +59,7 @@ extension GraphQLite {
 		let domain = "relatedcode.us.auth0.com"
 		let clientId = "iXagTRt5E6ktOKJsRudIbFyau5LvWggW"
 		let clientSecret = "TR0yU0V8vr-htFDpuR5HsrYYKgfzkcXh__Rn8X261tbAH22x7zu7bvh1HdnTqQQl"
-		GQLAuth.setup(domain, clientId, clientSecret)
+		GQLAuth0.setup(domain, clientId, clientSecret, "")
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

@@ -47,7 +47,7 @@ class ChatObserver: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func initObservers() {
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (observerIdGroup == nil)		{ observerGroups()	}
 			if (observerIdSingle == nil)	{ observerSingles() }
 			if (observerIdDetail == nil)	{ observerDetails()	}
@@ -154,7 +154,7 @@ extension ChatObserver {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(with dbsingle: DBSingle) {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 
 		let chatId = dbsingle.chatId
 		let chatObject = ChatObject.fetchOne(gqldb, key: chatId) ?? ChatObject()
@@ -184,7 +184,7 @@ extension ChatObserver {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(with dbdetail: DBDetail) {
 
-		if (dbdetail.userId == GQLAuth.userId()) {
+		if (dbdetail.userId == GQLAuth0.userId()) {
 			update(owned: dbdetail)
 		} else {
 			update(other: dbdetail)
@@ -322,11 +322,11 @@ extension ChatObserver {
 
 		let lastRead = Date(timestamp: chatObject.lastRead)
 
-		if (dbmessage.userId == GQLAuth.userId()) { return nil }
+		if (dbmessage.userId == GQLAuth0.userId()) { return nil }
 		if (dbmessage.createdAt <= lastRead) { return nil }
 
 		let condition = "chatId = ? AND userId != ? AND createdAt > ? AND isDeleted = ?"
-		let arguments: [Any] = [chatObject.objectId, GQLAuth.userId(), lastRead, false]
+		let arguments: [Any] = [chatObject.objectId, GQLAuth0.userId(), lastRead, false]
 
 		return DBMessage.count(gqldb, condition, arguments)
 	}

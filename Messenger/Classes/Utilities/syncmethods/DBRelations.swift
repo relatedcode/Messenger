@@ -18,7 +18,7 @@ class DBRelations: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(_ userId2: String, isFriend: Bool) {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 		let objectId = "\(userId1)-\(userId2)".sha1()
 
 		if let dbrelation = DBRelation.fetchOne(gqldb, key: objectId) {
@@ -36,7 +36,7 @@ class DBRelations: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(_ userId2: String, isBlocked: Bool) {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 		let objectId = "\(userId1)-\(userId2)".sha1()
 
 		if let dbrelation = DBRelation.fetchOne(gqldb, key: objectId) {
@@ -58,7 +58,7 @@ extension DBRelations {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func isFriend(_ userId2: String) -> Bool {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 
 		return DBRelation.check(gqldb, "userId1 = ? AND userId2 = ? AND isFriend = ?", [userId1, userId2, true])
 	}
@@ -66,7 +66,7 @@ extension DBRelations {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func isBlocked(_ userId2: String) -> Bool {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 
 		return DBRelation.check(gqldb, "userId1 = ? AND userId2 = ? AND isBlocked = ?", [userId1, userId2, true])
 	}
@@ -74,7 +74,7 @@ extension DBRelations {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func isBlocker(_ userId2: String) -> Bool {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 
 		return DBRelation.check(gqldb, "userId1 = ? AND userId2 = ? AND isBlocked = ?", [userId2, userId1, true])
 	}

@@ -18,7 +18,7 @@ class DBSingles: NSObject {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func create(_ userId2: String) -> String {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 		let userIds = [userId1, userId2]
 
 		let objectId = chatId(userId1, userId2)
@@ -59,7 +59,7 @@ extension DBSingles {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func chatId(_ userId2: String) -> String {
 
-		let userId1 = GQLAuth.userId()
+		let userId1 = GQLAuth0.userId()
 
 		return chatId(userId1, userId2)
 	}

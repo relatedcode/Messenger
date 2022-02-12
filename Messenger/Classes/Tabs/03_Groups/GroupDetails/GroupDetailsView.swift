@@ -213,7 +213,7 @@ class GroupDetailsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionLeaveGroup() {
 
-		DBMembers.update(chatId, GQLAuth.userId(), isActive: false)
+		DBMembers.update(chatId, GQLAuth0.userId(), isActive: false)
 
 		dbgroup.update(members: dbgroup.members-1)
 
@@ -257,7 +257,7 @@ class GroupDetailsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func isGroupOwner() -> Bool {
 
-		return (dbgroup?.ownerId == GQLAuth.userId())
+		return (dbgroup?.ownerId == GQLAuth0.userId())
 	}
 }
 
@@ -346,7 +346,7 @@ extension GroupDetailsView: UITableViewDataSource {
 		if (indexPath.section == 2) {
 			if (isGroupOwner()) {
 				let dbuser = dbusers[indexPath.row]
-				return (dbuser.objectId != GQLAuth.userId())
+				return (dbuser.objectId != GQLAuth0.userId())
 			}
 		}
 
@@ -382,7 +382,7 @@ extension GroupDetailsView: UITableViewDelegate {
 
 		if (indexPath.section == 2) {
 			let dbuser = dbusers[indexPath.row]
-			if (dbuser.objectId == GQLAuth.userId()) {
+			if (dbuser.objectId == GQLAuth0.userId()) {
 				ProgressHUD.showSucceed("This is you.")
 			} else {
 				actionProfile(dbuser.objectId)

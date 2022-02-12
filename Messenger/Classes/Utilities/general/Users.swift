@@ -55,7 +55,7 @@ class Users: NSObject {
 			DBUsers.updateActive()
 		}
 
-		GQLPush.register(GQLAuth.userId())
+		GQLPush.register(GQLAuth0.userId())
 	}
 
 	// MARK: -
@@ -85,6 +85,6 @@ class Users: NSObject {
 
 		Shortcut.cleanup()
 
-		GQLAuth.signOut()
+		GQLAuth0.signOut()
 	}
 }

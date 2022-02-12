@@ -59,11 +59,8 @@ class RCMessagesView: UIViewController {
 
 		tableView.tableHeaderView = viewLoadEarlier
 
-		let delay = (keyboardHeight() == 0) ? 0.10 : 0.25
-		DispatchQueue.main.async(after: delay) {
-			self.configureKeyboardActions()
-			self.configureMessageInputBar()
-		}
+		configureKeyboardActions()
+		configureMessageInputBar()
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

@@ -38,7 +38,7 @@ class SettingsView: UITableViewController {
 
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 
-		tabBarItem.image = UIImage(systemName: "gear")
+		tabBarItem.image = UIImage(systemName: "gearshape")
 		tabBarItem.title = "Settings"
 
 		NotificationCenter.addObserver(self, selector: #selector(loadUser), text: Notifications.UserLoggedIn)
@@ -67,7 +67,7 @@ class SettingsView: UITableViewController {
 
 		super.viewWillAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			loadUser()
 		}
 	}
@@ -77,7 +77,7 @@ class SettingsView: UITableViewController {
 
 		super.viewDidAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
 			} else { Users.onboard(self) }
@@ -88,7 +88,7 @@ class SettingsView: UITableViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func loadUser() {
 
-		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else { return }
+		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth0.userId()) else { return }
 
 		labelInitials.text = dbuser.initials()
 		MediaDownload.user(dbuser.objectId, dbuser.pictureAt) { image, error in

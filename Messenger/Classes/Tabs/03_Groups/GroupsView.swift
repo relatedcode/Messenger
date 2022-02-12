@@ -59,7 +59,7 @@ class GroupsView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			loadGroups()
 		}
 	}
@@ -69,7 +69,7 @@ class GroupsView: UIViewController {
 
 		super.viewDidAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
 			} else { Users.onboard(self) }
@@ -82,7 +82,7 @@ class GroupsView: UIViewController {
 
 		dbgroups.removeAll()
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let text = searchBar.text ?? ""
 
 		let arguments: [String: Any] = [":userId": userId, ":true": true, ":false": false, ":text": "%%\(text)%%"]
@@ -99,7 +99,7 @@ class GroupsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func createObserver() {
 
-		if (GQLAuth.userId() == "") || (observerId != nil) { return }
+		if (GQLAuth0.userId() == "") || (observerId != nil) { return }
 
 		let types: [GQLObserverType] = [.insert, .update]
 
@@ -194,7 +194,7 @@ extension GroupsView: UITableViewDataSource {
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 
 		let dbgroup = dbgroups[indexPath.row]
-		return (dbgroup.ownerId == GQLAuth.userId())
+		return (dbgroup.ownerId == GQLAuth0.userId())
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

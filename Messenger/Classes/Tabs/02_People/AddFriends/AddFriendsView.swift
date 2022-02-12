@@ -57,7 +57,7 @@ class AddFriendsView: UIViewController {
 
 		let text = searchBar.text ?? ""
 
-		let arguments: [String: Any] = [":userId": GQLAuth.userId(), ":text": "%%\(text)%%"]
+		let arguments: [String: Any] = [":userId": GQLAuth0.userId(), ":text": "%%\(text)%%"]
 
 		let dbusers = DBUser.fetchAll(gqldb, "objectId != :userId AND fullname LIKE :text", arguments, order: "fullname")
 

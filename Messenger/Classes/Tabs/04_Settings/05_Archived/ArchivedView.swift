@@ -51,7 +51,7 @@ class ArchivedView: UIViewController {
 
 		chatObjects.removeAll()
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let text = searchBar.text ?? ""
 
 		let arguments: [String: Any] = [":userId": userId, ":true": true, ":false": false, ":zero": 0.0, ":text": "%%\(text)%%"]

@@ -57,13 +57,13 @@ extension DBMessage {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func incoming() -> Bool {
 
-		return (userId != GQLAuth.userId())
+		return (userId != GQLAuth0.userId())
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func outgoing() -> Bool {
 
-		return (userId == GQLAuth.userId())
+		return (userId == GQLAuth0.userId())
 	}
 }
 

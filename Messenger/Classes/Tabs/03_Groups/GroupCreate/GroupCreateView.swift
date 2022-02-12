@@ -68,7 +68,7 @@ class GroupCreateView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadUsers() {
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let text = searchBar.text ?? ""
 
 		let arguments: [String: Any] = [":userId": userId, ":true": true, ":text": "%%\(text)%%"]
@@ -114,7 +114,7 @@ class GroupCreateView: UIViewController {
 		if (selection.isEmpty)	{ ProgressHUD.showFailed("Please select some users.");	return	}
 
 		var userIds = selection
-		userIds.append(GQLAuth.userId())
+		userIds.append(GQLAuth0.userId())
 
 		DBGroups.create(name, userIds)
 

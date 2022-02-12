@@ -27,7 +27,7 @@ class DBGroups: NSObject {
 		dbgroup.objectId = objectId
 		dbgroup.chatId = objectId
 		dbgroup.name = name
-		dbgroup.ownerId = GQLAuth.userId()
+		dbgroup.ownerId = GQLAuth0.userId()
 		dbgroup.members = userIds.count
 		dbgroup.insertLazy()
 	}

@@ -39,7 +39,7 @@ class MediaUploader: NSObject {
 		NotificationCenter.addObserver(self, selector: #selector(initTimer), text: Notifications.UserLoggedIn)
 		NotificationCenter.addObserver(self, selector: #selector(stopTimer), text: Notifications.UserLoggedOut)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			initTimer()
 		}
 	}

@@ -59,7 +59,7 @@ class ChatsView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			loadChats()
 		}
 	}
@@ -69,7 +69,7 @@ class ChatsView: UIViewController {
 
 		super.viewDidAppear(animated)
 
-		if (GQLAuth.userId() != "") {
+		if (GQLAuth0.userId() != "") {
 			if (DBUsers.fullname() != "") {
 
 			} else { Users.onboard(self) }
@@ -82,7 +82,7 @@ class ChatsView: UIViewController {
 
 		chatObjects.removeAll()
 
-		let userId = GQLAuth.userId()
+		let userId = GQLAuth0.userId()
 		let text = searchBar.text ?? ""
 
 		let arguments: [String: Any] = [":userId": userId, ":true": true, ":false": false, ":zero": 0.0, ":text": "%%\(text)%%"]
@@ -101,7 +101,7 @@ class ChatsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func createObserver() {
 
-		if (GQLAuth.userId() == "") || (observerId != nil) { return }
+		if (GQLAuth0.userId() == "") || (observerId != nil) { return }
 
 		let types: [GQLObserverType] = [.insert, .update]
 
