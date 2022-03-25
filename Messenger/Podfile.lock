@@ -1,5 +1,5 @@
 PODS:
-  - GraphQLite (1.2.0)
+  - GraphQLite (1.2.1)
   - InputBarAccessoryView (5.4.0):
     - InputBarAccessoryView/Core (= 5.4.0)
   - InputBarAccessoryView/Core (5.4.0)
@@ -48,7 +48,7 @@ SPEC REPOS:
     - ProgressHUD
 
 SPEC CHECKSUMS:
-  GraphQLite: b8e46fb076bfc602e6a62367f97bc4be60a67262
+  GraphQLite: fbb0c2ec78c795571d245d9f50fb96c81873515b
   InputBarAccessoryView: 74d471ab1fa1736806be50328df79257e52865a9
   NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
   PasscodeKit: 495d98d2d5e68c5e34c58917b4022eba66182616
@@ -59,4 +59,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: c75db36460d20eb2f7ebecebb6ee0784242ee02f
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
