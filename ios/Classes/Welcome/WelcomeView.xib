@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeView">
+            <connections>
+                <outlet property="view" destination="1" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="pqY-FQ-3aY">
+                    <rect key="frame" x="95" y="90" width="130" height="130"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="130" id="1vW-nc-RuT"/>
+                        <constraint firstAttribute="height" constant="130" id="fwm-4A-mu5"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wf-8f-ELf">
+                    <rect key="frame" x="20" y="440" width="280" height="50"/>
+                    <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="xmT-Ux-TZe"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Sign In">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="actionLogin:" destination="-1" eventType="touchUpInside" id="6KZ-Hj-GEN"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rka-Wf-v14">
+                    <rect key="frame" x="20" y="500" width="280" height="50"/>
+                    <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="dzB-yi-hxU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Sign Up">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="actionRegister:" destination="-1" eventType="touchUpInside" id="fXn-hs-Ez9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="QnU-jX-LAQ" firstAttribute="trailing" secondItem="Rka-Wf-v14" secondAttribute="trailing" constant="20" id="237-Fg-kfZ"/>
+                <constraint firstItem="QnU-jX-LAQ" firstAttribute="bottom" secondItem="7Wf-8f-ELf" secondAttribute="bottom" constant="78" id="4Z4-Vh-IHV"/>
+                <constraint firstItem="pqY-FQ-3aY" firstAttribute="top" secondItem="QnU-jX-LAQ" secondAttribute="top" constant="90" id="HON-6C-eWF"/>
+                <constraint firstItem="QnU-jX-LAQ" firstAttribute="bottom" secondItem="Rka-Wf-v14" secondAttribute="bottom" constant="18" id="Izo-ep-Ni0"/>
+                <constraint firstItem="Rka-Wf-v14" firstAttribute="leading" secondItem="QnU-jX-LAQ" secondAttribute="leading" constant="20" id="LfG-rA-6xA"/>
+                <constraint firstItem="7Wf-8f-ELf" firstAttribute="leading" secondItem="QnU-jX-LAQ" secondAttribute="leading" constant="20" id="PUn-4w-lsR"/>
+                <constraint firstItem="QnU-jX-LAQ" firstAttribute="trailing" secondItem="7Wf-8f-ELf" secondAttribute="trailing" constant="20" id="hMk-dZ-vL7"/>
+                <constraint firstItem="pqY-FQ-3aY" firstAttribute="centerX" secondItem="QnU-jX-LAQ" secondAttribute="centerX" id="tQs-hm-4zg"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="QnU-jX-LAQ"/>
+            <point key="canvasLocation" x="34" y="54"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="app_logo.png" width="130" height="130"/>
+    </resources>
+</document>

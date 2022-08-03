@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AllMediaCell" customModule="app">
+            <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nd-tE-MF4">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6GU-lc-VQ8">
+                                <rect key="frame" x="5" y="5" width="150" height="150"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0dn-bP-7Ur">
+                                <rect key="frame" x="56" y="57" width="48.5" height="46.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32" scale="large" weight="bold"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="6GU-lc-VQ8" secondAttribute="bottom" constant="5" id="55Q-oG-a2g"/>
+                            <constraint firstItem="6GU-lc-VQ8" firstAttribute="top" secondItem="8nd-tE-MF4" secondAttribute="top" constant="5" id="JGy-IR-fek"/>
+                            <constraint firstAttribute="trailing" secondItem="6GU-lc-VQ8" secondAttribute="trailing" constant="5" id="TtF-ea-QI9"/>
+                            <constraint firstItem="0dn-bP-7Ur" firstAttribute="centerY" secondItem="8nd-tE-MF4" secondAttribute="centerY" id="dIg-fV-lb4"/>
+                            <constraint firstItem="0dn-bP-7Ur" firstAttribute="centerX" secondItem="8nd-tE-MF4" secondAttribute="centerX" id="kIY-sr-ezv"/>
+                            <constraint firstItem="6GU-lc-VQ8" firstAttribute="leading" secondItem="8nd-tE-MF4" secondAttribute="leading" constant="5" id="osb-Fl-afp"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="8nd-tE-MF4" secondAttribute="trailing" id="NMR-S6-zSS"/>
+                <constraint firstItem="8nd-tE-MF4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ZpL-Ir-MFM"/>
+                <constraint firstItem="8nd-tE-MF4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cN1-gK-dMO"/>
+                <constraint firstAttribute="bottom" secondItem="8nd-tE-MF4" secondAttribute="bottom" id="sH7-6h-SMd"/>
+            </constraints>
+            <connections>
+                <outlet property="imageItem" destination="6GU-lc-VQ8" id="5pR-uT-BNC"/>
+                <outlet property="imageVideo" destination="0dn-bP-7Ur" id="gyq-w7-h6u"/>
+            </connections>
+            <point key="canvasLocation" x="608.69565217391312" y="443.63839285714283"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="play.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChannelView">
+            <connections>
+                <outlet property="cellMedia" destination="lT3-JP-d98" id="TRP-0m-s3Z"/>
+                <outlet property="labelFooter1" destination="8Z6-gF-pSt" id="9Zb-Ub-HcS"/>
+                <outlet property="labelFooter2" destination="dub-Oc-NSD" id="x5r-XC-YCm"/>
+                <outlet property="tableView" destination="i5M-Pr-FkT" id="weZ-oE-e2N"/>
+                <outlet property="view" destination="gVL-Kb-l2i" id="2i0-s5-LbV"/>
+                <outlet property="viewFooter" destination="AQb-9p-OKj" id="P55-AH-74X"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="gVL-Kb-l2i">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" style="insetGrouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Tng-2m-Rnh"/>
+                        <outlet property="delegate" destination="-1" id="9aC-8N-iBw"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="c2C-sf-Qtg"/>
+            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="c2C-sf-Qtg" secondAttribute="top" id="9LU-E6-2Sf"/>
+                <constraint firstItem="c2C-sf-Qtg" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="Qp0-oe-iqg"/>
+                <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="c2C-sf-Qtg" secondAttribute="leading" id="a92-y2-hlc"/>
+                <constraint firstItem="c2C-sf-Qtg" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="bp8-7x-rji"/>
+            </constraints>
+            <point key="canvasLocation" x="103" y="185"/>
+        </view>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="ZgI-Xp-BM3" style="IBUITableViewCellStyleDefault" id="lT3-JP-d98">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lT3-JP-d98" id="pVJ-wr-DBy">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="All Media" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZgI-Xp-BM3">
+                        <rect key="frame" x="16" y="0.0" width="288" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="101" y="-189"/>
+        </tableViewCell>
+        <view contentMode="scaleToFill" id="AQb-9p-OKj">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Z6-gF-pSt">
+                    <rect key="frame" x="20" y="5" width="280" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="vOI-YA-bT9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dub-Oc-NSD">
+                    <rect key="frame" x="20" y="25" width="280" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="6iI-cl-w92"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="8Z6-gF-pSt" firstAttribute="top" secondItem="AQb-9p-OKj" secondAttribute="top" constant="5" id="2yx-Ro-trz"/>
+                <constraint firstItem="dub-Oc-NSD" firstAttribute="top" secondItem="AQb-9p-OKj" secondAttribute="top" constant="25" id="6aw-bo-2ci"/>
+                <constraint firstItem="dub-Oc-NSD" firstAttribute="leading" secondItem="AQb-9p-OKj" secondAttribute="leading" constant="20" id="CMN-FE-qrA"/>
+                <constraint firstAttribute="trailing" secondItem="dub-Oc-NSD" secondAttribute="trailing" constant="20" id="YQm-rR-LQm"/>
+                <constraint firstAttribute="trailing" secondItem="8Z6-gF-pSt" secondAttribute="trailing" constant="20" id="h71-x3-ASg"/>
+                <constraint firstItem="8Z6-gF-pSt" firstAttribute="leading" secondItem="AQb-9p-OKj" secondAttribute="leading" constant="20" id="hcg-w2-UZq"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="101" y="559"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="groupTableViewBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

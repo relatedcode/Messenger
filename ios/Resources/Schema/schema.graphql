@@ -1,0 +1,259 @@
+
+#--------------------------------------------------------------------------------------------------
+
+query ListWorkspaces($updatedAt: Date) {
+  listWorkspaces(updatedAt: $updatedAt) {
+    objectId
+    name
+    details
+    channelId
+    members
+    ownerId
+    photoURL
+    thumbnailURL
+    isDeleted
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdateWorkspace($objectId: String) {
+  onUpdateWorkspace(objectId: $objectId) {
+    objectId
+    name
+    details
+    channelId
+    members
+    ownerId
+    photoURL
+    thumbnailURL
+    isDeleted
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
+
+query GetUser($objectId: String, $email: String) {
+  getUser(objectId: $objectId, email: $email) {
+    objectId
+    email
+    fullName
+    displayName
+    title
+    phoneNumber
+    photoURL
+    thumbnailURL
+    theme
+    workspaces
+    createdAt
+    updatedAt
+  }
+}
+
+query ListUsers($updatedAt: Date, $workspaceId: String) {
+  listUsers(updatedAt: $updatedAt, workspaceId: $workspaceId) {
+    objectId
+    email
+    fullName
+    displayName
+    title
+    phoneNumber
+    photoURL
+    thumbnailURL
+    theme
+    workspaces
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdateUser($objectId: String) {
+  onUpdateUser(objectId: $objectId) {
+    objectId
+    email
+    fullName
+    displayName
+    title
+    phoneNumber
+    photoURL
+    thumbnailURL
+    theme
+    workspaces
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
+
+query ListChannels($updatedAt: Date, $userId: String, $workspaceId: String, $name: String) {
+  listChannels(updatedAt: $updatedAt, userId: $userId, workspaceId: $workspaceId, name: $name) {
+    objectId
+    workspaceId
+    name
+    topic
+    details
+    lastMessageText
+    lastMessageCounter
+    createdBy
+    members
+    typing
+    isDeleted
+    isArchived
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdateChannel($objectId: String, $workspaceId: String) {
+  onUpdateChannel(objectId: $objectId, workspaceId: $workspaceId) {
+    objectId
+    workspaceId
+    name
+    topic
+    details
+    lastMessageText
+    lastMessageCounter
+    createdBy
+    members
+    typing
+    isDeleted
+    isArchived
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
+
+query ListDirects($updatedAt: Date, $workspaceId: String, $userId: String) {
+  listDirects(updatedAt: $updatedAt, workspaceId: $workspaceId, userId: $userId) {
+    objectId
+    workspaceId
+    lastMessageText
+    lastMessageCounter
+    members
+    active
+    typing
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdateDirect($objectId: String, $workspaceId: String) {
+  onUpdateDirect(objectId: $objectId, workspaceId: $workspaceId) {
+    objectId
+    workspaceId
+    lastMessageText
+    lastMessageCounter
+    members
+    active
+    typing
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
+
+query ListDetails($updatedAt: Date, $userId: String, $workspaceId: String) {
+  listDetails(updatedAt: $updatedAt, userId: $userId, workspaceId: $workspaceId) {
+    objectId
+    workspaceId
+    chatId
+    userId
+    lastRead
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdateDetail($objectId: String, $workspaceId: String, $userId: String) {
+  onUpdateDetail(objectId: $objectId, workspaceId: $workspaceId, userId: $userId) {
+    objectId
+    workspaceId
+    chatId
+    userId
+    lastRead
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
+
+query ListMessages($updatedAt: Date, $chatId: String, $limit: Int, $nextToken: String) {
+  listMessages(updatedAt: $updatedAt, chatId: $chatId, limit: $limit, nextToken: $nextToken) {
+    objectId
+    workspaceId
+    chatId
+    chatType
+    senderId
+    counter
+    text
+    type
+    fileURL
+    fileType
+    fileName
+    fileSize
+    mediaWidth
+    mediaHeight
+    mediaDuration
+    thumbnailURL
+    sticker
+    isEdited
+    isDeleted
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdateMessage($objectId: String, $chatId: String) {
+  onUpdateMessage(objectId: $objectId, chatId: $chatId) {
+    objectId
+    workspaceId
+    chatId
+    chatType
+    senderId
+    counter
+    text
+    type
+    fileURL
+    fileType
+    fileName
+    fileSize
+    mediaWidth
+    mediaHeight
+    mediaDuration
+    thumbnailURL
+    sticker
+    isEdited
+    isDeleted
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
+
+query ListPresences($updatedAt: Date) {
+  listPresences(updatedAt: $updatedAt) {
+    objectId
+    lastPresence
+    createdAt
+    updatedAt
+  }
+}
+
+subscription OnUpdatePresence($objectId: String) {
+  onUpdatePresence(objectId: $objectId) {
+    objectId
+    lastPresence
+    createdAt
+    updatedAt
+  }
+}
+
+#--------------------------------------------------------------------------------------------------
