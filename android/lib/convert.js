@@ -87,7 +87,3 @@ export function formatMs(milliseconds) {
     ms,
   ).slice(0, 2)}`;
 }
-
-export function removeHTML(text) {
-  return text?.replace(/(<([^>]+)>)/gi, '');
-}

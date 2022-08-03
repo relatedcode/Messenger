@@ -6,7 +6,7 @@ import {
 } from '@/contexts/DirectMessagesContext';
 import {useModal} from '@/contexts/ModalContext';
 import {useParams} from '@/contexts/ParamsContext';
-import {removeHTML} from '@/lib/convert';
+import {removeHtml} from '@/lib/removeHtml';
 import {getFileURL} from '@/lib/storage';
 import {globalStyles} from '@/styles/styles';
 import Feather from '@expo/vector-icons/Feather';
@@ -76,7 +76,7 @@ function Direct({direct}) {
           <Text
             style={{paddingHorizontal: 15, color: Colors.grey600}}
             numberOfLines={2}>
-            {removeHTML(direct.lastMessageText) || 'No message yet'}
+            {removeHtml(direct.lastMessageText) || 'No message yet'}
           </Text>
         </View>
       </View>

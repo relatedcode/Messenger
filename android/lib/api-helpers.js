@@ -1,10 +1,9 @@
-import {getIdToken} from '@/lib/auth';
 import {env} from '@/config/env';
+import {getIdToken} from '@/lib/auth';
 
 export const fetcher = async url => {
   const headers = {
     'Content-Type': 'application/json',
-    'X-Client-Version': env.CLIENT_VERSION,
   };
   const idToken = await getIdToken();
   if (idToken) {
@@ -26,7 +25,6 @@ export const fetcher = async url => {
 export const postData = async (url, data, addHeaders, warnIfError = true) => {
   const headers = {
     'Content-Type': 'application/json',
-    'X-Client-Version': env.CLIENT_VERSION,
     ...addHeaders,
   };
   const idToken = await getIdToken();
@@ -54,7 +52,6 @@ export const postData = async (url, data, addHeaders, warnIfError = true) => {
 export const deleteData = async (url, addHeaders) => {
   const headers = {
     'Content-Type': 'application/json',
-    'X-Client-Version': env.CLIENT_VERSION,
     ...addHeaders,
   };
   const idToken = await getIdToken();

@@ -1,6 +1,4 @@
 {
-  "name": "messengerreact",
-  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android --active-arch-only",
@@ -23,6 +21,7 @@
     "axios": "^0.27.2",
     "babel-plugin-module-resolver": "^4.1.0",
     "expo": "^45.0.0",
+    "expo-application": "~4.1.0",
     "expo-av": "~11.2.3",
     "expo-clipboard": "~3.0.1",
     "expo-file-system": "~14.0.0",
@@ -31,6 +30,7 @@
     "formik": "^2.2.9",
     "graphql": "^16.5.0",
     "graphql-ws": "^5.9.0",
+    "he": "^1.2.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "react": "17.0.2",
@@ -42,8 +42,7 @@
     "react-native-reanimated": "^2.8.0",
     "react-native-safe-area-context": "^4.3.1",
     "react-native-screens": "^3.13.1",
-    "uuid": "^8.3.2",
-    "expo-application": "~4.1.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

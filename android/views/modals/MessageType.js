@@ -42,7 +42,7 @@ function Button({text, icon, onPress}) {
 }
 
 export default function MessageTypeModal({open, setOpen, setAudioOpen}) {
-  const {chatId, workspaceId} = useParams();
+  const {chatId, workspaceId, chatType} = useParams();
 
   const handlePickerResult = async result => {
     if (!result.cancelled) {
@@ -68,7 +68,7 @@ export default function MessageTypeModal({open, setOpen, setAudioOpen}) {
         workspaceId,
         fileName,
         filePath,
-        chatType: 'Channel',
+        chatType,
       });
     }
   };

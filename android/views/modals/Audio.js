@@ -88,7 +88,7 @@ function AudioPlayer({uri, setPlayingPosition}) {
 }
 
 export default function AudioModal({open, setOpen}) {
-  const {chatId, workspaceId} = useParams();
+  const {chatId, workspaceId, chatType} = useParams();
   const [recording, setRecording] = React.useState(null);
   const [uri, setUri] = React.useState(null);
   const [status, setStatus] = React.useState(null);
@@ -167,7 +167,7 @@ export default function AudioModal({open, setOpen}) {
         workspaceId,
         fileName,
         filePath,
-        chatType: 'Channel',
+        chatType,
       });
 
       setOpen(false);

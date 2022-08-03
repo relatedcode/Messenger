@@ -1,5 +1,5 @@
 import Input from '@/components/Input';
-import MessageFlat from '@/components/MessageFlat';
+import Message from '@/components/Message';
 import PresenceIndicator from '@/components/PresenceIndicator';
 import {env} from '@/config/env';
 import {useChannelById} from '@/contexts/ChannelsContext';
@@ -292,7 +292,7 @@ export default function Chat({navigation}) {
         inverted
         renderItem={({item, index}) => (
           // MESSAGE ITEM
-          <MessageFlat
+          <Message
             chat={item}
             index={index}
             previousSameSender={
@@ -327,7 +327,7 @@ export default function Chat({navigation}) {
                   </Text>
                 </View>
               )}
-          </MessageFlat>
+          </Message>
         )}
         keyExtractor={item => item.objectId}
       />
