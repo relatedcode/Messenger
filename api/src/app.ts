@@ -90,7 +90,6 @@ usersRouter.post("/:id", authMiddleware, users.updateUser);
 usersRouter.post("/:id/presence", authMiddleware, users.updatePresence);
 usersRouter.post("/:id/read", authMiddleware, users.read);
 
-// app.use(versionMiddleware);
 app.use("/users", usersRouter);
 app.use("/messages", messagesRouter);
 app.use("/channels", channelsRouter);

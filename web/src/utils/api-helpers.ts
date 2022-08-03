@@ -1,5 +1,5 @@
+import { getAPIUrl } from "config";
 import { getIdToken } from "gqlite-lib/dist/client/auth";
-import { CLIENT_VERSION, getAPIUrl } from "config";
 
 interface IError {
   error: {
@@ -12,7 +12,6 @@ interface IError {
 export const fetcher = async (url: string) => {
   const headers: any = {
     "Content-Type": "application/json",
-    "X-Client-Version": CLIENT_VERSION,
   };
   const idToken = await getIdToken();
   if (idToken) {
@@ -39,7 +38,6 @@ export const postData = async (
 ) => {
   const headers: any = {
     "Content-Type": "application/json",
-    "X-Client-Version": CLIENT_VERSION,
     ...addHeaders,
   };
   const idToken = await getIdToken();
@@ -67,7 +65,6 @@ export const postData = async (
 export const deleteData = async (url: string, addHeaders?: {}) => {
   const headers: any = {
     "Content-Type": "application/json",
-    "X-Client-Version": CLIENT_VERSION,
     ...addHeaders,
   };
   const idToken = await getIdToken();

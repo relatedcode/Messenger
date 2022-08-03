@@ -19,9 +19,6 @@ export const MESSAGES_PER_PAGE = 30;
 // Use email fast sign in (DEVELOPMENT ONLY)
 export const FAKE_EMAIL = true;
 
-// The client version number. PLEASE DO NOT CHANGE THIS NUMBER.
-export const CLIENT_VERSION = "1.1.0";
-
 export const getAPIUrl = () => {
   return typeof window !== "undefined"
     ? process.env.REACT_APP_API_URL ||
