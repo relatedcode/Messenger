@@ -1,0 +1,105 @@
+services:
+  relatedchat_api:
+    image: relatedcode/relatedchat-api:latest
+    container_name: relatedchat_api
+    ports:
+      - "4001:4001"
+    depends_on:
+      - gqlserver
+    volumes:
+      - config_files:/app/config
+
+  relatedchat_web:
+    image: relatedcode/relatedchat-web:latest
+    container_name: relatedchat_web
+    ports:
+      - "80:80"
+    depends_on:
+      - relatedchat_api
+
+  gqlserver:
+    image: relatedcode/gqlserver:latest
+    container_name: gqlserver
+    ports:
+      - "4000:4000"
+    environment:
+      DB_HOST: pg
+      DB_PORT: 5432
+      DB_DATABASE: gqlserver
+      DB_USER: gqlserver
+      DB_PASSWORD: gqlserver
+
+      CACHE_HOST: rd
+      CACHE_PORT: 6379
+      CACHE_PASSWORD: gqlserver
+
+      MINIO_ROOT_USER: gqlserver
+      MINIO_ROOT_PASSWORD: gqlserver
+
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: gqlserver
+
+      SECRET_KEY: f2e85774-9a3b-46a5-8170-b40a05ead6ef
+
+    depends_on:
+      - redis
+      - postgres
+    command:
+      [
+        "./wait-for-it.sh",
+        "pg:5432",
+        "--",
+        "./wait-for-it.sh",
+        "rd:6379",
+        "--",
+        "npm",
+        "run",
+        "watch:config",
+      ]
+    volumes:
+      - config_files:/app/config
+
+  gqlserver_admin:
+    image: relatedcode/gqlserver-admin:latest
+    container_name: gqlserver_admin
+    ports:
+      - "81:3000"
+    depends_on:
+      - gqlserver
+
+  postgres:
+    container_name: pg
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: gqlserver
+      POSTGRES_PASSWORD: gqlserver
+      POSTGRES_DB: gqlserver
+    volumes:
+      - ./data/pg:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.0.2
+    container_name: rd
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass gqlserver --save 60 1
+    volumes:
+      - ./data/rd:/data
+
+  minio:
+    image: minio/minio:RELEASE.2022-02-05T04-40-59Z
+    container_name: minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: gqlserver
+      MINIO_ROOT_PASSWORD: gqlserver
+    command: server /data --console-address ":9001"
+    volumes:
+      - ./data/minio:/data
+
+volumes:
+  config_files:
