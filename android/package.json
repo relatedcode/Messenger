@@ -1,0 +1,61 @@
+{
+  "name": "messengerreact",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android --active-arch-only",
+    "android:prod": "cd android && ./gradlew bundleRelease",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.8",
+    "@expo/react-native-action-sheet": "^3.13.0",
+    "@react-native-async-storage/async-storage": "^1.17.6",
+    "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/drawer": "^6.4.1",
+    "@react-navigation/material-bottom-tabs": "^6.2.1",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/native-stack": "^6.6.2",
+    "@react-navigation/stack": "^6.2.1",
+    "axios": "^0.27.2",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "expo": "^45.0.0",
+    "expo-av": "~11.2.3",
+    "expo-clipboard": "~3.0.1",
+    "expo-file-system": "~14.0.0",
+    "expo-image-picker": "~13.1.1",
+    "expo-video-thumbnails": "~6.3.0",
+    "formik": "^2.2.9",
+    "graphql": "^16.5.0",
+    "graphql-ws": "^5.9.0",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
+    "react": "17.0.2",
+    "react-native": "0.68.2",
+    "react-native-gesture-handler": "^2.4.2",
+    "react-native-get-random-values": "^1.8.0",
+    "react-native-mime-types": "^2.3.0",
+    "react-native-paper": "^4.12.1",
+    "react-native-reanimated": "^2.8.0",
+    "react-native-safe-area-context": "^4.3.1",
+    "react-native-screens": "^3.13.1",
+    "uuid": "^8.3.2",
+    "expo-application": "~4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.67.0",
+    "react-test-renderer": "17.0.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
