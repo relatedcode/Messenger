@@ -1,0 +1,360 @@
+type Channel {
+  objectId: String!
+  createdBy: String
+  details: String
+  isArchived: Boolean
+  isDeleted: Boolean
+  lastMessageCounter: Int
+  lastMessageText: String
+  lastTypingReset: Date
+  members: [String]
+  name: String
+  topic: String
+  typing: [String]
+  workspaceId: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Detail {
+  objectId: String!
+  chatId: String
+  lastRead: Int
+  userId: String
+  workspaceId: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Direct {
+  objectId: String!
+  active: [String]
+  lastMessageCounter: Int
+  lastMessageText: String
+  lastTypingReset: Date
+  members: [String]
+  typing: [String]
+  workspaceId: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Message {
+  objectId: String!
+  chatId: String
+  chatType: String
+  counter: Int
+  fileName: String
+  fileSize: Int
+  fileType: String
+  fileURL: String
+  isDeleted: Boolean
+  isEdited: Boolean
+  mediaDuration: Int
+  mediaHeight: Int
+  mediaWidth: Int
+  senderId: String
+  sticker: String
+  text: String
+  type: String
+  thumbnailURL: String
+  workspaceId: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Presence {
+  objectId: String!
+  lastPresence: Date
+  createdAt: Date
+  updatedAt: Date
+}
+
+type User {
+  objectId: String!
+  displayName: String
+  email: String
+  fullName: String
+  phoneNumber: String
+  photoURL: String
+  theme: String
+  thumbnailURL: String
+  title: String
+  workspaces: [String]
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Workspace {
+  objectId: String!
+  channelId: String
+  details: String
+  isDeleted: Boolean
+  members: [String]
+  name: String
+  ownerId: String
+  photoURL: String
+  thumbnailURL: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Reaction {
+  objectId: String!
+  chatId: String
+  messageId: String
+  userId: String
+  workspaceId: String
+  reaction: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+type Mutation {
+  createChannel(input: CreateChannelInput!): Channel
+  createDetail(input: CreateDetailInput!): Detail
+  createDirect(input: CreateDirectInput!): Direct
+  createMessage(input: CreateMessageInput!): Message
+  createPresence(input: CreatePresenceInput!): Presence
+  createUser(input: CreateUserInput!): User
+  createWorkspace(input: CreateWorkspaceInput!): Workspace
+  createReaction(input: CreateReactionInput!): Reaction
+  updateChannel(input: UpdateChannelInput!): Channel
+  updateDetail(input: UpdateDetailInput!): Detail
+  updateDirect(input: UpdateDirectInput!): Direct
+  updateMessage(input: UpdateMessageInput!): Message
+  updatePresence(input: UpdatePresenceInput!): Presence
+  updateUser(input: UpdateUserInput!): User
+  updateWorkspace(input: UpdateWorkspaceInput!): Workspace
+  updateReaction(input: UpdateReactionInput!): Reaction
+}
+
+type Query {
+  getChannel(objectId: String!): Channel
+  getDetail(objectId: String!): Detail
+  getDirect(objectId: String!): Direct
+  getMessage(objectId: String!): Message
+  getPresence(objectId: String!): Presence
+  getUser(objectId: String, email: String): User
+  getWorkspace(objectId: String!): Workspace
+  getReaction(objectId: String!): Reaction
+  listChannels(updatedAt: Date, workspaceId: String, userId: String, name: String): [Channel]
+  listDetails(updatedAt: Date, workspaceId: String, userId: String): [Detail]
+  listDirects(updatedAt: Date, workspaceId: String, userId: String): [Direct]
+  listMessages(updatedAt: Date, chatId: String, limit: Int, nextToken: String): [Message]
+  listPresences(updatedAt: Date): [Presence]
+  listUsers(updatedAt: Date, workspaceId: String): [User]
+  listWorkspaces(updatedAt: Date): [Workspace]
+  listReactions(updatedAt: Date, chatId: String): [Reaction]
+}
+
+type Subscription {
+  onUpdateChannel(objectId: String, workspaceId: String): Channel
+  onUpdateDetail(objectId: String, workspaceId: String, userId: String): Detail
+  onUpdateDirect(objectId: String, workspaceId: String): Direct
+  onUpdateMessage(objectId: String, chatId: String): Message
+  onUpdatePresence(objectId: String): Presence
+  onUpdateUser(objectId: String): User
+  onUpdateWorkspace(objectId: String): Workspace
+  onUpdateReaction(objectId: String, chatId: String): Reaction
+}
+
+input CreateChannelInput {
+  objectId: String!
+  createdBy: String
+  details: String
+  isArchived: Boolean
+  isDeleted: Boolean
+  lastMessageCounter: Int
+  lastMessageText: String
+  lastTypingReset: Date
+  members: [String]
+  name: String
+  topic: String
+  typing: [String]
+  workspaceId: String
+  createdAt: Date
+}
+
+input CreateDetailInput {
+  objectId: String!
+  chatId: String
+  lastRead: Int
+  userId: String
+  workspaceId: String
+  createdAt: Date
+}
+
+input CreateDirectInput {
+  objectId: String!
+  active: [String]
+  lastMessageCounter: Int
+  lastMessageText: String
+  lastTypingReset: Date
+  members: [String]
+  typing: [String]
+  workspaceId: String
+  createdAt: Date
+}
+
+input CreateMessageInput {
+  objectId: String!
+  chatId: String
+  chatType: String
+  counter: Int
+  fileName: String
+  fileSize: Int
+  fileType: String
+  fileURL: String
+  isDeleted: Boolean
+  isEdited: Boolean
+  mediaDuration: Int
+  mediaHeight: Int
+  mediaWidth: Int
+  senderId: String
+  sticker: String
+  text: String
+  type: String
+  thumbnailURL: String
+  workspaceId: String
+  createdAt: Date
+}
+
+input CreatePresenceInput {
+  objectId: String!
+  lastPresence: Date
+  createdAt: Date
+}
+
+input CreateUserInput {
+  objectId: String!
+  displayName: String
+  email: String
+  fullName: String
+  phoneNumber: String
+  photoURL: String
+  theme: String
+  thumbnailURL: String
+  title: String
+  workspaces: [String]
+  createdAt: Date
+}
+
+input CreateWorkspaceInput {
+  objectId: String!
+  channelId: String
+  details: String
+  isDeleted: Boolean
+  members: [String]
+  name: String
+  ownerId: String
+  photoURL: String
+  thumbnailURL: String
+  createdAt: Date
+}
+
+input CreateReactionInput {
+  objectId: String!
+  chatId: String
+  messageId: String
+  userId: String
+  workspaceId: String
+  reaction: String
+  createdAt: Date
+}
+
+input UpdateChannelInput {
+  objectId: String!
+  createdBy: String
+  details: String
+  isArchived: Boolean
+  isDeleted: Boolean
+  lastMessageCounter: Int
+  lastMessageText: String
+  lastTypingReset: Date
+  members: [String]
+  name: String
+  topic: String
+  typing: [String]
+  workspaceId: String
+}
+
+input UpdateDetailInput {
+  objectId: String!
+  chatId: String
+  lastRead: Int
+  userId: String
+  workspaceId: String
+}
+
+input UpdateDirectInput {
+  objectId: String!
+  active: [String]
+  lastMessageCounter: Int
+  lastMessageText: String
+  lastTypingReset: Date
+  members: [String]
+  typing: [String]
+  workspaceId: String
+}
+
+input UpdateMessageInput {
+  objectId: String!
+  chatId: String
+  chatType: String
+  counter: Int
+  fileName: String
+  fileSize: Int
+  fileType: String
+  fileURL: String
+  isDeleted: Boolean
+  isEdited: Boolean
+  mediaDuration: Int
+  mediaHeight: Int
+  mediaWidth: Int
+  senderId: String
+  sticker: String
+  text: String
+  type: String
+  thumbnailURL: String
+  workspaceId: String
+}
+
+input UpdatePresenceInput {
+  objectId: String!
+  lastPresence: Date
+}
+
+input UpdateUserInput {
+  objectId: String!
+  displayName: String
+  email: String
+  fullName: String
+  phoneNumber: String
+  photoURL: String
+  theme: String
+  thumbnailURL: String
+  title: String
+  workspaces: [String]
+}
+
+input UpdateWorkspaceInput {
+  objectId: String!
+  channelId: String
+  details: String
+  isDeleted: Boolean
+  members: [String]
+  name: String
+  ownerId: String
+  photoURL: String
+  thumbnailURL: String
+}
+
+input UpdateReactionInput {
+  objectId: String!
+  chatId: String
+  messageId: String
+  userId: String
+  workspaceId: String
+  reaction: String
+}
