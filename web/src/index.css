@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vh: 1vh;
+}
+
+body {
+  @apply font-lato;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* React Quill style */
+
+.ql-clipboard {
+  position: fixed;
+}
+
+.ql-snow.ql-container {
+  min-height: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: none !important;
+}
+
+.ql-snow.ql-toolbar {
+  @apply font-lato px-2 py-1 border-0 border-t h-12 !important;
+}
+
+.ql-snow .ql-editor {
+  @apply font-lato text-base !important;
+}
+
+.ql-snow .ql-editor pre.ql-syntax {
+  @apply text-sm !important;
+}
+
+.ql-bubble .ql-editor pre.ql-syntax {
+  @apply text-sm !important;
+}
+
+.ql-bubble .ql-editor {
+  @apply p-0 font-lato text-base !important;
+}
+
+.editor-has-only-emoji .ql-bubble .ql-editor {
+  @apply text-3xl !important;
+}
+
+.editor-has-only-emoji .ql-bubble .ql-editor .ql-size-small {
+  font-size: 12px !important;
+}
+
+#sendButton {
+  @apply rounded p-2 h-10 w-10 flex items-center justify-center !important;
+}
+
+.ql-editor ol,
+.ql-editor ul {
+  padding-left: 0.7em !important;
+}
+
+/* Emoji mart */
+
+.emoji-mart-anchors {
+  @apply py-1 !important;
+}
+
+.emoji-mart-anchor {
+  @apply flex items-center justify-center !important;
+}
+
+.emoji-mart-anchor-bar {
+  @apply hidden !important;
+}
+
+.emoji-mart-search {
+  @apply flex items-center mb-2 !important;
+}
+
+.emoji-mart-search input {
+  @apply focus:outline-none focus:ring-0 !important;
+}
+
+.emoji-mart-search-icon {
+  @apply absolute inset-y-0 right-0 h-full mr-2 !important;
+}
+
+.emoji-mart-category .emoji-mart-emoji:hover:before {
+  @apply bg-transparent !important;
+}
+
+.emoji-mart-emoji span {
+  @apply cursor-pointer !important;
+}
+
+.emoji-mart-emoji.emoji-mart-emoji-native {
+  @apply focus:outline-none !important;
+}
