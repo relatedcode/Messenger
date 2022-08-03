@@ -1,0 +1,31 @@
+example.com {
+  reverse_proxy relatedchat_web:80
+}
+
+example.com:81 {
+  reverse_proxy gqlserver_admin:3000
+}
+
+example.com:4000 {
+  reverse_proxy gqlserver:4000
+}
+
+example.com:4001 {
+  reverse_proxy relatedchat_api:4001
+}
+
+example.com:9000 {
+  reverse_proxy minio:9000
+}
+
+example.com:9001 {
+  reverse_proxy minio:9001
+}
+
+example.com:5432 {
+  reverse_proxy pg:5432
+}
+
+example.com:6379 {
+  reverse_proxy rd:6379
+}
