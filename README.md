@@ -65,6 +65,16 @@ RelatedChat is an open-source alternative communication platform. Both iOS (Swif
 
 **3.,** Open the `app.xcworkspace` from Xcode and select Product/Run (⌘ R).
 
+## INSTALLATION (Android)
+
+**1.,** Setup Gradle variables by following the [official docs](https://reactnative.dev/docs/signed-apk-android#setting-up-gradle-variables).
+
+**2.,** Open a terminal and run `npm start`.
+
+**3.,** Open another terminal and run `npx react-native run-android --variant=release`.
+
+> For a complete guide on how to publish and run your React Native app, please refer to the [official docs](https://reactnative.dev/docs/signed-apk-android).
+
 ## INSTALLATION (Web)
 
 You can install RelatedChat on any servers (Windows, Linux or macOS), by using Docker. Just download the Docker Compose file to your computer and initiate the process.
