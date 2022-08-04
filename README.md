@@ -4,6 +4,8 @@ RelatedChat is an open-source alternative communication platform. Both iOS (Swif
 
 <img src="https://related.chat/messenger/web1.png" width="880">
 
+<img src="https://related.chat/messenger/android1.png" width="880">
+
 ## NEW FEATURES
 
 - Live [demo server](https://relatedchat.io) available
