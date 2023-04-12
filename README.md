@@ -1,3 +1,7 @@
+<a href="https://learngpt.art"><img src="https://related.chat/github/header33.png" width="880"></a>
+
+---
+
 ## OVERVIEW
 
 RelatedChat is an open-source alternative communication platform. Both iOS (Swift), Android (React Native), and Web (React) version source codes are available.
