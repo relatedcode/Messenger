@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -9,43 +9,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import NYTPhotoViewer
+import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class NYTPhotoSource: NSObject, NYTPhotoViewerDataSource {
-
-	var photoItems: [NYTPhoto] = []
+class PhotoController: NavigationController {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	convenience init(photoItems: [NYTPhoto]) {
+	convenience init(data: Data, caption: String = "") {
 
-		self.init()
-		self.photoItems = photoItems
+		let picturesView = PicturesView(data: data, caption: caption)
+
+		self.init(rootViewController: picturesView)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	var numberOfPhotos: NSNumber? {
+	convenience init(image: UIImage, caption: String = "") {
 
-		return NSNumber(value: photoItems.count)
+		let picturesView = PicturesView(image: image, caption: caption)
+
+		self.init(rootViewController: picturesView)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func index(of photo: NYTPhoto) -> Int {
+	convenience init(_ photoObjects: [PhotoObject], _ currentIndex: Int = 0) {
 
-		if let photoItem = photo as? NYTPhotoItem {
-			if let index = photoItems.firstIndex(where: { $0.image == photoItem.image }) {
-				return index
-			}
-		}
-		return 0
+		let picturesView = PicturesView(photoObjects, currentIndex)
+
+		self.init(rootViewController: picturesView)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func photo(at index: Int) -> NYTPhoto? {
+	convenience init(_ photoObjects: [PhotoObject], _ selectedId: String = "") {
 
-		if (photoItems.count > index) {
-			return photoItems[index]
-		}
-		return nil
+		let picturesView = PicturesView(photoObjects, selectedId)
+
+		self.init(rootViewController: picturesView)
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func viewDidLoad() {
+
+		super.viewDidLoad()
+
+		isModalInPresentation = true
+		modalPresentationStyle = .fullScreen
+
+		overrideUserInterfaceStyle = .dark
 	}
 }

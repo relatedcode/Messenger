@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -59,23 +59,31 @@ class PasswordView: UIViewController {
 
 		view.endEditing(true)
 	}
+}
 
-	// MARK: - Backend actions
+// MARK: - Backend actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension PasswordView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func updatePassword(_ email: String, _ password: String) {
 
 		ProgressHUD.show(interaction: false)
 		GQLAuth.update(email, password) { error in
 			if let error = error {
-				ProgressHUD.showFailed(error.localizedDescription)
+				ProgressHUD.showFailed(error)
 			} else {
 				ProgressHUD.showSucceed("Password changed.")
 				self.dismiss(animated: true)
 			}
 		}
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension PasswordView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionDismiss() {
 

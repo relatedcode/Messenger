@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,19 +19,41 @@ class NavigationController: UINavigationController {
 
 		super.viewDidLoad()
 
-		navigationBar.isTranslucent = false
-		navigationBar.tintColor = UIColor.white
-		navigationBar.barTintColor = UIColor(red: 0.00, green: 0.20, blue: 0.40, alpha: 1.0)
-		navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+		isModalInPresentation = true
+		modalPresentationStyle = .fullScreen
+
+		navigationBar.isTranslucent = true
+
+		navigationBar.tintColor = Appx.secondColor
+		navigationBar.barTintColor = Appx.mainColor
+		navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Appx.secondColor]
 
 		if #available(iOS 15, *) {
 			let appearance = UINavigationBarAppearance()
 			appearance.configureWithOpaqueBackground()
-			appearance.backgroundColor = UIColor(red: 0.00, green: 0.20, blue: 0.40, alpha: 1.0)
-			appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+			appearance.backgroundColor = Appx.mainColor
+			appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Appx.secondColor]
 			UINavigationBar.appearance().standardAppearance = appearance
 			UINavigationBar.appearance().scrollEdgeAppearance = appearance
 		}
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+
+		return .portrait
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+
+		return .portrait
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override var shouldAutorotate: Bool {
+
+		return false
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -29,6 +29,14 @@ class ChannelsCell: UITableViewCell {
 	private var objectId = ""
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func prepareForReuse() {
+
+		objectId = ""
+
+		imageUser.image = nil
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ dbchannel: DBChannel) {
 
 		labelInitials.text = "#"
@@ -52,13 +60,5 @@ class ChannelsCell: UITableViewCell {
 				viewUnread.isHidden = false
 			}
 		}
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override func prepareForReuse() {
-
-		objectId = ""
-
-		imageUser.image = nil
 	}
 }

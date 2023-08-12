@@ -12,88 +12,85 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Workspace: NSObject {
+class PhotoObject: NSObject {
 
-	private static var initialized = false
+	private var idX: String = ""
 
-	private static var workspaceId = ""
+	private var dataX: Data?
+	private var imageX: UIImage!
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	static let shared: Workspace = {
-		let instance = Workspace()
-		return instance
-	} ()
+	private var titleX: String = ""
+	private var detailsX: String = ""
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func setup() {
+	init(_ id: String, _ data: Data, _ title: String = "", _ details: String = "") {
 
-		_ = shared
+		idX = id
+		dataX = data
+		imageX = UIImage(data: data)
+		titleX = title
+		detailsX = details
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	init(_ id: String, _ image: UIImage, _ title: String = "", _ details: String = "") {
+
+		idX = id
+		dataX = nil
+		imageX = image
+		titleX = title
+		detailsX = details
 	}
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension Workspace {
+extension PhotoObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func id() -> String {
+	func id() -> String {
 
-		loadCache()
-		return workspaceId
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func save(_ newId: String) {
-
-		workspaceId = newId
-		saveCache()
+		return idX
 	}
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension Workspace {
+extension PhotoObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private class func loadCache() {
+	func data() -> Data? {
 
-		if (initialized) { return }
-
-		if let temp = UserDefaults.string(key: "WorkspaceId") {
-			workspaceId = temp
-		}
-
-		initialized = true
+		return dataX
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private class func saveCache() {
+	func image() -> UIImage {
 
-		UserDefaults.setObject(workspaceId, key: "WorkspaceId")
+		return imageX
 	}
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension Workspace {
+extension PhotoObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func cleanup() {
+	func title() -> NSAttributedString {
 
-		workspaceId = ""
-		saveCache()
+		let font = UIFont.systemFont(ofSize: 20)
+		let color = UIColor.white
+		let style = NSMutableParagraphStyle()
+		style.alignment = .left
+
+		return NSAttributedString(string: titleX, attributes: [.font: font, .foregroundColor: color, .paragraphStyle: style])
 	}
-}
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-extension Workspace {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func select(_ viewController: UIViewController) {
+	func details() -> NSAttributedString {
 
-		DispatchQueue.main.async(after: 0.5) {
-			let workspacesView = WorkspacesView()
-			let navController = NavigationController(rootViewController: workspacesView)
-			navController.isModalInPresentation = true
-			navController.modalPresentationStyle = .fullScreen
-			viewController.present(navController, animated: true)
-		}
+		let font = UIFont.systemFont(ofSize: 15)
+		let color = UIColor.lightGray
+		let style = NSMutableParagraphStyle()
+		style.alignment = .left
+
+		return NSAttributedString(string: detailsX, attributes: [.font: font, .foregroundColor: color, .paragraphStyle: style])
 	}
 }

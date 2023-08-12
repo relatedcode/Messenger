@@ -12,11 +12,31 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class RegisterView: UIViewController {
+class Photos: NSObject {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	@IBAction func actionDismiss(_ sender: Any) {
+	class func collect(_ chatId: String) -> [PhotoObject]? {
 
-		dismiss(animated: true)
+		var objects: [PhotoObject] = []
+		
+		let condition = "chatId = :chatId AND type = :type AND isDeleted = :false"
+		let arguments: [String: Any] = [":chatId": chatId, ":type": "photo", ":false": false]
+		let dbmessages = DBMessage.fetchAll(gqldb, condition, arguments, order: "createdAt")
+
+		for dbmessage in dbmessages {
+			if let path = Media.path(photo: dbmessage.fileURL) {
+				if let image = UIImage(path: path) {
+
+					let dbuser = DBUser.fetchOne(gqldb, key: dbmessage.senderId)
+					let title = dbuser?.fullName ?? "Unknown User"
+					let details = Convert.dateToDayMonthTime(dbmessage.createdAt)
+
+					let object = PhotoObject(dbmessage.objectId, image, title, details)
+					objects.append(object)
+				}
+			}
+		}
+
+		return objects.isEmpty ? nil : objects
 	}
 }

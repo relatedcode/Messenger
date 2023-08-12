@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -19,6 +19,14 @@ class StickersCell: UICollectionViewCell {
 	private var sticker = ""
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func prepareForReuse() {
+
+		sticker = ""
+
+		imageItem.image = nil
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ sticker: String) {
 
 		if let path = Media.path(sticker: sticker) {
@@ -33,7 +41,8 @@ class StickersCell: UICollectionViewCell {
 
 		self.sticker = sticker
 
-		MediaDownload.sticker(sticker) { path, error in
+		MediaDownload.sticker(sticker) { [weak self] path, error in
+			guard let self = self else { return }
 			if (self.sticker == sticker) {
 				if (error == nil) {
 					self.imageItem.image = UIImage(path: path)
@@ -47,20 +56,13 @@ class StickersCell: UICollectionViewCell {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadLater(_ sticker: String) {
 
-		DispatchQueue.main.async(after: 0.5) {
+		DispatchQueue.main.async(after: 0.5) { [weak self] in
+			guard let self = self else { return }
 			if (self.sticker == sticker) {
 				if (self.imageItem.image == nil) {
 					self.loadImage(sticker)
 				}
 			}
 		}
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override func prepareForReuse() {
-
-		sticker = ""
-
-		imageItem.image = nil
 	}
 }

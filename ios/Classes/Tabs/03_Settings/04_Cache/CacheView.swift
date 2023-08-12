@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -40,8 +40,12 @@ class CacheView: UIViewController {
 		if (KeepMedia.isMonth())	{ cellKeepMedia.detailTextLabel?.text = "1 month"	}
 		if (KeepMedia.isForever())	{ cellKeepMedia.detailTextLabel?.text = "Forever"	}
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension CacheView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionKeepMedia() {
 
@@ -55,8 +59,12 @@ class CacheView: UIViewController {
 		Media.cleanupManual(logout: false)
 		updateDetails()
 	}
+}
 
-	// MARK: - Helper methods
+// MARK: - Helper methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension CacheView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func updateDetails() {
 

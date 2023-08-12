@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -55,8 +55,29 @@ extension UIImage {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func resize(size: CGSize) -> UIImage {
 
+		let ratioOld = self.size.width / self.size.height
+		let ratioNew = size.width / size.height
+
+		var resizeImage: UIImage
+
+		if (ratioOld > ratioNew) {
+
+			let width = self.size.height * ratioNew
+			let x = (self.size.width - width) / 2
+			resizeImage = crop(x: x, y: 0, width: width, height: self.size.height)
+
+		} else if ratioOld < ratioNew {
+
+			let height = self.size.width / ratioNew
+			let y = (self.size.height - height) / 2
+			resizeImage = crop(x: 0, y: y, width: self.size.width, height: height)
+
+		} else {
+			resizeImage = self
+		}
+
 		UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-		draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+		resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
 		let resized = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 
@@ -121,7 +142,7 @@ extension UIImage {
 		let new = CGSize(width: size.height, height: size.width)
 
 		UIGraphicsBeginImageContextWithOptions(new, false, scale)
-		let context = UIGraphicsGetCurrentContext()!
+		guard let context = UIGraphicsGetCurrentContext() else { return nil }
 
 		context.translateBy(x: new.width/2, y: new.height/2)
 		context.rotate(by: CGFloat(-0.5 * .pi))

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -434,12 +434,11 @@ extension ChatDirectView {
 			return image
 		}
 
-		MediaDownload.user(rcmessage.userThumbnail) { image, later in
+		MediaDownload.user(rcmessage.userThumbnail) { [weak self] image, later in
+			guard let self = self else { return }
 			if let image = image {
-				DispatchQueue.main.async {
-					self.avatarImages[userId] = image
-					self.refreshTableView()
-				}
+				self.avatarImages[userId] = image
+				self.refreshTableView()
 			}
 		}
 
@@ -484,8 +483,10 @@ extension ChatDirectView {
 
 		if (rcmessage.mediaStatus == MediaStatus.Succeed) {
 			if (rcmessage.type == MessageType.Photo) {
-				let pictureView = PictureView(chatId: chatId, messageId: rcmessage.messageId)
-				present(pictureView, animated: true)
+				if let objects = Photos.collect(chatId) {
+					let photoController = PhotoController(objects, rcmessage.messageId)
+					present(photoController, animated: true)
+				}
 			}
 			if (rcmessage.type == MessageType.Video) {
 				if let path = rcmessage.videoPath {

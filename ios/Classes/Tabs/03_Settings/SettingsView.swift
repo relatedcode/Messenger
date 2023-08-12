@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -83,15 +83,20 @@ class SettingsView: UITableViewController {
 			} else { Workspace.select(self) }
 		} else { Users.login(self) }
 	}
+}
 
-	// MARK: - Database methods
+// MARK: - Database methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension SettingsView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func loadUser() {
 
 		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else { return }
 
 		labelInitials.text = dbuser.initials()
-		MediaDownload.user(dbuser.photoURL) { image, later in
+		MediaDownload.user(dbuser.photoURL) { [weak self] image, later in
+			guard let self = self else { return }
 			if let image = image {
 				self.imageUser.image = image.square(to: 70)
 				self.labelInitials.text = nil
@@ -104,8 +109,12 @@ class SettingsView: UITableViewController {
 
 		tableView.reloadData()
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension SettingsView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionProfile() {
 
@@ -186,12 +195,16 @@ class SettingsView: UITableViewController {
 		DispatchQueue.main.async(after: 0.5) {
 			Users.logout() {
 				ProgressHUD.dismiss()
-				self.tabBarController?.selectedIndex = App.DefaultTab
+				self.tabBarController?.selectedIndex = Appx.DefaultTab
 			}
 		}
 	}
+}
 
-	// MARK: - Cleanup methods
+// MARK: - Cleanup methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension SettingsView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionCleanup() {
 

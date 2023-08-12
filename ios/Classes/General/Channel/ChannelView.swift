@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -57,8 +57,12 @@ class ChannelView: UIViewController {
 		loadChannel()
 		loadMembers()
 	}
+}
 
-	// MARK: - Database methods
+// MARK: - Database methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ChannelView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadChannel() {
 
@@ -85,8 +89,12 @@ class ChannelView: UIViewController {
 
 		tableView.reloadData()
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ChannelView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionProfile(_ userId: String) {
 
@@ -100,8 +108,12 @@ class ChannelView: UIViewController {
 		let allMediaView = AllMediaView(objectId)
 		navigationController?.pushViewController(allMediaView, animated: true)
 	}
+}
 
-	// MARK: - Helper methods
+// MARK: - Helper methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ChannelView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func titleForHeaderMembers() -> String? {
 

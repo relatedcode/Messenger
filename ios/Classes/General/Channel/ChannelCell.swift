@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -22,6 +22,14 @@ class ChannelCell: UITableViewCell {
 	private var objectId = ""
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
+	override func prepareForReuse() {
+
+		objectId = ""
+
+		imageUser.image = nil
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ dbuser: DBUser) {
 
 		labelInitials.text = dbuser.initials()
@@ -34,15 +42,14 @@ class ChannelCell: UITableViewCell {
 
 		objectId = dbuser.objectId
 
-		MediaDownload.user(dbuser.thumbnailURL) { image, later in
+		MediaDownload.user(dbuser.thumbnailURL) { [weak self] image, later in
+			guard let self = self else { return }
 			if (self.objectId == dbuser.objectId) {
-				DispatchQueue.main.async {
-					if let image = image {
-						self.labelInitials.text = nil
-						self.imageUser.image = image.square(to: 40)
-					} else if (later) {
-						self.loadLater(dbuser)
-					}
+				if let image = image {
+					self.labelInitials.text = nil
+					self.imageUser.image = image.square(to: 40)
+				} else if later {
+					self.loadLater(dbuser)
 				}
 			}
 		}
@@ -51,20 +58,13 @@ class ChannelCell: UITableViewCell {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadLater(_ dbuser: DBUser) {
 
-		DispatchQueue.main.async(after: 0.5) {
+		DispatchQueue.main.async(after: 0.5) { [weak self] in
+			guard let self = self else { return }
 			if (self.objectId == dbuser.objectId) {
 				if (self.imageUser.image == nil) {
 					self.loadImage(dbuser)
 				}
 			}
 		}
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override func prepareForReuse() {
-
-		objectId = ""
-
-		imageUser.image = nil
 	}
 }

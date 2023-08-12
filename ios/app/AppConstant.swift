@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -9,7 +9,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 enum Notifications {
@@ -69,9 +69,13 @@ enum AudioStatus {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-enum App {
+enum Appx {
 
-	static let DefaultTab		= 0
-	static let MaxVideoDuration	= TimeInterval(10)
-	static let TextShareApp		= "Check out https://related.chat"
+	static let DefaultTab	= 0
+	static let MaxVideo		= TimeInterval(10)
+	static let TextShareApp	= "Check out https://related.chat"
+
+	static let mainColor	= UIColor.systemTeal
+	static let secondColor	= UIColor.white
+	static let thirdColor	= UIColor.systemBlue
 }

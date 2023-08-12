@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -55,7 +55,7 @@ class ImagePicker: NSObject {
 					let imagePicker = UIImagePickerController()
 					imagePicker.mediaTypes = [type]
 					imagePicker.sourceType = .camera
-					imagePicker.videoMaximumDuration = App.MaxVideoDuration
+					imagePicker.videoMaximumDuration = Appx.MaxVideo
 
 					if (UIImagePickerController.isCameraDeviceAvailable(.rear)) {
 						imagePicker.cameraDevice = .rear
@@ -85,7 +85,7 @@ class ImagePicker: NSObject {
 					let imagePicker = UIImagePickerController()
 					imagePicker.mediaTypes = [type1, type2]
 					imagePicker.sourceType = .camera
-					imagePicker.videoMaximumDuration = App.MaxVideoDuration
+					imagePicker.videoMaximumDuration = Appx.MaxVideo
 
 					if (UIImagePickerController.isCameraDeviceAvailable(.rear)) {
 						imagePicker.cameraDevice = .rear
@@ -149,7 +149,7 @@ class ImagePicker: NSObject {
 					let imagePicker = UIImagePickerController()
 					imagePicker.sourceType = .photoLibrary
 					imagePicker.mediaTypes = [type]
-					imagePicker.videoMaximumDuration = App.MaxVideoDuration
+					imagePicker.videoMaximumDuration = Appx.MaxVideo
 
 					imagePicker.allowsEditing = edit
 					imagePicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
@@ -164,7 +164,7 @@ class ImagePicker: NSObject {
 					let imagePicker = UIImagePickerController()
 					imagePicker.sourceType = .savedPhotosAlbum
 					imagePicker.mediaTypes = [type]
-					imagePicker.videoMaximumDuration = App.MaxVideoDuration
+					imagePicker.videoMaximumDuration = Appx.MaxVideo
 
 					imagePicker.allowsEditing = edit
 					imagePicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)

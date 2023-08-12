@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -78,8 +78,12 @@ class ChannelsView: UIViewController {
 			} else { Workspace.select(self) }
 		} else { Users.login(self) }
 	}
+}
 
-	// MARK: - Database methods
+// MARK: - Database methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ChannelsView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadChannels() {
 
@@ -97,7 +101,6 @@ class ChannelsView: UIViewController {
 		tableView.reloadData()
 	}
 
-	// MARK: - Observer methods
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func createObserver() {
 
@@ -120,8 +123,12 @@ class ChannelsView: UIViewController {
 			}
 		}
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ChannelsView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionWorkspaces() {
 
@@ -145,8 +152,12 @@ class ChannelsView: UIViewController {
 		chatChannelView.hidesBottomBarWhenPushed = true
 		navigationController?.pushViewController(chatChannelView, animated: true)
 	}
+}
 
-	// MARK: - Cleanup methods
+// MARK: - Cleanup methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ChannelsView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionCleanup() {
 

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -48,8 +48,12 @@ class WorkspacesView: UIViewController {
 
 		removeObserver()
 	}
+}
 
-	// MARK: - Database methods
+// MARK: - Database methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension WorkspacesView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadWorkspaces() {
 
@@ -66,7 +70,6 @@ class WorkspacesView: UIViewController {
 		tableView.reloadData()
 	}
 
-	// MARK: - Observer methods
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func createObserver() {
 

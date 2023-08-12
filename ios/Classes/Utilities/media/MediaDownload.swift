@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -51,7 +51,7 @@ class MediaDownload: NSObject {
 
 		let manual = path + ".manual"
 		if (File.exist(manual)) {
-			completion(path, xerror("Manual download."))
+			completion(path, NSError("Manual download."))
 			return
 		}
 		try? "manual".write(toFile: manual, atomically: false, encoding: .utf8)
@@ -125,15 +125,15 @@ extension MediaDownload {
 	private class func start(_ url: URL, _ path: String, _ completion: @escaping (Error?, Bool) -> Void) {
 
 		if (GQLNetwork.notReachable()) {
-			completion(xerror("Network connection."), false); return
+			completion(NSError("Network connection."), false); return
 		}
 
 		if (loading.count > 5) {
-			completion(xerror("Too many processes."), true); return
+			completion(NSError("Too many processes."), true); return
 		}
 
 		if (loading.contains(path)) {
-			completion(xerror("Already downloading."), true); return
+			completion(NSError("Already downloading."), true); return
 		}
 
 		loading.append(path)
@@ -148,15 +148,5 @@ extension MediaDownload {
 				completion(error, false)
 			}
 		}
-	}
-}
-
-//-----------------------------------------------------------------------------------------------------------------------------------------------
-extension MediaDownload {
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	private class func xerror(_ text: String) -> NSError {
-
-		return NSError(text, code: 100)
 	}
 }

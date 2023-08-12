@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -59,9 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let navController3 = NavigationController(rootViewController: settingsView)
 
 		tabBarController = UITabBarController()
-		tabBarController.viewControllers = [navController1, navController2, navController3]
 		tabBarController.tabBar.isTranslucent = false
-		tabBarController.selectedIndex = App.DefaultTab
+		tabBarController.tabBar.tintColor = Appx.mainColor
+		tabBarController.delegate = self
+		tabBarController.viewControllers = [navController1, navController2, navController3]
+		tabBarController.selectedIndex = Appx.DefaultTab
 
 		if #available(iOS 15.0, *) {
 			let appearance = UITabBarAppearance()
@@ -93,8 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		// ProgressHUD initialization
 		//---------------------------------------------------------------------------------------------------------------------------------------
-		ProgressHUD.colorProgress = UIColor.systemBlue
-		ProgressHUD.colorAnimation = UIColor.systemBlue
+		ProgressHUD.colorProgress = Appx.mainColor
+		ProgressHUD.colorAnimation = Appx.mainColor
 
 		return true
 	}
@@ -153,5 +155,28 @@ extension AppDelegate: PasscodeKitDelegate {
 				exit(0)
 			}
 		}
+	}
+}
+
+// MARK: - UITabBarControllerDelegate
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: UITabBarControllerDelegate {
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func tabBarControllerSupportedInterfaceOrientations(_ tabBarController: UITabBarController) -> UIInterfaceOrientationMask {
+
+		return .portrait
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func tabBarControllerPreferredInterfaceOrientationForPresentation(_ tabBarController: UITabBarController) -> UIInterfaceOrientation {
+
+		return .portrait
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+
+		return (viewController != tabBarController.selectedViewController)
 	}
 }

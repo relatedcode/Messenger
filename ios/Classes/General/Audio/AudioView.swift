@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -50,8 +50,12 @@ class AudioView: UIViewController {
 
 		updateButtonDetails()
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AudioView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionDismiss() {
 
@@ -97,8 +101,12 @@ class AudioView: UIViewController {
 			delegate?.didRecordAudio(path: path)
 		}
 	}
+}
 
-	// MARK: - Audio recorder methods
+// MARK: - Audio recorder methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AudioView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func audioRecorderStart() {
 
@@ -126,8 +134,12 @@ class AudioView: UIViewController {
 
 		audioRecorder?.stop()
 	}
+}
 
-	// MARK: - Audio player methods
+// MARK: - Audio player methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AudioView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func audioPlayerStart() {
 
@@ -156,8 +168,12 @@ class AudioView: UIViewController {
 
 		audioPlayer?.stop()
 	}
+}
 
-	// MARK: - Timer methods
+// MARK: - Timer methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AudioView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func timerStart() {
 
@@ -192,8 +208,12 @@ class AudioView: UIViewController {
 
 		labelTimer.text = "00:00:00"
 	}
+}
 
-	// MARK: - Helper methods
+// MARK: - Helper methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AudioView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func updateButtonDetails() {
 

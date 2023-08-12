@@ -9,7 +9,6 @@ target 'app' do
 	pod 'Gifu'
 	pod 'GraphQLite'
 	pod 'InputBarAccessoryView'
-	pod 'NYTPhotoViewer'
 	pod 'PasscodeKit'
 	pod 'ProgressHUD'
 	pod 'SideMenu'

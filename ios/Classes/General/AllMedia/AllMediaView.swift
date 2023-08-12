@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -43,8 +43,12 @@ class AllMediaView: UIViewController {
 
 		loadMedia()
 	}
+}
 
-	// MARK: - Load methods
+// MARK: - Load methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AllMediaView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadMedia() {
 
@@ -63,13 +67,19 @@ class AllMediaView: UIViewController {
 
 		collectionView.reloadData()
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension AllMediaView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionPhoto(_ dbmessage: DBMessage) {
 
-		let pictureView = PictureView(chatId: chatId, messageId: dbmessage.objectId)
-		present(pictureView, animated: true)
+		if let objects = Photos.collect(chatId) {
+			let photoController = PhotoController(objects, dbmessage.objectId)
+			present(photoController, animated: true)
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------

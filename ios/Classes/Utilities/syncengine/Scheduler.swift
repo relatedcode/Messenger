@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -123,7 +123,7 @@ extension Scheduler {
 
 		postAuth(link, values) { error in
 			if let error = error {
-				ProgressHUD.showFailed(error.localizedDescription)
+				ProgressHUD.showFailed(error)
 			} else {
 				Audio.playMessageOutgoing()
 			}
@@ -242,7 +242,7 @@ extension Scheduler {
 				if let link = values["url"] as? String {
 					completion(objectId, link, nil)
 				} else {
-					completion(nil, nil, NSError("Upload error.", code: 100))
+					completion(nil, nil, NSError("Upload error."))
 					print(values)
 				}
 			case .failure(let error):
@@ -284,7 +284,7 @@ extension Scheduler {
 		let response = convert(data)
 		if let error = response["error"] as? [String: Any] {
 			if let message = error["message"] as? String {
-				return NSError(message, code: 100)
+				return NSError(message)
 			}
 		}
 		return nil

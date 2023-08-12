@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -59,21 +59,25 @@ class EditProfileView: UIViewController {
 		dismissKeyboard()
 	}
 
-	// MARK: - Keyboard methods
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func dismissKeyboard() {
 
 		view.endEditing(true)
 	}
+}
 
-	// MARK: - Database methods
+// MARK: - Database methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension EditProfileView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loadUser() {
 
 		dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId())
 
 		labelInitials.text = dbuser.initials()
-		MediaDownload.user(dbuser.photoURL) { image, later in
+		MediaDownload.user(dbuser.photoURL) { [weak self] image, later in
+			guard let self = self else { return }
 			if let image = image {
 				self.imageUser.image = image.square(to: 70)
 				self.labelInitials.text = nil
@@ -93,15 +97,19 @@ class EditProfileView: UIViewController {
 
 		scheduler.updateUser(values, { error in
 			if let error = error {
-				ProgressHUD.showFailed(error.localizedDescription)
+				ProgressHUD.showFailed(error)
 			} else {
 				ProgressHUD.showSucceed()
 				self.dismiss(animated: true)
 			}
 		})
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension EditProfileView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionDismiss() {
 
@@ -138,7 +146,12 @@ class EditProfileView: UIViewController {
 		present(alert, animated: true)
 	}
 
-	// MARK: - Upload methods
+}
+
+// MARK: - Upload methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension EditProfileView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func uploadPicture(image: UIImage) {
 

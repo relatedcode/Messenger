@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -9,7 +9,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
 import CryptoKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,5 +64,45 @@ extension String {
 		}
 
 		return temp
+	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	func convertHTML() -> String {
+
+		if let data = self.data(using: .utf8) {
+
+			let document = NSAttributedString.DocumentType.html
+			let encoding = String.Encoding.utf8.rawValue
+
+			let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [.documentType: document, .characterEncoding: encoding]
+
+			if let attributed = try? NSAttributedString(data: data, options: options, documentAttributes: nil) {
+				return attributed.string
+			}
+		}
+
+		return ""
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension String {
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+
+		let size = CGSize(width: width, height: .greatestFiniteMagnitude)
+		let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+
+		return ceil(rect.height)
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+
+		let size = CGSize(width: .greatestFiniteMagnitude, height: height)
+		let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+
+		return ceil(rect.width)
 	}
 }

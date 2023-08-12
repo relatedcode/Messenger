@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -39,8 +39,12 @@ class PasscodeView: UIViewController {
 
 		updateViewDetails()
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension PasscodeView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionTurnPasscode() {
 
@@ -64,8 +68,12 @@ class PasscodeView: UIViewController {
 
 		PasscodeKit.biometric(switchBiometric.isOn)
 	}
+}
 
-	// MARK: - Helper methods
+// MARK: - Helper methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension PasscodeView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func updateViewDetails() {
 

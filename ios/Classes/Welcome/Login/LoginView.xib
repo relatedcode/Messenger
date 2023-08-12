@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_0" orientation="portrait" appearance="dark"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginView">
             <connections>
+                <outlet property="buttonLogin" destination="jVC-Fi-mBC" id="pds-by-EA9"/>
                 <outlet property="fieldEmail" destination="wiw-WP-O7Z" id="HWp-dY-ktI"/>
                 <outlet property="fieldPassword" destination="OZ7-2i-VuJ" id="l0p-1c-ePw"/>
                 <outlet property="view" destination="uLw-1p-iTN" id="mG2-8T-qhz"/>
@@ -19,12 +22,18 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Tq2-dv-c6I">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tq2-dv-c6I">
                     <rect key="frame" x="120" y="70" width="80" height="80"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="hih-bJ-qNl"/>
                         <constraint firstAttribute="height" constant="80" id="zew-Si-y8x"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wiw-WP-O7Z">
                     <rect key="frame" x="16" y="200" width="288" height="50"/>
@@ -39,7 +48,7 @@
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SkL-eY-oeP">
                     <rect key="frame" x="16" y="250" width="288" height="1"/>
-                    <color key="backgroundColor" systemColor="quaternaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" systemColor="quaternaryLabelColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="7JI-Ua-gbW"/>
                     </constraints>
@@ -57,14 +66,14 @@
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6WO-1D-5cz">
                     <rect key="frame" x="16" y="300" width="288" height="1"/>
-                    <color key="backgroundColor" systemColor="quaternaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.17999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" systemColor="quaternaryLabelColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="zWr-mk-HlB"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVC-Fi-mBC">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVC-Fi-mBC">
                     <rect key="frame" x="20" y="320" width="280" height="50"/>
-                    <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="4Km-aX-bJN"/>
                     </constraints>
@@ -91,7 +100,7 @@
                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YvS-O5-gyd">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YvS-O5-gyd">
                     <rect key="frame" x="0.0" y="518" width="320" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Rbq-Ge-kEx"/>
@@ -104,7 +113,8 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <viewLayoutGuide key="safeArea" id="cHL-mJ-N0N"/>
+            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
             <constraints>
                 <constraint firstItem="SkL-eY-oeP" firstAttribute="leading" secondItem="cHL-mJ-N0N" secondAttribute="leading" constant="16" id="5lR-9Z-q2O"/>
                 <constraint firstItem="YvS-O5-gyd" firstAttribute="leading" secondItem="cHL-mJ-N0N" secondAttribute="leading" id="8CH-Pz-YIK"/>
@@ -130,11 +140,15 @@
                 <constraint firstItem="6WO-1D-5cz" firstAttribute="top" secondItem="cHL-mJ-N0N" secondAttribute="top" constant="300" id="uGp-Ib-bod"/>
                 <constraint firstItem="cHL-mJ-N0N" firstAttribute="trailing" secondItem="wiw-WP-O7Z" secondAttribute="trailing" constant="16" id="yLN-PA-SYg"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="cHL-mJ-N0N"/>
             <point key="canvasLocation" x="465" y="974"/>
         </view>
     </objects>
     <resources>
-        <image name="app_logo.png" width="130" height="130"/>
+        <systemColor name="quaternaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.17647058823529413" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -27,10 +27,14 @@ class LoginView: UIViewController {
 	@IBOutlet private var fieldEmail: UITextField!
 	@IBOutlet private var fieldPassword: UITextField!
 
+	@IBOutlet private var buttonLogin: UIButton!
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
+
+		buttonLogin.backgroundColor = Appx.mainColor
 
 		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 		view.addGestureRecognizer(gestureRecognizer)
@@ -50,8 +54,12 @@ class LoginView: UIViewController {
 
 		view.endEditing(true)
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension LoginView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionDismiss(_ sender: Any) {
 
@@ -83,8 +91,12 @@ class LoginView: UIViewController {
 			}
 		}
 	}
+}
 
-	// MARK: -
+// MARK: -
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension LoginView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func checkUser(_ email: String) {
 
@@ -117,8 +129,8 @@ class LoginView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func loginSucceed() {
 
-		dismiss(animated: true) { [self] in
-			delegate?.didLoginUser()
+		dismiss(animated: true) {
+			self.delegate?.didLoginUser()
 		}
 	}
 
@@ -134,7 +146,7 @@ class LoginView: UIViewController {
 	func showError(_ error: Error?) {
 
 		if let error = error {
-			ProgressHUD.showFailed(error.localizedDescription)
+			ProgressHUD.showFailed(error)
 		}
 	}
 }

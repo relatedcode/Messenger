@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,7 +15,7 @@ import Foundation
 extension NSError {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	convenience init(_ description: String, code: Int) {
+	convenience init(_ description: String, code: Int = 100) {
 
 		let domain = Bundle.main.bundleIdentifier ?? ""
 		let userInfo = [NSLocalizedDescriptionKey: description]

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2022 Related Code - https://relatedcode.com
+// Copyright (c) 2023 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -70,15 +70,20 @@ class ProfileView: UIViewController {
 
 		loadUser()
 	}
+}
 
-	// MARK: - Database methods
+// MARK: - Database methods
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ProfileView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func loadUser() {
 
 		dbuser = DBUser.fetchOne(gqldb, key: userId)
 
 		labelInitials.text = dbuser.initials()
-		MediaDownload.user(dbuser.photoURL) { image, later in
+		MediaDownload.user(dbuser.photoURL) { [weak self] image, later in
+			guard let self = self else { return }
 			if let image = image {
 				self.labelInitials.text = nil
 				self.imageUser.image = image.square(to: 70)
@@ -95,15 +100,19 @@ class ProfileView: UIViewController {
 
 		tableView.reloadData()
 	}
+}
 
-	// MARK: - User actions
+// MARK: - User actions
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension ProfileView {
+
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionPhoto(_ sender: Any) {
 
 		if let path = Media.path(user: dbuser.photoURL) {
 			if let image = UIImage.image(path, size: 320) {
-				let pictureView = PictureView(image: image)
-				present(pictureView, animated: true)
+				let photoController = PhotoController(image: image, caption: dbuser.fullName)
+				present(photoController, animated: true)
 			}
 		}
 	}

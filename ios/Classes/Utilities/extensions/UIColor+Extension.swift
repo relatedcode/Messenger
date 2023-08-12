@@ -12,11 +12,38 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class RegisterView: UIViewController {
+extension UIColor {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	@IBAction func actionDismiss(_ sender: Any) {
+	public convenience init?(_ hex: String) {
 
-		dismiss(animated: true)
+		var hexstr = hex
+		var hexnum = UInt64(0)
+
+		if hex.hasPrefix("#") {
+			hexstr = String(hex.dropFirst())
+		}
+
+		let scanner = Scanner(string: hexstr)
+
+		if (scanner.scanHexInt64(&hexnum)) {
+			if (hexstr.count == 6) {
+				let r = CGFloat((hexnum & 0xff0000) >> 16) / 255
+				let g = CGFloat((hexnum & 0x00ff00) >> 8) / 255
+				let b = CGFloat((hexnum & 0x0000ff) >> 0) / 255
+				self.init(red: r, green: g, blue: b, alpha: 1.0)
+				return
+			}
+			if (hexstr.count == 8) {
+				let r = CGFloat((hexnum & 0xff000000) >> 24) / 255
+				let g = CGFloat((hexnum & 0x00ff0000) >> 16) / 255
+				let b = CGFloat((hexnum & 0x0000ff00) >> 8) / 255
+				let a = CGFloat((hexnum & 0x000000ff) >> 0) / 255
+				self.init(red: r, green: g, blue: b, alpha: a)
+				return
+			}
+		}
+
+		return nil
 	}
 }
