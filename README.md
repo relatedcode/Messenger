@@ -1,7 +1,3 @@
-<a href="https://r9ryvd37cq5.typeform.com/to/E99SDQZx"><img src="https://related.chat/github/header34.png" width="880"></a>
-
----
-
 ## OVERVIEW
 
 RelatedChat is an open-source alternative communication platform. Both iOS (Swift), Android (React Native), and Web (React) version source codes are available.
