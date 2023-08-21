@@ -12,7 +12,7 @@
 import Foundation
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Network: NSObject {
+class Network {
 
 	static let All		= 0
 	static let WiFi		= 1

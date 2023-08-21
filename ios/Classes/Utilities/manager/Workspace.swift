@@ -12,7 +12,7 @@
 import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Workspace: NSObject {
+class Workspace {
 
 	private static var initialized = false
 

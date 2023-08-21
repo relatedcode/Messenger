@@ -12,7 +12,7 @@
 import Foundation
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class KeepMedia: NSObject {
+class KeepMedia {
 
 	static let Forever	= 0
 	static let Month	= 1

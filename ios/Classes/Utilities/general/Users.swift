@@ -13,10 +13,9 @@ import UIKit
 import GraphQLite
 import ProgressHUD
 import PasscodeKit
-import CoreSpotlight
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Users: NSObject {
+class Users {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func login(_ viewController: UIViewController) {

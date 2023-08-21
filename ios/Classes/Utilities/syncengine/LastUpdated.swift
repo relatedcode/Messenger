@@ -13,7 +13,7 @@ import Foundation
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class LastUpdated: NSObject {
+class LastUpdated {
 
 	private static var initialized = false
 

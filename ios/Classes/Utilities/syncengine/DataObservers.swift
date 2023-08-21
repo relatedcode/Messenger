@@ -13,7 +13,7 @@ import UIKit
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class DataObservers: NSObject {
+class DataObservers {
 
 	private var callbackIdWorkspace:	String?
 	private var callbackIdUser:			String?
@@ -36,9 +36,7 @@ class DataObservers: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override init() {
-
-		super.init()
+	init() {
 
 		NotificationCenter.addObserver(self, selector: #selector(connect), text: Notifications.AppStarted)
 		NotificationCenter.addObserver(self, selector: #selector(disconnect), text: Notifications.AppWillResign)

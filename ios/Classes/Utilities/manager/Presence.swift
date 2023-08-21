@@ -13,7 +13,7 @@ import Foundation
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Presence: NSObject {
+class Presence {
 
 	private var timer: Timer?
 
@@ -30,9 +30,7 @@ class Presence: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override init() {
-
-		super.init()
+	init() {
 
 		NotificationCenter.addObserver(self, selector: #selector(initTimer), text: Notifications.AppStarted)
 		NotificationCenter.addObserver(self, selector: #selector(initTimer), text: Notifications.UserLoggedIn)

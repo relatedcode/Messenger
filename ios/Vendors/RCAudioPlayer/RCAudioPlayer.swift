@@ -12,7 +12,7 @@
 import AudioToolbox
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class RCAudioPlayer: NSObject {
+class RCAudioPlayer {
 
 	private var soundIDs: [String : SystemSoundID] = [:]
 

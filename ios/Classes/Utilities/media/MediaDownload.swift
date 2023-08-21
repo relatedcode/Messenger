@@ -14,7 +14,7 @@ import Alamofire
 import GraphQLite
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class MediaDownload: NSObject {
+class MediaDownload {
 
 	static var loading: [String] = []
 

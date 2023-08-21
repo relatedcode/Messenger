@@ -18,7 +18,7 @@ var gqlserver: GQLServer!
 var scheduler: Scheduler!
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Backend: NSObject {
+class Backend {
 
 	static let base = "https://relatedchat.io"
 
@@ -35,9 +35,7 @@ class Backend: NSObject {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	override init() {
-
-		super.init()
+	init() {
 
 		initDatabase()
 		initServer()
