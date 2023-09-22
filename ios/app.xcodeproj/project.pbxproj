@@ -3,10 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290C7D662ABE088800FB6CEC /* GraphQLite.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290C7D652ABE088800FB6CEC /* GraphQLite.xcframework */; };
+		290C7D692ABE08A100FB6CEC /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 290C7D682ABE08A100FB6CEC /* ProgressHUD */; };
+		290C7D6C2ABE08EC00FB6CEC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 290C7D6B2ABE08EC00FB6CEC /* Alamofire */; };
+		290C7D6F2ABE091400FB6CEC /* Gifu in Frameworks */ = {isa = PBXBuildFile; productRef = 290C7D6E2ABE091400FB6CEC /* Gifu */; };
+		290C7D722ABE094200FB6CEC /* InputBarAccessoryView in Frameworks */ = {isa = PBXBuildFile; productRef = 290C7D712ABE094200FB6CEC /* InputBarAccessoryView */; };
+		290C7D752ABE0A2300FB6CEC /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 290C7D742ABE0A2300FB6CEC /* SideMenu */; };
+		290C7D782ABE0C2B00FB6CEC /* PasscodeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 290C7D772ABE0C2B00FB6CEC /* PasscodeKit */; };
 		29104BC020EFC21B003BD623 /* RCAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29104BBE20EFC21B003BD623 /* RCAudioPlayer.swift */; };
 		2910687A2618F88A00C48FA9 /* PasscodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 291068782618F88A00C48FA9 /* PasscodeView.xib */; };
 		2910687B2618F88A00C48FA9 /* PasscodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291068792618F88A00C48FA9 /* PasscodeView.swift */; };
@@ -151,10 +158,10 @@
 		29EABE4E20ECAC3C00A13F26 /* NavController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EABE4C20ECAC3C00A13F26 /* NavController.swift */; };
 		29ED990D23CCA28F0036BE27 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29ED990C23CCA28F0036BE27 /* DispatchQueue+Extension.swift */; };
 		29FB7B242607F05100DD2DB7 /* users.csv in Resources */ = {isa = PBXBuildFile; fileRef = 29FB7B232607F05100DD2DB7 /* users.csv */; };
-		D7839A9774FE8638B5D4F985 /* Pods_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312B492906BF341248A9DF8E /* Pods_app.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		290C7D652ABE088800FB6CEC /* GraphQLite.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GraphQLite.xcframework; sourceTree = "<group>"; };
 		29104BBE20EFC21B003BD623 /* RCAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioPlayer.swift; sourceTree = "<group>"; };
 		291068782618F88A00C48FA9 /* PasscodeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasscodeView.xib; sourceTree = "<group>"; };
 		291068792618F88A00C48FA9 /* PasscodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeView.swift; sourceTree = "<group>"; };
@@ -180,7 +187,6 @@
 		295015181D9A5C1B00AFD8B3 /* app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = app.entitlements; sourceTree = "<group>"; };
 		2952FAE125A9C2DA00FA9E71 /* schema.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.graphql; sourceTree = "<group>"; };
 		295BA19525E699E300C2B870 /* DataObservers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataObservers.swift; sourceTree = "<group>"; };
-		295C44A42608AB18003E5FEF /* GraphQLite.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GraphQLite.xcframework; path = Pods/GraphQLite/Framework/GraphQLite.xcframework; sourceTree = "<group>"; };
 		295D937A2094930400A222CA /* ChannelsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsView.swift; sourceTree = "<group>"; };
 		295D937B2094930400A222CA /* ChannelsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsCell.swift; sourceTree = "<group>"; };
 		295D937C2094930400A222CA /* ChannelsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelsView.xib; sourceTree = "<group>"; };
@@ -228,7 +234,6 @@
 		29898F811F1B6FFD00AC73B3 /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = privacy.html; sourceTree = "<group>"; };
 		29898F821F1B6FFD00AC73B3 /* terms.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = terms.html; sourceTree = "<group>"; };
 		299503BC2A741C00004BE7A8 /* Photos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photos.swift; sourceTree = "<group>"; };
-		2998B96325F430FF0035E413 /* GQLTest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GQLTest.xcframework; path = Pods/GQLTest/Framework/GQLTest.xcframework; sourceTree = "<group>"; };
 		29A196512542355500ED9B3F /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
 		29B002FA23C785190092A338 /* MediaDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaDownload.swift; sourceTree = "<group>"; };
 		29B002FF23C78A990092A338 /* RCKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCKit.swift; sourceTree = "<group>"; };
@@ -304,9 +309,6 @@
 		29EABE4C20ECAC3C00A13F26 /* NavController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavController.swift; sourceTree = "<group>"; };
 		29ED990C23CCA28F0036BE27 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		29FB7B232607F05100DD2DB7 /* users.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = users.csv; sourceTree = "<group>"; };
-		312B492906BF341248A9DF8E /* Pods_app.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_app.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7393A6F3A4D6270AF7ACDCFA /* Pods-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app.release.xcconfig"; path = "Pods/Target Support Files/Pods-app/Pods-app.release.xcconfig"; sourceTree = "<group>"; };
-		FC28F63C1114893726170446 /* Pods-app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-app/Pods-app.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,7 +316,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7839A9774FE8638B5D4F985 /* Pods_app.framework in Frameworks */,
+				290C7D782ABE0C2B00FB6CEC /* PasscodeKit in Frameworks */,
+				290C7D6C2ABE08EC00FB6CEC /* Alamofire in Frameworks */,
+				290C7D722ABE094200FB6CEC /* InputBarAccessoryView in Frameworks */,
+				290C7D662ABE088800FB6CEC /* GraphQLite.xcframework in Frameworks */,
+				290C7D692ABE08A100FB6CEC /* ProgressHUD in Frameworks */,
+				290C7D752ABE0A2300FB6CEC /* SideMenu in Frameworks */,
+				290C7D6F2ABE091400FB6CEC /* Gifu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +642,7 @@
 		2983F9971E49E4B5004AC81F /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				290C7D652ABE088800FB6CEC /* GraphQLite.xcframework */,
 				29104BBD20EFC21B003BD623 /* RCAudioPlayer */,
 			);
 			path = Vendors;
@@ -751,13 +760,11 @@
 		29D29EE81D9A59E4006CA074 = {
 			isa = PBXGroup;
 			children = (
+				29D29EF31D9A59E4006CA074 /* app */,
 				29601FE21F2CF5F600544468 /* Classes */,
 				29898E6C1F1B6FFC00AC73B3 /* Resources */,
 				2983F9971E49E4B5004AC81F /* Vendors */,
-				29D29EF31D9A59E4006CA074 /* app */,
 				29D29EF21D9A59E4006CA074 /* Products */,
-				7B8B1B7262BA6687D240D5CB /* Pods */,
-				BD5925BEFAEDA190E57A7F14 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -900,25 +907,6 @@
 			path = Workspaces;
 			sourceTree = "<group>";
 		};
-		7B8B1B7262BA6687D240D5CB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FC28F63C1114893726170446 /* Pods-app.debug.xcconfig */,
-				7393A6F3A4D6270AF7ACDCFA /* Pods-app.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		BD5925BEFAEDA190E57A7F14 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				295C44A42608AB18003E5FEF /* GraphQLite.xcframework */,
-				2998B96325F430FF0035E413 /* GQLTest.xcframework */,
-				312B492906BF341248A9DF8E /* Pods_app.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -926,17 +914,23 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 29D29F081D9A59E4006CA074 /* Build configuration list for PBXNativeTarget "app" */;
 			buildPhases = (
-				91641E363E2F060525A0B842 /* [CP] Check Pods Manifest.lock */,
 				29D29EED1D9A59E4006CA074 /* Sources */,
 				29D29EEE1D9A59E4006CA074 /* Frameworks */,
 				29D29EEF1D9A59E4006CA074 /* Resources */,
-				D9FB444C950EEEB5414E94A4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = app;
+			packageProductDependencies = (
+				290C7D682ABE08A100FB6CEC /* ProgressHUD */,
+				290C7D6B2ABE08EC00FB6CEC /* Alamofire */,
+				290C7D6E2ABE091400FB6CEC /* Gifu */,
+				290C7D712ABE094200FB6CEC /* InputBarAccessoryView */,
+				290C7D742ABE0A2300FB6CEC /* SideMenu */,
+				290C7D772ABE0C2B00FB6CEC /* PasscodeKit */,
+			);
 			productName = app;
 			productReference = 29D29EF11D9A59E4006CA074 /* app.app */;
 			productType = "com.apple.product-type.application";
@@ -947,7 +941,8 @@
 		29D29EE91D9A59E4006CA074 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = KZ;
 				TargetAttributes = {
 					29D29EF01D9A59E4006CA074 = {
@@ -978,6 +973,14 @@
 				Base,
 			);
 			mainGroup = 29D29EE81D9A59E4006CA074;
+			packageReferences = (
+				290C7D672ABE08A100FB6CEC /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				290C7D6A2ABE08EC00FB6CEC /* XCRemoteSwiftPackageReference "Alamofire" */,
+				290C7D6D2ABE091400FB6CEC /* XCRemoteSwiftPackageReference "Gifu" */,
+				290C7D702ABE094200FB6CEC /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */,
+				290C7D732ABE0A2300FB6CEC /* XCRemoteSwiftPackageReference "SideMenu" */,
+				290C7D762ABE0C2B00FB6CEC /* XCRemoteSwiftPackageReference "PasscodeKit" */,
+			);
 			productRefGroup = 29D29EF21D9A59E4006CA074 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1041,57 +1044,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		91641E363E2F060525A0B842 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-app-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9FB444C950EEEB5414E94A4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-app/Pods-app-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Gifu/Gifu.framework",
-				"${BUILT_PRODUCTS_DIR}/InputBarAccessoryView/InputBarAccessoryView.framework",
-				"${BUILT_PRODUCTS_DIR}/PasscodeKit/PasscodeKit.framework",
-				"${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/GraphQLite/GraphQLite.framework/GraphQLite",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Gifu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/InputBarAccessoryView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PasscodeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GraphQLite.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-app/Pods-app-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		29D29EED1D9A59E4006CA074 /* Sources */ = {
@@ -1250,6 +1202,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1308,6 +1261,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1327,7 +1281,6 @@
 		};
 		29D29F091D9A59E4006CA074 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC28F63C1114893726170446 /* Pods-app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1335,15 +1288,18 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = app/app.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UUF85U8HLF;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 6.8.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 6.8.3;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1360,7 +1316,6 @@
 		};
 		29D29F0A1D9A59E4006CA074 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7393A6F3A4D6270AF7ACDCFA /* Pods-app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1368,14 +1323,17 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = app/app.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = UUF85U8HLF;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
 				INFOPLIST_FILE = app/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 6.8.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 6.8.3;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1410,6 +1368,90 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		290C7D672ABE08A100FB6CEC /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.7.2;
+			};
+		};
+		290C7D6A2ABE08EC00FB6CEC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
+		290C7D6D2ABE091400FB6CEC /* XCRemoteSwiftPackageReference "Gifu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Gifu.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.2.2;
+			};
+		};
+		290C7D702ABE094200FB6CEC /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nathantannar4/InputBarAccessoryView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
+		290C7D732ABE0A2300FB6CEC /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jonkykong/SideMenu";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.0;
+			};
+		};
+		290C7D762ABE0C2B00FB6CEC /* XCRemoteSwiftPackageReference "PasscodeKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/PasscodeKit";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		290C7D682ABE08A100FB6CEC /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 290C7D672ABE08A100FB6CEC /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+		290C7D6B2ABE08EC00FB6CEC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 290C7D6A2ABE08EC00FB6CEC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		290C7D6E2ABE091400FB6CEC /* Gifu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 290C7D6D2ABE091400FB6CEC /* XCRemoteSwiftPackageReference "Gifu" */;
+			productName = Gifu;
+		};
+		290C7D712ABE094200FB6CEC /* InputBarAccessoryView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 290C7D702ABE094200FB6CEC /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */;
+			productName = InputBarAccessoryView;
+		};
+		290C7D742ABE0A2300FB6CEC /* SideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 290C7D732ABE0A2300FB6CEC /* XCRemoteSwiftPackageReference "SideMenu" */;
+			productName = SideMenu;
+		};
+		290C7D772ABE0C2B00FB6CEC /* PasscodeKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 290C7D762ABE0C2B00FB6CEC /* XCRemoteSwiftPackageReference "PasscodeKit" */;
+			productName = PasscodeKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 29D29EE91D9A59E4006CA074 /* Project object */;
 }

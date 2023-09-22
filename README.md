@@ -61,11 +61,9 @@ RelatedChat is an open-source alternative communication platform. Both iOS (Swif
 
 ## INSTALLATION (iOS)
 
-**1.,** Run `pod install` first (the [CocoaPods](https://cocoapods.org) Frameworks and Libraries are not included in the repo).
+**1.,** Create some test users by using the [demo server](https://relatedchat.io).
 
-**2.,** Create some test users by using the [demo server](https://relatedchat.io).
-
-**3.,** Open the `app.xcworkspace` from Xcode and select Product/Run (⌘ R).
+**2.,** Open the `app.xcodeproj` from Xcode and select Product/Run (⌘ R).
 
 ## INSTALLATION (Android)
 
@@ -84,7 +82,7 @@ You can install RelatedChat on any servers (Windows, Linux or macOS), by using D
 ```
 curl -o docker-compose.yml https://gqlite.com/relatedchat/docker-compose.yml
 
-docker-compose up -d
+docker compose up -d
 ```
 
 Make sure to change all the sensitive values in your YAML file before building your server.

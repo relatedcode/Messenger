@@ -1,0 +1,11 @@
+framework module GraphQLite {
+  umbrella header "GraphQLite.h"
+
+  export *
+  module * { export * }
+}
+
+module GraphQLite.Swift {
+    header "GraphQLite-Swift.h"
+    requires objc
+}
