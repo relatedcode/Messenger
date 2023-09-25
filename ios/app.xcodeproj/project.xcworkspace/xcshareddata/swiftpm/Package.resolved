@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "graphqlite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/relatedcode/GraphQLite",
+      "state" : {
+        "revision" : "5a2a85691efdc1eb48a7f627fb2b8bcf954d4a68",
+        "version" : "1.2.8"
+      }
+    },
+    {
       "identity" : "inputbaraccessoryview",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nathantannar4/InputBarAccessoryView",
