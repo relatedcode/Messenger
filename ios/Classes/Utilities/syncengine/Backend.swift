@@ -20,7 +20,8 @@ var scheduler: Scheduler!
 //-----------------------------------------------------------------------------------------------------------------------------------------------
 class Backend {
 
-	static let base = "https://relatedchat.io"
+	#warning("Please update your server address here.")
+	static let base = "https://yourserveraddress.com"
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: Backend = {

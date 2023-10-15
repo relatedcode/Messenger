@@ -133,7 +133,7 @@ extension ProfileView {
 			if (UIApplication.shared.canOpenURL(url)) {
 				UIApplication.shared.open(url)
 			} else {
-				ProgressHUD.showFailed("Call cannot be initiated.")
+				ProgressHUD.failed("Call cannot be initiated.")
 			}
 		}
 	}
@@ -164,7 +164,7 @@ extension ProfileView {
 					if (UIApplication.shared.canOpenURL(url)) {
 						UIApplication.shared.open(url)
 					} else {
-						ProgressHUD.showFailed("Mail cannot be sent.")
+						ProgressHUD.failed("Mail cannot be sent.")
 					}
 				}
 			}
@@ -187,7 +187,7 @@ extension ProfileView: MFMailComposeViewControllerDelegate {
 	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
 
 		if (result == MFMailComposeResult.sent) {
-			ProgressHUD.showSucceed("Mail sent successfully.")
+			ProgressHUD.succeed("Mail sent successfully.")
 		}
 		controller.dismiss(animated: true)
 	}

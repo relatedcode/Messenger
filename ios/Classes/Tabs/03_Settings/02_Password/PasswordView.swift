@@ -68,12 +68,12 @@ extension PasswordView {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func updatePassword(_ email: String, _ password: String) {
 
-		ProgressHUD.show(interaction: false)
+		ProgressHUD.animate(interaction: false)
 		GQLAuth.update(email, password) { error in
 			if let error = error {
-				ProgressHUD.showFailed(error)
+				ProgressHUD.failed(error)
 			} else {
-				ProgressHUD.showSucceed("Password changed.")
+				ProgressHUD.succeed("Password changed.")
 				self.dismiss(animated: true)
 			}
 		}
@@ -96,8 +96,8 @@ extension PasswordView {
 		let password1 = fieldPassword1.text ?? ""
 		let password2 = fieldPassword2.text ?? ""
 
-		if (password1.isEmpty)		{ ProgressHUD.showFailed("New Password must be set.");			return	}
-		if (password1 != password2)	{ ProgressHUD.showFailed("The Passwords must be the same.");	return	}
+		if (password1.isEmpty)		{ ProgressHUD.failed("New Password must be set.");			return	}
+		if (password1 != password2)	{ ProgressHUD.failed("The Passwords must be the same.");	return	}
 
 		guard let dbuser = DBUser.fetchOne(gqldb, key: GQLAuth.userId()) else { return }
 

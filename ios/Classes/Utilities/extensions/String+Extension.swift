@@ -89,7 +89,7 @@ extension String {
 extension String {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+	func height(_ width: CGFloat, font: UIFont) -> CGFloat {
 
 		let size = CGSize(width: width, height: .greatestFiniteMagnitude)
 		let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
@@ -98,7 +98,7 @@ extension String {
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func width(withConstrainedHeight height: CGFloat, font: UIFont) -> CGFloat {
+	func width(_ height: CGFloat, font: UIFont) -> CGFloat {
 
 		let size = CGSize(width: .greatestFiniteMagnitude, height: height)
 		let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)

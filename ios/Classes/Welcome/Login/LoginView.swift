@@ -72,8 +72,8 @@ extension LoginView {
 		let email = (fieldEmail.text ?? "").lowercased()
 		let password = fieldPassword.text ?? ""
 
-		if (email.isEmpty)		{ ProgressHUD.showFailed("Please enter your email.");		return }
-		if (password.isEmpty)	{ ProgressHUD.showFailed("Please enter your password.");	return }
+		if (email.isEmpty)		{ ProgressHUD.failed("Please enter your email.");		return }
+		if (password.isEmpty)	{ ProgressHUD.failed("Please enter your password.");	return }
 
 		actionLogin(email, password)
 	}
@@ -81,7 +81,7 @@ extension LoginView {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionLogin(_ email: String, _ password: String) {
 
-		ProgressHUD.show(interaction: false)
+		ProgressHUD.animate(interaction: false)
 
 		GQLAuth.login(email, password) { error in
 			if (error == nil) {
@@ -146,7 +146,7 @@ extension LoginView {
 	func showError(_ error: Error?) {
 
 		if let error = error {
-			ProgressHUD.showFailed(error)
+			ProgressHUD.failed(error)
 		}
 	}
 }

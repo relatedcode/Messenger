@@ -149,7 +149,7 @@ extension AppDelegate: PasscodeKitDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func passcodeMaximumFailedAttempts() {
 
-		ProgressHUD.show(interaction: false)
+		ProgressHUD.animate(interaction: false)
 		Users.logout() {
 			DispatchQueue.main.async(after: 1.0) {
 				exit(0)

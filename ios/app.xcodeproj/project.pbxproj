@@ -66,7 +66,7 @@
 		296021F61F2CF5F600544468 /* WelcomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 296021461F2CF5F600544468 /* WelcomeView.xib */; };
 		2961EFB82517ED8E00748192 /* words.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2961EFB62517ED8E00748192 /* words.txt */; };
 		2961EFB92517ED8E00748192 /* countries.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2961EFB72517ED8E00748192 /* countries.plist */; };
-		296334F92AC1845C001FC1AD /* GraphQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 296334F82AC1845C001FC1AD /* GraphQLite */; };
+		296334F62AC182E2001FC1AD /* GraphQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 296334F52AC182E2001FC1AD /* GraphQLite */; };
 		296469A823D8F3860090FE90 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296469A723D8F3860090FE90 /* Users.swift */; };
 		2965D6E2240ED12B007ABADE /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965D6E1240ED12B007ABADE /* Backend.swift */; };
 		296FEE71288C82D5007190D0 /* ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FEE6F288C82D5007190D0 /* ChannelCell.swift */; };
@@ -318,7 +318,7 @@
 				290C7D782ABE0C2B00FB6CEC /* PasscodeKit in Frameworks */,
 				290C7D6C2ABE08EC00FB6CEC /* Alamofire in Frameworks */,
 				290C7D722ABE094200FB6CEC /* InputBarAccessoryView in Frameworks */,
-				296334F92AC1845C001FC1AD /* GraphQLite in Frameworks */,
+				296334F62AC182E2001FC1AD /* GraphQLite in Frameworks */,
 				290C7D692ABE08A100FB6CEC /* ProgressHUD in Frameworks */,
 				290C7D752ABE0A2300FB6CEC /* SideMenu in Frameworks */,
 				290C7D6F2ABE091400FB6CEC /* Gifu in Frameworks */,
@@ -928,7 +928,7 @@
 				290C7D712ABE094200FB6CEC /* InputBarAccessoryView */,
 				290C7D742ABE0A2300FB6CEC /* SideMenu */,
 				290C7D772ABE0C2B00FB6CEC /* PasscodeKit */,
-				296334F82AC1845C001FC1AD /* GraphQLite */,
+				296334F52AC182E2001FC1AD /* GraphQLite */,
 			);
 			productName = app;
 			productReference = 29D29EF11D9A59E4006CA074 /* app.app */;
@@ -979,7 +979,7 @@
 				290C7D702ABE094200FB6CEC /* XCRemoteSwiftPackageReference "InputBarAccessoryView" */,
 				290C7D732ABE0A2300FB6CEC /* XCRemoteSwiftPackageReference "SideMenu" */,
 				290C7D762ABE0C2B00FB6CEC /* XCRemoteSwiftPackageReference "PasscodeKit" */,
-				296334F72AC1845C001FC1AD /* XCRemoteSwiftPackageReference "GraphQLite" */,
+				296334F42AC182E2001FC1AD /* XCRemoteSwiftPackageReference "GraphQLite" */,
 			);
 			productRefGroup = 29D29EF21D9A59E4006CA074 /* Products */;
 			projectDirPath = "";
@@ -1288,7 +1288,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = app/app.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UUF85U8HLF;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
@@ -1299,7 +1299,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.8.4;
+				MARKETING_VERSION = 6.8.5;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1323,7 +1323,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = NO;
 				CODE_SIGN_ENTITLEMENTS = app/app.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = UUF85U8HLF;
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -1333,7 +1333,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.8.4;
+				MARKETING_VERSION = 6.8.5;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.relatedcode.messenger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1375,7 +1375,7 @@
 			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 13.7.2;
+				minimumVersion = 14.0.0;
 			};
 		};
 		290C7D6A2ABE08EC00FB6CEC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
@@ -1414,11 +1414,11 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/relatedcode/PasscodeKit";
 			requirement = {
-				kind = exactVersion;
-				version = 1.0.2;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
 			};
 		};
-		296334F72AC1845C001FC1AD /* XCRemoteSwiftPackageReference "GraphQLite" */ = {
+		296334F42AC182E2001FC1AD /* XCRemoteSwiftPackageReference "GraphQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/relatedcode/GraphQLite";
 			requirement = {
@@ -1459,9 +1459,9 @@
 			package = 290C7D762ABE0C2B00FB6CEC /* XCRemoteSwiftPackageReference "PasscodeKit" */;
 			productName = PasscodeKit;
 		};
-		296334F82AC1845C001FC1AD /* GraphQLite */ = {
+		296334F52AC182E2001FC1AD /* GraphQLite */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 296334F72AC1845C001FC1AD /* XCRemoteSwiftPackageReference "GraphQLite" */;
+			package = 296334F42AC182E2001FC1AD /* XCRemoteSwiftPackageReference "GraphQLite" */;
 			productName = GraphQLite;
 		};
 /* End XCSwiftPackageProductDependency section */

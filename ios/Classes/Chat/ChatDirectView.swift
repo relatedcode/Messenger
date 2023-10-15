@@ -309,13 +309,13 @@ class ChatDirectView: RCMessagesView, UIGestureRecognizerDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
 
-		if (error != nil) { ProgressHUD.showFailed("Saving failed.") } else { ProgressHUD.showSucceed("Successfully saved.") }
+		if (error != nil) { ProgressHUD.failed("Saving failed.") } else { ProgressHUD.succeed("Successfully saved.") }
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func video(_ videoPath: String, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
 
-		if (error != nil) { ProgressHUD.showFailed("Saving failed.") } else { ProgressHUD.showSucceed("Successfully saved.") }
+		if (error != nil) { ProgressHUD.failed("Saving failed.") } else { ProgressHUD.succeed("Successfully saved.") }
 	}
 
 	// MARK: - Cleanup methods

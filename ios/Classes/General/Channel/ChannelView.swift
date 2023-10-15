@@ -183,7 +183,7 @@ extension ChannelView: UITableViewDelegate {
 		if (indexPath.section == 0) {
 			let dbuser = dbusers[indexPath.row]
 			if (dbuser.objectId == GQLAuth.userId()) {
-				ProgressHUD.showSucceed("This is you.")
+				ProgressHUD.succeed("This is you.")
 			} else {
 				actionProfile(dbuser.objectId)
 			}

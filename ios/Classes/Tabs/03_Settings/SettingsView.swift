@@ -191,7 +191,7 @@ extension SettingsView {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func actionLogoutUser() {
 
-		ProgressHUD.show(interaction: false)
+		ProgressHUD.animate(interaction: false)
 		DispatchQueue.main.async(after: 0.5) {
 			Users.logout() {
 				ProgressHUD.dismiss()

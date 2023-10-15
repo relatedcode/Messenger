@@ -93,13 +93,13 @@ extension EditProfileView {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func saveUser(_ values: [String: Any]) {
 
-		ProgressHUD.show(interaction: false)
+		ProgressHUD.animate(interaction: false)
 
 		scheduler.updateUser(values, { error in
 			if let error = error {
-				ProgressHUD.showFailed(error)
+				ProgressHUD.failed(error)
 			} else {
-				ProgressHUD.showSucceed()
+				ProgressHUD.succeed()
 				self.dismiss(animated: true)
 			}
 		})
@@ -124,8 +124,8 @@ extension EditProfileView {
 		let title = fieldTitle.text ?? ""
 		let phone = fieldPhone.text ?? ""
 
-		if (fullname.isEmpty)	{ ProgressHUD.showFailed("Full name must be set.");		return	}
-		if (dispname.isEmpty)	{ ProgressHUD.showFailed("Display name must be set.");	return	}
+		if (fullname.isEmpty)	{ ProgressHUD.failed("Full name must be set.");		return	}
+		if (dispname.isEmpty)	{ ProgressHUD.failed("Display name must be set.");	return	}
 
 		saveUser(["fullName": fullname, "displayName": dispname, "title": title, "phoneNumber": phone])
 	}

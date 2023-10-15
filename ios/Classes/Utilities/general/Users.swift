@@ -29,7 +29,7 @@ class Users {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func loggedIn() {
 
-		ProgressHUD.showSucceed("Welcome back!")
+		ProgressHUD.succeed("Welcome back!")
 
 		NotificationCenter.post(Notifications.UserLoggedIn)
 	}

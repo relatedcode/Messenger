@@ -113,7 +113,7 @@ extension Scheduler {
 
 		postAuth(link, values) { error in
 			if let error = error {
-				ProgressHUD.showFailed(error)
+				ProgressHUD.failed(error)
 			} else {
 				Audio.playMessageOutgoing()
 			}
@@ -193,7 +193,7 @@ extension Scheduler {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	private func uploadAuth(_ data: Data, _ mimeType: String, _ completion: @escaping (String?, String?, Error?) -> Void) {
 
-		ProgressHUD.show(interaction: false)
+		ProgressHUD.animate(interaction: false)
 
 		GQLAuth.refresh() { auth, error in
 			if (error == nil) {
