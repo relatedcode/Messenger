@@ -1,4 +1,4 @@
-<a href="https://fictiongpt.xyz"><img src="https://related.chat/github/header36.png" width="880"></a>
+<a href="https://fictiongpt.xyz"><img src="https://related.chat/github/header40.png" width="880"></a>
 
 ## OVERVIEW
 
