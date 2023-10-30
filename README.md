@@ -10,7 +10,6 @@ RelatedChat is an open-source alternative communication platform. Both iOS (Swif
 
 ## NEW FEATURES
 
-- Live [demo server](https://relatedchat.io) available
 - Updated iOS (Swift) codebase
 - New Android (React Native) version
 - New Desktop browser (React) version
@@ -63,7 +62,7 @@ RelatedChat is an open-source alternative communication platform. Both iOS (Swif
 
 ## INSTALLATION (iOS)
 
-**1.,** Create some test users by using the [demo server](https://relatedchat.io).
+**1.,** Create some test users by using a demo server.
 
 **2.,** Open the `app.xcodeproj` from Xcode and select Product/Run (⌘ R).
 
