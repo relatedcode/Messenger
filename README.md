@@ -79,7 +79,7 @@ RelatedChat is an open-source alternative communication platform. Both iOS (Swif
 You can install RelatedChat on any servers (Windows, Linux or macOS), by using Docker. Just download the Docker Compose file to your computer and initiate the process.
 
 ```
-curl -o docker-compose.yml https://gqlite.com/relatedchat/docker-compose.yml
+curl -o docker-compose.yml https://rel.codes/messenger/docker-compose.yml
 
 docker compose up -d
 ```
@@ -111,7 +111,7 @@ environment:
 
 MIT License
 
-Copyright (c) 2023 Related Code
+Copyright (c) 2024 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
