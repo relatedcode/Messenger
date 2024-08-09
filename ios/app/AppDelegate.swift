@@ -64,9 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		// ProgressHUD initialization
 		//---------------------------------------------------------------------------------------------------------------------------------------
-		ProgressHUD.colorProgress = Appx.mainColor
-		ProgressHUD.colorAnimation = Appx.mainColor
-
+    configureProgressHUD()
 		return true
 	}
 
@@ -118,6 +116,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       PasscodeKit.start()
   }
 
+  //---------------------------------------------------------------------------------------------------------------------------------------
+  // ProgressHUD initialization
+  //---------------------------------------------------------------------------------------------------------------------------------------
+
+  private func configureProgressHUD() {
+      ProgressHUD.colorProgress = Appx.mainColor
+      ProgressHUD.colorAnimation = Appx.mainColor
+  }
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func applicationWillResignActive(_ application: UIApplication) {
