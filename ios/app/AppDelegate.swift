@@ -48,36 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		// UI initialization
 		//---------------------------------------------------------------------------------------------------------------------------------------
-		window = UIWindow(frame: UIScreen.main.bounds)
-
-		directsView = DirectsView(nibName: "DirectsView", bundle: nil)
-		channelsView = ChannelsView(nibName: "ChannelsView", bundle: nil)
-		settingsView = SettingsView(nibName: "SettingsView", bundle: nil)
-
-		let navController1 = NavigationController(rootViewController: directsView)
-		let navController2 = NavigationController(rootViewController: channelsView)
-		let navController3 = NavigationController(rootViewController: settingsView)
-
-		tabBarController = UITabBarController()
-		tabBarController.tabBar.isTranslucent = false
-		tabBarController.tabBar.tintColor = Appx.mainColor
-		tabBarController.delegate = self
-		tabBarController.viewControllers = [navController1, navController2, navController3]
-		tabBarController.selectedIndex = Appx.DefaultTab
-
-		if #available(iOS 15.0, *) {
-			let appearance = UITabBarAppearance()
-			appearance.configureWithOpaqueBackground()
-			tabBarController.tabBar.standardAppearance = appearance
-			tabBarController.tabBar.scrollEdgeAppearance = appearance
-		}
-
-		window?.rootViewController = tabBarController
-		window?.makeKeyAndVisible()
-
-		_ = directsView.view
-		_ = channelsView.view
-		_ = settingsView.view
+    setupUI()
 
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		// UITableView padding
@@ -100,6 +71,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		return true
 	}
+
+
+  //---------------------------------------------------------------------------------------------------------------------------------------
+  // UI setupUI
+  //---------------------------------------------------------------------------------------------------------------------------------------
+
+  private func setupUI() {
+      window = UIWindow(frame: UIScreen.main.bounds)
+
+      let directsView = DirectsView(nibName: "DirectsView", bundle: nil)
+      let channelsView = ChannelsView(nibName: "ChannelsView", bundle: nil)
+      let settingsView = SettingsView(nibName: "SettingsView", bundle: nil)
+
+      let navController1 = NavigationController(rootViewController: directsView)
+      let navController2 = NavigationController(rootViewController: channelsView)
+      let navController3 = NavigationController(rootViewController: settingsView)
+
+      tabBarController = UITabBarController()
+      tabBarController.tabBar.isTranslucent = false
+      tabBarController.tabBar.tintColor = Appx.mainColor
+      tabBarController.delegate = self
+      tabBarController.viewControllers = [navController1, navController2, navController3]
+      tabBarController.selectedIndex = Appx.DefaultTab
+
+      if #available(iOS 15.0, *) {
+          let appearance = UITabBarAppearance()
+          appearance.configureWithOpaqueBackground()
+          tabBarController.tabBar.standardAppearance = appearance
+          tabBarController.tabBar.scrollEdgeAppearance = appearance
+      }
+
+      window?.rootViewController = tabBarController
+      window?.makeKeyAndVisible()
+
+      // Ensure views are loaded
+      _ = directsView.view
+      _ = channelsView.view
+      _ = settingsView.view
+  }
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func applicationWillResignActive(_ application: UIApplication) {
