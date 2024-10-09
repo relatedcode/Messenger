@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -51,6 +51,20 @@ extension String {
 
 		return String(self.prefix(1))
 	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension String {
+
+	//-------------------------------------------------------------------------------------------------------------------------------------------
+	var notEmpty: Bool {
+
+		return !self.isEmpty
+	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension String {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func removeHTML() -> String {

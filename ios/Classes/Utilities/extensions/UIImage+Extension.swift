@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -53,31 +53,33 @@ extension UIImage {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	func resize(size: CGSize) -> UIImage {
+	func resize(size sizeNew: CGSize) -> UIImage {
 
-		let ratioOld = self.size.width / self.size.height
-		let ratioNew = size.width / size.height
+		let sizeOld = size
+
+		let ratioOld = sizeOld.width / sizeOld.height
+		let ratioNew = sizeNew.width / sizeNew.height
 
 		var resizeImage: UIImage
 
 		if (ratioOld > ratioNew) {
 
-			let width = self.size.height * ratioNew
-			let x = (self.size.width - width) / 2
-			resizeImage = crop(x: x, y: 0, width: width, height: self.size.height)
+			let width = sizeOld.height * ratioNew
+			let x = (sizeOld.width - width) / 2
+			resizeImage = crop(x: x, y: 0, width: width, height: sizeOld.height)
 
-		} else if ratioOld < ratioNew {
+		} else if (ratioOld < ratioNew) {
 
-			let height = self.size.width / ratioNew
-			let y = (self.size.height - height) / 2
-			resizeImage = crop(x: 0, y: y, width: self.size.width, height: height)
+			let height = sizeOld.width / ratioNew
+			let y = (sizeOld.height - height) / 2
+			resizeImage = crop(x: 0, y: y, width: sizeOld.width, height: height)
 
 		} else {
 			resizeImage = self
 		}
 
-		UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-		resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+		UIGraphicsBeginImageContextWithOptions(sizeNew, false, 0.0)
+		resizeImage.draw(in: CGRect(x: 0, y: 0, width: sizeNew.width, height: sizeNew.height))
 		let resized = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 
@@ -91,30 +93,26 @@ extension UIImage {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func square(to extent: Int) -> UIImage {
 
-		let size = CGSize(width: extent, height: extent)
-
-		return square().resize(size: size)
+		return resize(width: extent, height: extent)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func square(to extent: CGFloat) -> UIImage {
 
-		let size = CGSize(width: extent, height: extent)
-
-		return square().resize(size: size)
+		return resize(width: extent, height: extent)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func square() -> UIImage {
 
 		if (size.width > size.height) {
-			let xpos = (size.width - size.height) / 2
-			return crop(x: xpos, y: 0, width: size.height, height: size.height)
+			let x = (size.width - size.height) / 2
+			return crop(x: x, y: 0, width: size.height, height: size.height)
 		}
 
 		if (size.height > size.width) {
-			let ypos = (size.height - size.width) / 2
-			return crop(x: 0, y: ypos, width: size.width, height: size.width)
+			let y = (size.height - size.width) / 2
+			return crop(x: 0, y: y, width: size.width, height: size.width)
 		}
 
 		return self

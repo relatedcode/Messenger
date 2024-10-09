@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -24,15 +24,15 @@ class NavigationController: UINavigationController {
 
 		navigationBar.isTranslucent = true
 
-		navigationBar.tintColor = Appx.secondColor
-		navigationBar.barTintColor = Appx.mainColor
-		navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Appx.secondColor]
+		navigationBar.tintColor = AppColor.second
+		navigationBar.barTintColor = AppColor.main
+		navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.second]
 
 		if #available(iOS 15, *) {
 			let appearance = UINavigationBarAppearance()
 			appearance.configureWithOpaqueBackground()
-			appearance.backgroundColor = Appx.mainColor
-			appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: Appx.secondColor]
+			appearance.backgroundColor = AppColor.main
+			appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColor.second]
 			UINavigationBar.appearance().standardAppearance = appearance
 			UINavigationBar.appearance().scrollEdgeAppearance = appearance
 		}

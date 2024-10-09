@@ -9,15 +9,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import AVFoundation
+import UIKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-class Audio {
+extension UIView {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func duration(_ path: String) -> Int {
+	var parentViewController: UIViewController? {
 
-		let asset = AVURLAsset(url: URL(fileURLWithPath: path))
-		return Int(round(CMTimeGetSeconds(asset.duration)))
+		var parentResponder: UIResponder? = self
+		while (parentResponder != nil) {
+			parentResponder = parentResponder?.next
+			if let viewController = parentResponder as? UIViewController {
+				return viewController
+			}
+		}
+		return nil
 	}
 }

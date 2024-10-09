@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -44,12 +44,12 @@ class ChannelCell: UITableViewCell {
 
 		MediaDownload.user(dbuser.thumbnailURL) { [weak self] image, later in
 			guard let self = self else { return }
-			if (self.objectId == dbuser.objectId) {
+			if (objectId == dbuser.objectId) {
 				if let image = image {
-					self.labelInitials.text = nil
-					self.imageUser.image = image.square(to: 40)
+					labelInitials.text = nil
+					imageUser.image = image.square(to: 40)
 				} else if later {
-					self.loadLater(dbuser)
+					loadLater(dbuser)
 				}
 			}
 		}
@@ -60,9 +60,9 @@ class ChannelCell: UITableViewCell {
 
 		DispatchQueue.main.async(after: 0.5) { [weak self] in
 			guard let self = self else { return }
-			if (self.objectId == dbuser.objectId) {
-				if (self.imageUser.image == nil) {
-					self.loadImage(dbuser)
+			if (objectId == dbuser.objectId) {
+				if (imageUser.image == nil) {
+					loadImage(dbuser)
 				}
 			}
 		}

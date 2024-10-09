@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -38,7 +38,7 @@ class ChannelsView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder: NSCoder) {
 
-		super.init(coder: coder)
+		fatalError()
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -139,7 +139,7 @@ extension ChannelsView {
 		sideMenu.statusBarEndAlpha = 0
 		sideMenu.presentationStyle = .viewSlideOut
 		sideMenu.presentationStyle.onTopShadowOpacity = 2.0
-		sideMenu.menuWidth = UIScreen.main.bounds.size.width * 0.9
+		sideMenu.menuWidth = Screen.width * 0.9
 		present(sideMenu, animated: true)
 	}
 

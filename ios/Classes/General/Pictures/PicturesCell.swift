@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -44,9 +44,9 @@ class PicturesCell: UICollectionViewCell {
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	required init?(coder aDecoder: NSCoder) {
+	required init?(coder: NSCoder) {
 
-		super.init(coder: aDecoder)
+		fatalError()
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -225,7 +225,7 @@ extension PicturesCell {
 
 		var zoomRect = CGRect.zero
 		zoomRect.size.height = imagePhoto.frame.size.height / scale
-		zoomRect.size.width  = imagePhoto.frame.size.width  / scale
+		zoomRect.size.width = imagePhoto.frame.size.width / scale
 		let newCenter = scrollView.convert(center, from: imagePhoto)
 		zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
 		zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)

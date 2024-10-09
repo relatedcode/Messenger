@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 enum Notifications {
 
 	static let AppStarted		= "NotificationAppStarted"
@@ -21,7 +21,7 @@ enum Notifications {
 	static let UserWillLogout	= "NotificationUserWillLogout"
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 enum MessageType {
 
 	static let Text		= "text"
@@ -34,7 +34,7 @@ enum MessageType {
 	static let File		= "file"
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 enum MessageStatus {
 
 	static let Queued	= "Queued"
@@ -43,7 +43,7 @@ enum MessageStatus {
 	static let Read		= "Read"
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 enum MediaType {
 
 	static let Photo	= 1
@@ -51,7 +51,7 @@ enum MediaType {
 	static let Audio	= 3
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 enum MediaStatus {
 
 	static let Unknown	= 0
@@ -60,7 +60,7 @@ enum MediaStatus {
 	static let Succeed	= 3
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
 enum AudioStatus {
 
 	static let Stopped	= 1
@@ -68,14 +68,25 @@ enum AudioStatus {
 	static let Paused	= 3
 }
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------
+// MARK: -
+enum AppColor {
+
+	static let main = UIColor.systemTeal
+	static let third = UIColor.systemBlue
+	static let second = UIColor.white
+}
+
+// MARK: -
 enum Appx {
 
 	static let DefaultTab	= 0
-	static let MaxVideo		= TimeInterval(10)
+	static let MaxVideo		= 10.0
 	static let TextShareApp	= "Check out https://related.chat"
+}
 
-	static let mainColor	= UIColor.systemTeal
-	static let secondColor	= UIColor.white
-	static let thirdColor	= UIColor.systemBlue
+// MARK: -
+enum Screen {
+
+	static let width	= UIScreen.main.bounds.size.width
+	static let height	= UIScreen.main.bounds.size.height
 }

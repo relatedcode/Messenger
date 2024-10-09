@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -23,11 +23,7 @@ class Backend {
 	#warning("Please update your server address here.")
 	static let base = "https://yourserveraddress.com"
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	static let shared: Backend = {
-		let instance = Backend()
-		return instance
-	} ()
+	static let shared = Backend()
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	class func setup() {

@@ -9,60 +9,66 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
+import UIKit
+import DeviceKit
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension UserDefaults {
+extension UIAlertController {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func setObject(_ value: Any, key: String) {
+	func action(_ title: String?, _ style: UIAlertAction.Style, _ handler: ((UIAlertAction) -> Void)? = nil) {
 
-		UserDefaults.standard.set(value, forKey: key)
+		self.addAction(UIAlertAction(title: title, style: style, handler: handler))
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func removeObject(key: String) {
+	func actionCancel(_ handler: ((UIAlertAction) -> Void)? = nil) {
 
-		UserDefaults.standard.removeObject(forKey: key)
+		let style: UIAlertAction.Style = Device.current.isPhone ? .cancel : .destructive
+
+		self.addAction(UIAlertAction(title: "Cancel", style: style, handler: handler))
 	}
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------
-extension UserDefaults {
+extension UIAlertController {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func object(key: String) -> Any? {
+	func topLeft(_ navigationController: UINavigationController?) {
 
-		return UserDefaults.standard.object(forKey: key)
+		popover(navigationController, 40, 70)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func stringArray(key: String) -> [String]? {
+	func topRight(_ navigationController: UINavigationController?) {
 
-		return UserDefaults.standard.stringArray(forKey: key)
+		popover(navigationController, Screen.width - 40, 70)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func string(key: String) -> String? {
+	func topCenter(_ navigationController: UINavigationController?) {
 
-		return UserDefaults.standard.string(forKey: key)
+		popover(navigationController, Screen.width / 2, 70)
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func integer(key: String) -> Int {
+	func bottomCenter(_ navigationController: UINavigationController?) {
 
-		return UserDefaults.standard.integer(forKey: key)
+		popover(navigationController, Screen.width / 2, Screen.height - 70)
 	}
+}
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------
+extension UIAlertController {
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func double(key: String) -> Double {
+	private func popover(_ navigationController: UINavigationController?, _ x: CGFloat, _ y: CGFloat) {
 
-		return UserDefaults.standard.double(forKey: key)
-	}
+		guard (Device.current.isPad) else { return }
 
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	class func bool(key: String) -> Bool {
-
-		return UserDefaults.standard.bool(forKey: key)
+		self.modalPresentationStyle = .popover
+		let popover = self.popoverPresentationController
+		popover?.sourceView = navigationController?.view
+		popover?.sourceRect = CGRect(x: x, y: y, width: 0, height: 0)
 	}
 }

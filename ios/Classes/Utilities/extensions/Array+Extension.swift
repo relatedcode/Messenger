@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -17,38 +17,16 @@ extension Array where Element: Hashable {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	mutating func appendUnique(_ element: Element) {
 
-		var array = self
-
-		if !array.contains(element) {
-			array.append(element)
+		if !self.contains(element) {
+			self.append(element)
 		}
-
-		self = array
-	}
-
-	//-------------------------------------------------------------------------------------------------------------------------------------------
-	mutating func removeDuplicates() {
-
-		var array: [Element] = []
-
-		for element in self {
-			if !array.contains(element) {
-				array.append(element)
-			}
-		}
-
-		self = array
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	mutating func remove(_ element: Element) {
 
-		var array = self
-
-		while let index = array.firstIndex(of: element) {
-			array.remove(at: index)
+		while let index = self.firstIndex(of: element) {
+			self.remove(at: index)
 		}
-
-		self = array
 	}
 }

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -99,8 +99,7 @@ extension StickersView: UICollectionViewDelegateFlowLayout {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-		let screenWidth = UIScreen.main.bounds.size.width
-		return CGSize(width: screenWidth/3, height: screenWidth/3)
+		return CGSize(width: Screen.width/3, height: Screen.width/3)
 	}
 }
 

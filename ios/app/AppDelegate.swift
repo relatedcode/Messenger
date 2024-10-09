@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		tabBarController = UITabBarController()
 		tabBarController.tabBar.isTranslucent = false
-		tabBarController.tabBar.tintColor = Appx.mainColor
+		tabBarController.tabBar.tintColor = AppColor.main
 		tabBarController.delegate = self
 		tabBarController.viewControllers = [navController1, navController2, navController3]
 		tabBarController.selectedIndex = Appx.DefaultTab
@@ -95,8 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//---------------------------------------------------------------------------------------------------------------------------------------
 		// ProgressHUD initialization
 		//---------------------------------------------------------------------------------------------------------------------------------------
-		ProgressHUD.colorProgress = Appx.mainColor
-		ProgressHUD.colorAnimation = Appx.mainColor
+		ProgressHUD.colorProgress = AppColor.main
+		ProgressHUD.colorAnimation = AppColor.main
 
 		return true
 	}

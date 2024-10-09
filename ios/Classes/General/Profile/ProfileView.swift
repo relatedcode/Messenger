@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -55,7 +55,7 @@ class ProfileView: UIViewController {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder: NSCoder) {
 
-		super.init(coder: coder)
+		fatalError()
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,8 +85,8 @@ extension ProfileView {
 		MediaDownload.user(dbuser.photoURL) { [weak self] image, later in
 			guard let self = self else { return }
 			if let image = image {
-				self.labelInitials.text = nil
-				self.imageUser.image = image.square(to: 70)
+				labelInitials.text = nil
+				imageUser.image = image.square(to: 70)
 			}
 		}
 

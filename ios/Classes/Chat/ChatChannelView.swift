@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2023 Related Code - https://relatedcode.com
+// Copyright (c) 2024 Related Code - https://relatedcode.com
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -43,7 +43,7 @@ class ChatChannelView: RCMessagesView, UIGestureRecognizerDelegate {
 	//-------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder: NSCoder) {
 
-		super.init(coder: coder)
+		fatalError()
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ class ChatChannelView: RCMessagesView, UIGestureRecognizerDelegate {
 		scrollToBottom()
 
 		if (dbmessage.incoming()) {
-			Audio.playMessageIncoming()
+			RCAudioPlayer.playIncoming()
 			updateLastRead()
 		}
 	}
@@ -438,8 +438,8 @@ extension ChatChannelView {
 		MediaDownload.user(rcmessage.userThumbnail) { [weak self] image, later in
 			guard let self = self else { return }
 			if let image = image {
-				self.avatarImages[userId] = image
-				self.refreshTableView()
+				avatarImages[userId] = image
+				refreshTableView()
 			}
 		}
 
@@ -628,7 +628,7 @@ extension ChatChannelView {
 		alertAudio.setValue(imageAudio, forKey: "image");		alert.addAction(alertAudio)
 		alertSticker.setValue(imageSticker, forKey: "image");	alert.addAction(alertSticker)
 
-		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+		alert.actionCancel()
 
 		present(alert, animated: true)
 	}
